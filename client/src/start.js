@@ -1,7 +1,22 @@
 import ReactDOM from "react-dom";
+// import HelloWorld from "../../_infos_/helloWorld";
+import Welcome from "./welcome";
+// import WelcomeLoggedIn from "./welcomeLoggedIn";
 
-ReactDOM.render(<HelloWorld />, document.querySelector("main"));
 
-function HelloWorld() {
-    return <div>Hello, World!</div>;
-}
+ReactDOM.render(<Welcome />, document.querySelector("main"));
+
+// fetch("/user/id.json")
+//     .then((response) => response.json())
+//     .then((data) => {
+//         if (!data.userId) {
+//             ReactDOM.render(<Welcome />, document.querySelector("main"));
+//         } else {
+//             ReactDOM.render(<WelcomeLoggedIn />, document.querySelector("main"));
+
+//             // ReactDOM.render(
+//             //     <img src="/logo.gif" alt="logo" />,
+//             //     document.querySelector("main")
+//             // );
+//         }
+//     });
