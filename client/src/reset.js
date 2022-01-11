@@ -73,7 +73,7 @@ export default class Reset extends Component {
 
     handleResetPw(e) {
         e.preventDefault();
-        console.log("user wants to submit", this.state);
+        // console.log("user wants to submit", this.state);
         fetch("/password/reset/start", {
             method: "POST",
             headers: {
@@ -82,13 +82,12 @@ export default class Reset extends Component {
             body: JSON.stringify(this.state),
         })
             .then((data) => {
-                console.log("Data from handle Submit: ", data);
                 return data.json();
             })
-            .then((data) => {
-                console.log("response data from /register.json", data);
-                
+            .then((data) => {                
                 if (data.success) {
+                    // setzte Value auf empty
+                    console.log("this.state after email was send resetPW:", this.state);
                     this.setState({ stage: 2 });
                 } else {
                     this.setState({

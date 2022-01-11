@@ -37,10 +37,12 @@ module.exports.addResetPwCode = (email, code) => {
     return db.query(q, params);
 };
 
-module.exports.getResetPwCode = () => {
-    const q = `SELECT * FROM reset_code
-    WHERE CURRENT_TIMESTAMP - created_at < INTERVAL '10 minutes'`;
-    return db.query(q);
+module.exports.getResetPwCode = (code) => {
+    const q = `SELECT * FROM reset_code WHERE code = ($1)
+    AND CURRENT_TIMESTAMP - created_at < INTERVAL '10 minutes'
+    `;
+    const params = [code];
+    return db.query(q, params);
 };
 
 module.exports.updateUserPw = (password, email) => {

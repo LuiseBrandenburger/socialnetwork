@@ -130,7 +130,7 @@ app.post("/password/reset/start", (req, res) => {
                 res.json({ success: false });
             }
         })
-        .then(({rows}) => {
+        .then(({ rows }) => {
             const emailSubject = "Reset Password";
             const emailBody = `here is your code to reset your Password: ${rows[0].code}`;
             sendEmail(
@@ -147,39 +147,32 @@ app.post("/password/reset/start", (req, res) => {
 });
 
 app.post("/password/reset/verify", (req, res) => {
-    console.log("req.body in login.json request: ", req.body);
+    console.log("req.body in /password/reset/verify request: ", req.body);
 
-    // const data = req.body;
-    // const pw = data.password;
+    const data = req.body;
+    const pw = data.password;
 
-    // if (req.session.userId) {
-    //     console.log("user already has a session Id");
-    // } else {
-    //     console.log("user doesnt have a session id");
-    // }
-
-    // getUserByEmail(data.email)
-    //     .then(({ rows }) => {
-    //         compare(pw, rows[0].password)
-    //             .then((match) => {
-    //                 if (match) {
-    //                     req.session.userId = rows[0].id;
-    //                     console.log("console.log req.session: ", req.session);
-    //                     res.json({ success: true });
-    //                 } else {
-    //                     console.log("Error in Match");
-    //                     res.json({ success: false });
-    //                 }
-    //             })
-    //             .catch((err) => {
-    //                 console.log("password error", err);
-    //                 res.json({ success: false });
-    //             });
-    //     })
-    //     .catch((err) => {
-    //         console.log("error finding user: ", err);
-    //         res.json({ success: false });
-    //     });
+    getResetPwCode(data.code)
+        .then(({ rows }) => {
+            console.log("rows: ", rows[0]);
+            if (rows[0].code === data.code) {
+                console.log("the code is okay");
+                return hash(pw);
+            } else {
+                res.json({ success: false });
+            }
+        })
+        .then((hashedPw) => {
+            return updateUserPw(hashedPw, data.email);
+        })
+        .then(({ rows }) => {
+            req.session.userId = rows[0].id;
+            res.json({ success: true });
+        })
+        .catch((err) => {
+            console.log("error in /password/reset/verify: ", err);
+            res.json({ success: false });
+        });
 });
 
 app.get("/logout", (req, res) => {
