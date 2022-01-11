@@ -32,20 +32,15 @@ app.use(
 );
 
 app.use(express.json());
+
 /*************************** ROUTES ***************************/
 
 app.get("/user/id.json", function (req, res) {
-    // TODO: set up cookie middleware
 
-    if (req.session.userId) {
-        res.json({
-            userId: req.session.userId,
-        });
-    } else {
-        res.json({
-            userId: undefined,
-        });
-    }
+    res.json({
+        userId: req.session.userId,
+    });
+
 });
 
 app.post("/register.json", (req, res) => {
@@ -82,7 +77,8 @@ app.post("/register.json", (req, res) => {
 app.get("/logout", (req, res) => {
     req.session = null;
     // TODO:  render Loged Out Component
-    res.json({ loggedIn: false });
+    res.redirect("/");
+    // res.json({ loggedIn: false });
 });
 
 // ************************* ANY ROUTS ABOVE ******************************
