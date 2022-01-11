@@ -62,7 +62,7 @@ export default class Registration extends Component {
                 <Link to="/login">
                     <button>Click here to login!</button>
                 </Link>
-                <h1>Hellööö Registration :D </h1>
+                <h1>Register</h1>
                 {this.state.error && (
                     <h2 style={{ color: "red" }}>
                         {" "}

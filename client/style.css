@@ -1,3 +1,42 @@
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-color: rgb(65, 65, 65);
+    --main-color: rgba(31, 29, 28, 0.967);
+    /* --gradient: linear-gradient(#ffd166c7, transparent),
+        linear-gradient(to top left, #66ffabc9, transparent),
+        linear-gradient(to top right, #ff6666bf, transparent); */
+    --main-font: 'Source Code Pro', monospace;
+}
+
+
 body {
     background-color: ghostwhite;
+}
+
+#welcome-container, #registration-container, #login-container, #welcome-back-container {
+    display: flex;
+    flex-direction: column;
+}
+
+form {
+    width: 40vw;
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}
+
+input, button{
+    margin: 10px;
+    padding: 5px;
+    font: var(--main-font);
+}
+
+img {
+    height: 75px;
+    width: 75px;
+    margin: 10px;
 }
