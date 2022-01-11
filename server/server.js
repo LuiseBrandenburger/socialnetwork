@@ -146,6 +146,7 @@ app.post("/password/reset/start", (req, res) => {
         });
 });
 
+
 app.post("/password/reset/verify", (req, res) => {
     console.log("req.body in /password/reset/verify request: ", req.body);
 
@@ -166,7 +167,6 @@ app.post("/password/reset/verify", (req, res) => {
             return updateUserPw(hashedPw, data.email);
         })
         .then(({ rows }) => {
-            req.session.userId = rows[0].id;
             res.json({ success: true });
         })
         .catch((err) => {
@@ -174,6 +174,7 @@ app.post("/password/reset/verify", (req, res) => {
             res.json({ success: false });
         });
 });
+
 
 app.get("/logout", (req, res) => {
     req.session = null;
