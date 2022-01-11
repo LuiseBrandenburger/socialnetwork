@@ -2,8 +2,8 @@ const express = require("express");
 const app = express();
 const compression = require("compression");
 const path = require("path");
-const { registerUser } = require("./sql/db");
-const { hash } = require("./bc");
+const { registerUser, getUserByEmail } = require("./sql/db");
+const { hash, compare } = require("./bc");
 const cookieSession = require("cookie-session");
 let secret =
     process.env.COOKIE_SECRET || require("./secret.json").COOKIE_SECRET;
@@ -36,11 +36,9 @@ app.use(express.json());
 /*************************** ROUTES ***************************/
 
 app.get("/user/id.json", function (req, res) {
-
     res.json({
         userId: req.session.userId,
     });
-
 });
 
 app.post("/register.json", (req, res) => {
@@ -72,6 +70,43 @@ app.post("/register.json", (req, res) => {
             res.json({ error: true });
         });
     // }
+});
+
+
+app.post("/login.json", (req, res) => {
+    console.log("req.body in login.json request: ", req.body);
+
+    const data = req.body;
+    const pw = data.password;
+
+    if (req.session.userId) {
+        console.log("user already has a session Id");
+    } else {
+        console.log("user doesnt have a session id");
+    }
+
+    getUserByEmail(data.email)
+        .then(({ rows }) => {
+            compare(pw, rows[0].password)
+                .then((match) => {
+                    if (match) {
+                        req.session.userId = rows[0].id;
+                        console.log("console.log req.session: ", req.session);
+                        res.json({ success: true });
+                    } else {
+                        console.log("Error in Match");
+                        res.json({ success: false });
+                    }
+                })
+                .catch((err) => {
+                    console.log("password error", err);
+                    res.json({ success: false });
+                });
+        })
+        .catch((err) => {
+            console.log("error finding user: ", err);
+            res.json({ success: false });
+        });
 });
 
 app.get("/logout", (req, res) => {
