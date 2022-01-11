@@ -113,7 +113,6 @@ app.get("/logout", (req, res) => {
     req.session = null;
     // TODO:  render Loged Out Component
     res.redirect("/");
-    // res.json({ loggedIn: false });
 });
 
 // ************************* ANY ROUTS ABOVE ******************************
