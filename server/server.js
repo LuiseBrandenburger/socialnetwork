@@ -2,13 +2,27 @@ const express = require("express");
 const app = express();
 const compression = require("compression");
 const path = require("path");
-const { registerUser, getUserByEmail } = require("./sql/db");
+const {
+    registerUser,
+    getUserByEmail,
+    addResetPwCode,
+    getResetPwCode,
+    updateUserPw,
+} = require("./sql/db");
 const { hash, compare } = require("./bc");
 const cookieSession = require("cookie-session");
+const { sendEmail } = require("./ses");
+const cryptoRandomString = require("crypto-random-string");
+
 let secret =
     process.env.COOKIE_SECRET || require("./secret.json").COOKIE_SECRET;
 
 /*************************** MIDDLEWARE ***************************/
+
+
+// const randomString = cryptoRandomString({ length: 6 });
+// // TODO: make it expire after a certain time.
+
 
 if (process.env.NODE_ENV == "production") {
     app.use((req, res, next) => {

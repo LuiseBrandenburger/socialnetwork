@@ -82,6 +82,9 @@ export default class Login extends Component {
                     />
                     <button onClick={this.handleLogin}>login</button>
                 </form>
+                <Link to="/reset">
+                    <button>Click here to reset your password</button>
+                </Link>
             </div>
         );
     }

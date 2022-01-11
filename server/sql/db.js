@@ -29,16 +29,25 @@ module.exports.getUserByEmail = (email) => {
     return db.query(q, params);
 };
 
-// module.exports.updateUserAndPW = (firstName, lastName, email, password, id) => {
-//     const q = `UPDATE users SET first = ($1), last = ($2), email = ($3), password = ($4)
-//     WHERE id = ($5)`;
-//     const params = [firstName, lastName, email, password, id];
-//     return db.query(q, params);
-// };
+module.exports.addResetPwCode = (email, code) => {
+    const q = `INSERT INTO reset_code (email, code)
+                VALUES ($1, $2)
+                RETURNING id`;
 
-// module.exports.updateUser = (firstName, lastName, email, id) => {
-//     const q = `UPDATE users SET first = ($1), last = ($2), email = ($3)
-//     WHERE id = ($4)`;
-//     const params = [firstName, lastName, email, id];
-//     return db.query(q, params);
-// };
+    const params = [email, code];
+    return db.query(q, params);
+};
+
+module.exports.getResetPwCode = () => {
+    const q = `SELECT * FROM reset_code
+    WHERE CURRENT_TIMESTAMP - created_at < INTERVAL '10 minutes'`;
+    return db.query(q);
+};
+
+module.exports.updateUserPw = (password, email) => {
+    const q = `UPDATE users SET password = ($1)
+    WHERE email = ($2)`;
+    const params = [password, email];
+    return db.query(q, params);
+};
+
