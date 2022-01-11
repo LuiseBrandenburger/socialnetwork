@@ -130,11 +130,25 @@ app.post("/password/reset/start", (req, res) => {
 
     getUserByEmail(data.email)
         .then(({ rows }) => {
-            console.log("rows:", rows);
-            console.log("rows:", rows[0].email);
+            // console.log("rows:", rows);
+            // console.log("rows:", rows[0].email);
 
             const randomString = cryptoRandomString({ length: 10 });
             console.log("randomString:", randomString);
+
+            addResetPwCode(rows[0].email, randomString).then((data) => {
+
+                console.log("data after addResetPwCode", data);
+                // TODO: send Email to user
+                const emailSubject = "Reset Password";
+                const emailBody = `here is your code to reset your Password: ${randomString}`
+                sendEmail(emailSubject, emailBody,"flashy.toucan@spicedling.email");
+
+            }).catch((err) => {
+
+                console.log("error adding mail and code to db", err);
+
+            });
 
             res.json({ success: true });
         })
