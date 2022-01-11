@@ -31,8 +31,8 @@ module.exports.getUserByEmail = (email) => {
 
 module.exports.addResetPwCode = (email, code) => {
     const q = `INSERT INTO reset_code (email, code)
-                VALUES ($1, $2)`;
-R
+                VALUES ($1, $2)
+                RETURNING code`;
     const params = [email, code];
     return db.query(q, params);
 };

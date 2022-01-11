@@ -120,36 +120,24 @@ app.post("/login.json", (req, res) => {
 // ************************* RESET PASSWORD ROUTS ******************************
 
 app.post("/password/reset/start", (req, res) => {
-    console.log("req.body in login.json request: ", req.body);
-
-    // TODO: check ob es die Email schon gibt
-
     const data = req.body;
-    const pw = data.password;
-    // TODO: check ob es die Email schon gibt
-
     getUserByEmail(data.email)
         .then(({ rows }) => {
-            // console.log("rows:", rows);
-            // console.log("rows:", rows[0].email);
-
-            const randomString = cryptoRandomString({ length: 10 });
-            console.log("randomString:", randomString);
-
-            addResetPwCode(rows[0].email, randomString).then((data) => {
-
-                console.log("data after addResetPwCode", data);
-                // TODO: send Email to user
-                const emailSubject = "Reset Password";
-                const emailBody = `here is your code to reset your Password: ${randomString}`
-                sendEmail(emailSubject, emailBody,"flashy.toucan@spicedling.email");
-
-            }).catch((err) => {
-
-                console.log("error adding mail and code to db", err);
-
-            });
-
+            if (rows[0].email) {
+                const randomString = cryptoRandomString({ length: 10 });
+                return addResetPwCode(rows[0].email, randomString);
+            } else {
+                res.json({ success: false });
+            }
+        })
+        .then(({rows}) => {
+            const emailSubject = "Reset Password";
+            const emailBody = `here is your code to reset your Password: ${rows[0].code}`;
+            sendEmail(
+                emailSubject,
+                emailBody,
+                "flashy.toucan@spicedling.email"
+            );
             res.json({ success: true });
         })
         .catch((err) => {
