@@ -19,11 +19,6 @@ let secret =
 
 /*************************** MIDDLEWARE ***************************/
 
-
-// const randomString = cryptoRandomString({ length: 6 });
-// // TODO: make it expire after a certain time.
-
-
 if (process.env.NODE_ENV == "production") {
     app.use((req, res, next) => {
         if (req.headers["x-forwarded-proto"].startsWith("https")) {
@@ -86,7 +81,6 @@ app.post("/register.json", (req, res) => {
     // }
 });
 
-
 app.post("/login.json", (req, res) => {
     console.log("req.body in login.json request: ", req.body);
 
@@ -128,6 +122,31 @@ app.post("/login.json", (req, res) => {
 app.post("/password/reset/start", (req, res) => {
     console.log("req.body in login.json request: ", req.body);
 
+    // TODO: check ob es die Email schon gibt
+
+    const data = req.body;
+    const pw = data.password;
+    // TODO: check ob es die Email schon gibt
+
+    getUserByEmail(data.email)
+        .then(({ rows }) => {
+            console.log("rows:", rows);
+            console.log("rows:", rows[0].email);
+
+            const randomString = cryptoRandomString({ length: 10 });
+            console.log("randomString:", randomString);
+
+            res.json({ success: true });
+        })
+        .catch((err) => {
+            console.log("error finding user: ", err);
+            res.json({ success: false });
+        });
+});
+
+app.post("/password/reset/verify", (req, res) => {
+    console.log("req.body in login.json request: ", req.body);
+
     // const data = req.body;
     // const pw = data.password;
 
@@ -160,16 +179,6 @@ app.post("/password/reset/start", (req, res) => {
     //         res.json({ success: false });
     //     });
 });
-
-
-
-
-
-
-
-
-
-
 
 app.get("/logout", (req, res) => {
     req.session = null;
