@@ -11,7 +11,6 @@ export default class Reset extends Component {
         this.handleResetPw = this.handleResetPw.bind(this);
         this.renderStage = this.renderStage.bind(this);
         this.handleVerifyPw = this.handleVerifyPw.bind(this);
-
     }
     renderStage() {
         if (this.state.stage === 1) {
@@ -73,7 +72,6 @@ export default class Reset extends Component {
 
     handleResetPw(e) {
         e.preventDefault();
-        // console.log("user wants to submit", this.state);
         fetch("/password/reset/start", {
             method: "POST",
             headers: {
@@ -84,9 +82,9 @@ export default class Reset extends Component {
             .then((data) => {
                 return data.json();
             })
-            .then((data) => {                
+            .then((data) => {
                 if (data.success) {
-                    // setzte Value auf empty
+                    // FIXME: setzte Value auf empty
                     console.log("this.state after email was send resetPW:", this.state);
                     this.setState({ stage: 2 });
                 } else {
@@ -94,7 +92,6 @@ export default class Reset extends Component {
                         error: true,
                     });
                 }
-
             })
             .catch((err) => {
                 console.log("error in fetch register.json", err);
@@ -146,9 +143,6 @@ export default class Reset extends Component {
                     </h2>
                 )}
                 {this.renderStage()}
-                {/* <button onClick={() => this.setState({ stage: 2 })}>
-                    Next
-                </button> */}
             </div>
         );
     }

@@ -17,7 +17,7 @@ body {
     background-color: ghostwhite;
 }
 
-#welcome-container, #registration-container, #login-container, #welcome-back-container {
+#welcome-container, #registration-container, #login-container, #app-container {
     display: flex;
     flex-direction: column;
 }

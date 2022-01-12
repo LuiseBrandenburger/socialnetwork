@@ -124,6 +124,11 @@ app.post("/password/reset/start", (req, res) => {
     getUserByEmail(data.email)
         .then(({ rows }) => {
             if (rows[0].email) {
+
+
+                // TODO: put Email in Cookies
+
+
                 const randomString = cryptoRandomString({ length: 10 });
                 return addResetPwCode(rows[0].email, randomString);
             } else {
@@ -157,6 +162,11 @@ app.post("/password/reset/verify", (req, res) => {
         .then(({ rows }) => {
             console.log("rows: ", rows[0]);
             if (rows[0].code === data.code) {
+
+
+                // TODO: checke ob emails in cookies
+
+
                 console.log("the code is okay");
                 return hash(pw);
             } else {
@@ -178,7 +188,6 @@ app.post("/password/reset/verify", (req, res) => {
 
 app.get("/logout", (req, res) => {
     req.session = null;
-    // TODO:  render Loged Out Component
     res.redirect("/");
 });
 

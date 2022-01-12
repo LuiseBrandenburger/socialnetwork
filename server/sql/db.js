@@ -29,6 +29,8 @@ module.exports.getUserByEmail = (email) => {
     return db.query(q, params);
 };
 
+// FIXME: Email Unique - and upsert insted of insert
+
 module.exports.addResetPwCode = (email, code) => {
     const q = `INSERT INTO reset_code (email, code)
                 VALUES ($1, $2)

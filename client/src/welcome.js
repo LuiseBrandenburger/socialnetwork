@@ -8,7 +8,7 @@ import Login from "./login";
 export default function Welcome() {
     return (
         <div id="welcome-container">
-            <h1>Welcome to Mapple</h1>
+            {/* <h1>Welcome to Mapple</h1> */}
             <h1>Welcome to MyFace</h1>
 
             <img src="/logo.png" />
