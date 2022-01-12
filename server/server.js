@@ -54,14 +54,7 @@ app.get("/user/id.json", function (req, res) {
     });
 });
 
-app.get("/user", function (req, res) {
-    getUserById(req.session.userId).then(({ rows }) => {
-        // console.log("rows after user has been fetched: ", rows);
-        res.json({
-            data: rows[0],
-        });
-    });
-});
+
 
 app.post("/register.json", (req, res) => {
     console.log("req.body in registration.json request: ", req.body);
@@ -210,6 +203,15 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
     } else {
         res.json({ success: false });
     }
+});
+
+app.get("/user", function (req, res) {
+    getUserById(req.session.userId).then(({ rows }) => {
+        // console.log("rows after user has been fetched: ", rows);
+        res.json({
+            data: rows[0],
+        });
+    });
 });
 
 
