@@ -8,11 +8,15 @@ const {
     addResetPwCode,
     getResetPwCode,
     updateUserPw,
+    getUserById,
+    updateProfileImage,
 } = require("./sql/db");
 const { hash, compare } = require("./bc");
 const cookieSession = require("cookie-session");
 const { sendEmail } = require("./ses");
 const cryptoRandomString = require("crypto-random-string");
+const s3 = require("./s3");
+const { uploader } = require("./upload");
 
 let secret =
     process.env.COOKIE_SECRET || require("./secret.json").COOKIE_SECRET;
@@ -47,6 +51,15 @@ app.use(express.json());
 app.get("/user/id.json", function (req, res) {
     res.json({
         userId: req.session.userId,
+    });
+});
+
+app.get("/user", function (req, res) {
+    getUserById(req.session.userId).then(({ rows }) => {
+        // console.log("rows after user has been fetched: ", rows);
+        res.json({
+            data: rows[0],
+        });
     });
 });
 
@@ -124,11 +137,7 @@ app.post("/password/reset/start", (req, res) => {
     getUserByEmail(data.email)
         .then(({ rows }) => {
             if (rows[0].email) {
-
-
                 // TODO: put Email in Cookies
-
-
                 const randomString = cryptoRandomString({ length: 10 });
                 return addResetPwCode(rows[0].email, randomString);
             } else {
@@ -162,11 +171,7 @@ app.post("/password/reset/verify", (req, res) => {
         .then(({ rows }) => {
             console.log("rows: ", rows[0]);
             if (rows[0].code === data.code) {
-
-
                 // TODO: checke ob emails in cookies
-
-
                 console.log("the code is okay");
                 return hash(pw);
             } else {
@@ -176,7 +181,7 @@ app.post("/password/reset/verify", (req, res) => {
         .then((hashedPw) => {
             return updateUserPw(hashedPw, data.email);
         })
-        .then(({ rows }) => {
+        .then(() => {
             res.json({ success: true });
         })
         .catch((err) => {
@@ -184,6 +189,31 @@ app.post("/password/reset/verify", (req, res) => {
             res.json({ success: false });
         });
 });
+
+
+app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
+    console.log("req.file in POST request Upload: ", req.file);
+
+    if (req.file) {
+        const fileName = req.file.filename;
+        const urlToSaveInDB = `https://s3.amazonaws.com/spicedling/${fileName}`;
+
+        updateProfileImage(urlToSaveInDB, req.session.userId)
+            .then(({ rows }) => {
+                console.log("image successfully saved in db");
+                res.json(rows);
+            })
+            .catch((err) => {
+                console.log("error adding img to db", err);
+                res.sendStatus(500);
+            });
+    } else {
+        res.json({ success: false });
+    }
+});
+
+
+// ************************* OTHER ROUTS ******************************
 
 
 app.get("/logout", (req, res) => {

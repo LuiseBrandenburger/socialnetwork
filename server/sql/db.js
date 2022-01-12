@@ -10,7 +10,7 @@ const db = spicedPg(
 );
 
 module.exports.getUser = () => {
-    const q = `SELECT * FROM users`;
+    const q = `SELECT id, first, last, email FROM users`;
     return db.query(q);
 };
 
@@ -24,10 +24,17 @@ module.exports.registerUser = (first, last, email, password) => {
 };
 
 module.exports.getUserByEmail = (email) => {
-    const q = `SELECT * FROM users WHERE email = ($1)`;
+    const q = `SELECT id, first, last, email FROM users WHERE email = ($1)`;
     const params = [email];
     return db.query(q, params);
 };
+
+module.exports.getUserById = (id) => {
+    const q = `SELECT id, first, last, email, url FROM users WHERE id = ($1)`;
+    const params = [id];
+    return db.query(q, params);
+};
+
 
 // FIXME: Email Unique - and upsert insted of insert
 
@@ -54,3 +61,10 @@ module.exports.updateUserPw = (password, email) => {
     return db.query(q, params);
 };
 
+module.exports.updateProfileImage = (url, id) => {
+    const q = `UPDATE users SET url = ($1)
+    WHERE id = ($2)`;
+
+    const params = [url, id];
+    return db.query(q, params);
+};

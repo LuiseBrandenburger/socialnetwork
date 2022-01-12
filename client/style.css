@@ -40,3 +40,90 @@ img {
     width: 75px;
     margin: 10px;
 }
+
+button {
+    cursor: pointer;
+    align-self: center;
+    width: 200px;
+    height: 30px;
+    border: none;
+    border-radius: 3px;
+    background-color: grey;
+}
+
+/*********************** UPLOADER MODAL ************************/
+
+
+.uploader-modal {
+    position: fixed;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 100vw;
+    background-color: #000000db;
+    z-index: 1001;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-box {
+    border-radius: 3px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: white;
+    background-blend-mode: screen;
+    width: 50vw;
+    height: 50vh;
+    padding: 40px;
+}
+
+.uploader-modal-content-container {
+    display: flex;
+    height: 90%;
+}
+
+
+.uploader-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    border: none;
+    margin: 0;
+    margin-top: 20px;
+    background-color: rgba(255, 255, 255, 0.251);
+    color: black;
+}
+
+.uploader-form input{
+    margin: 0;
+    padding: 5px;
+    width: 100%;
+    border: none;
+    background-color: transparent;
+}
+
+.uploader-form button{
+    margin: 0;
+    width: 25%;
+    background-color: transparent;
+}
+
+#comment-form button:hover {
+    background: transparent;
+}
+
+.modal-btn {
+    width: auto;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    color: white;
+    font-size: 2rem;
+    position: absolute;
+    right:15px;
+    top: 5px;
+    background: transparent;
+}

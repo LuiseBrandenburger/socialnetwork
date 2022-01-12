@@ -22,6 +22,7 @@ export default class Reset extends Component {
                             name="email"
                             placeholder="your@email.com"
                             type="email"
+                            key="1"
                         />
                         <button onClick={this.handleResetPw}>Reset Password</button>
                     </form>
@@ -36,6 +37,7 @@ export default class Reset extends Component {
                             name="code"
                             placeholder="code"
                             type="text"
+                            key="2"
                         />
                         <input
                             onChange={this.handleChange}
