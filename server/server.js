@@ -54,6 +54,41 @@ app.get("/user/id.json", function (req, res) {
     });
 });
 
+app.post("/login.json", (req, res) => {
+    console.log("req.body in login.json request: ", req.body);
+
+    const data = req.body;
+    const pw = data.password;
+
+    // if (req.session.userId) {
+    //     console.log("user already has a session Id");
+    // } else {
+    //     console.log("user doesnt have a session id");
+    // }
+
+    getUserByEmail(data.email)
+        .then(({ rows }) => {
+            compare(pw, rows[0].password)
+                .then((match) => {
+                    if (match) {
+                        req.session.userId = rows[0].id;
+                        console.log("console.log req.session: ", req.session);
+                        res.json({ success: true });
+                    } else {
+                        console.log("Error in Match");
+                        res.json({ success: false });
+                    }
+                })
+                .catch((err) => {
+                    console.log("password error", err);
+                    res.json({ success: false });
+                });
+        })
+        .catch((err) => {
+            console.log("error finding user: ", err);
+            res.json({ success: false });
+        });
+});
 
 
 app.post("/register.json", (req, res) => {
@@ -87,41 +122,7 @@ app.post("/register.json", (req, res) => {
     // }
 });
 
-app.post("/login.json", (req, res) => {
-    console.log("req.body in login.json request: ", req.body);
 
-    const data = req.body;
-    const pw = data.password;
-
-    if (req.session.userId) {
-        console.log("user already has a session Id");
-    } else {
-        console.log("user doesnt have a session id");
-    }
-
-    getUserByEmail(data.email)
-        .then(({ rows }) => {
-            compare(pw, rows[0].password)
-                .then((match) => {
-                    if (match) {
-                        req.session.userId = rows[0].id;
-                        console.log("console.log req.session: ", req.session);
-                        res.json({ success: true });
-                    } else {
-                        console.log("Error in Match");
-                        res.json({ success: false });
-                    }
-                })
-                .catch((err) => {
-                    console.log("password error", err);
-                    res.json({ success: false });
-                });
-        })
-        .catch((err) => {
-            console.log("error finding user: ", err);
-            res.json({ success: false });
-        });
-});
 
 // ************************* RESET PASSWORD ROUTS ******************************
 
@@ -204,6 +205,8 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
         res.json({ success: false });
     }
 });
+
+
 
 app.get("/user", function (req, res) {
     getUserById(req.session.userId).then(({ rows }) => {
