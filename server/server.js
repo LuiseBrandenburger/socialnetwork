@@ -11,6 +11,7 @@ const {
     getUserById,
     updateProfileImage,
     getUserForLogin,
+    updateUserBio,
 } = require("./sql/db");
 const { hash, compare } = require("./bc");
 const cookieSession = require("cookie-session");
@@ -20,19 +21,14 @@ const s3 = require("./s3");
 const { uploader } = require("./upload");
 const helpers = require("./utils/helpers");
 
-
 /*************************** REQUIRE ROUTERS ***************************/
 
 // const auth = require("./routers/auth-router");
-
-
 
 /*************************** SECRET ***************************/
 
 let secret =
     process.env.COOKIE_SECRET || require("./secret.json").COOKIE_SECRET;
-
-
 
 /*************************** MIDDLEWARE ***************************/
 
@@ -63,7 +59,6 @@ app.use(express.json());
 
 // app.use(auth);
 
-
 /*************************** ROUTES ***************************/
 
 app.get("/user/id.json", function (req, res) {
@@ -74,7 +69,7 @@ app.get("/user/id.json", function (req, res) {
 
 app.post("/login.json", (req, res) => {
     console.log("req.body in login.json request: ", req.body);
-    
+
     const data = req.body;
     const pw = data.password;
 
@@ -108,7 +103,6 @@ app.post("/login.json", (req, res) => {
         });
 });
 
-
 app.post("/register.json", (req, res) => {
     console.log("req.body in registration.json request: ", req.body);
 
@@ -140,8 +134,6 @@ app.post("/register.json", (req, res) => {
     // }
 });
 
-
-
 // ************************* RESET PASSWORD ROUTS ******************************
 
 app.post("/password/reset/start", (req, res) => {
@@ -172,7 +164,6 @@ app.post("/password/reset/start", (req, res) => {
         });
 });
 
-
 app.post("/password/reset/verify", (req, res) => {
     console.log("req.body in /password/reset/verify request: ", req.body);
 
@@ -202,7 +193,6 @@ app.post("/password/reset/verify", (req, res) => {
         });
 });
 
-
 app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
     console.log("req.file in POST request Upload: ", req.file);
 
@@ -224,7 +214,22 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
     }
 });
 
+app.post("/bio.json", (req, res) => {
+    const data = req.body;
 
+    console.log("data bio from input", data.bio);
+    console.log("data from input", data);
+
+    updateUserBio(data.bioDraft, req.session.userId)
+        .then(({ rows }) => {
+            console.log("bio successfully saved in db");
+            res.json(rows);
+        })
+        .catch((err) => {
+            console.log("error adding bio to db", err);
+            res.sendStatus(500);
+        });
+});
 
 app.get("/user", function (req, res) {
     getUserById(req.session.userId).then(({ rows }) => {
@@ -235,9 +240,7 @@ app.get("/user", function (req, res) {
     });
 });
 
-
 // ************************* OTHER ROUTS ******************************
-
 
 app.get("/logout", (req, res) => {
     req.session = null;
