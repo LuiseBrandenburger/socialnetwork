@@ -9,10 +9,10 @@ const db = spicedPg(
         `postgres:${username}:${password}@localhost:5432/${database}`
 );
 
-module.exports.getUser = () => {
-    const q = `SELECT id, first, last, email, url FROM users`;
-    return db.query(q);
-};
+// module.exports.getUser = () => {
+//     const q = `SELECT id, first, last, email, url, bio FROM users`;
+//     return db.query(q);
+// };
 
 module.exports.registerUser = (first, last, email, password) => {
     const q = `INSERT INTO users (first, last, email, password)
@@ -31,13 +31,13 @@ module.exports.getUserForLogin = (email) => {
 
 
 module.exports.getUserByEmail = (email) => {
-    const q = `SELECT id, first, last, email, url FROM users WHERE email = ($1)`;
+    const q = `SELECT id, first, last, email, url, bio FROM users WHERE email = ($1)`;
     const params = [email];
     return db.query(q, params);
 };
 
 module.exports.getUserById = (id) => {
-    const q = `SELECT id, first, last, email, url FROM users WHERE id = ($1)`;
+    const q = `SELECT id, first, last, email, url, bio FROM users WHERE id = ($1)`;
     const params = [id];
     return db.query(q, params);
 };
@@ -76,3 +76,4 @@ module.exports.updateProfileImage = (url, id) => {
     const params = [url, id];
     return db.query(q, params);
 };
+
