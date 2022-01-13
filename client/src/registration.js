@@ -54,7 +54,6 @@ export default class Registration extends Component {
                     error: true,
                 });
             });
-        // depending on successfull response, we want to render an error state
     }
     render() {
         return (

@@ -23,8 +23,15 @@ module.exports.registerUser = (first, last, email, password) => {
     return db.query(q, params);
 };
 
+module.exports.getUserForLogin = (email) => {
+    const q = `SELECT email, password, id FROM users WHERE email = ($1)`;
+    const params = [email];
+    return db.query(q, params);
+};
+
+
 module.exports.getUserByEmail = (email) => {
-    const q = `SELECT * FROM users WHERE email = ($1)`;
+    const q = `SELECT id, first, last, email, url FROM users WHERE email = ($1)`;
     const params = [email];
     return db.query(q, params);
 };

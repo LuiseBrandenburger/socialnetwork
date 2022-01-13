@@ -10,6 +10,7 @@ const {
     updateUserPw,
     getUserById,
     updateProfileImage,
+    getUserForLogin,
 } = require("./sql/db");
 const { hash, compare } = require("./bc");
 const cookieSession = require("cookie-session");
@@ -18,8 +19,19 @@ const cryptoRandomString = require("crypto-random-string");
 const s3 = require("./s3");
 const { uploader } = require("./upload");
 
+
+/*************************** REQUIRE ROUTERS ***************************/
+
+// const auth = require("./routers/auth-router");
+
+
+
+/*************************** SECRET ***************************/
+
 let secret =
     process.env.COOKIE_SECRET || require("./secret.json").COOKIE_SECRET;
+
+
 
 /*************************** MIDDLEWARE ***************************/
 
@@ -46,6 +58,11 @@ app.use(
 
 app.use(express.json());
 
+/*************************** ROUTERS ***************************/
+
+// app.use(auth);
+
+
 /*************************** ROUTES ***************************/
 
 app.get("/user/id.json", function (req, res) {
@@ -66,7 +83,7 @@ app.post("/login.json", (req, res) => {
     //     console.log("user doesnt have a session id");
     // }
 
-    getUserByEmail(data.email)
+    getUserForLogin(data.email)
         .then(({ rows }) => {
             compare(pw, rows[0].password)
                 .then((match) => {
