@@ -18,6 +18,7 @@ const { sendEmail } = require("./ses");
 const cryptoRandomString = require("crypto-random-string");
 const s3 = require("./s3");
 const { uploader } = require("./upload");
+const helpers = require("./utils/helpers");
 
 
 /*************************** REQUIRE ROUTERS ***************************/
@@ -73,7 +74,7 @@ app.get("/user/id.json", function (req, res) {
 
 app.post("/login.json", (req, res) => {
     console.log("req.body in login.json request: ", req.body);
-
+    
     const data = req.body;
     const pw = data.password;
 
