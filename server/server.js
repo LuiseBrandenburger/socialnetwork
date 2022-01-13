@@ -217,8 +217,8 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
 app.post("/bio.json", (req, res) => {
     const data = req.body;
 
-    console.log("data bio from input", data.bio);
-    console.log("data from input", data);
+    // console.log("data bio from input", data.bio);
+    // console.log("data from input", data);
 
     updateUserBio(data.bioDraft, req.session.userId)
         .then(({ rows }) => {
