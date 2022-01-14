@@ -85,3 +85,14 @@ module.exports.updateUserBio = (bio, id) => {
     const params = [bio, id];
     return db.query(q, params);
 };
+
+
+
+module.exports.getUserBySearch = (search) => {
+    const q = `SELECT id, first, last, email, url, bio FROM users WHERE first ILIKE ($1)
+    ORDER by id DESC`;
+    const params = [search + '%'];
+    return db.query(q, params);
+};
+
+// concat(first, " ", last) AS name

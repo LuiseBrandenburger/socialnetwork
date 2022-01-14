@@ -18,5 +18,7 @@
 --     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 --   );
 
+
   SELECT * FROM users;
   SELECT * FROM reset_code;
+

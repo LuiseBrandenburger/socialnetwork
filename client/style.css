@@ -51,9 +51,7 @@ button {
     background-color: grey;
 }
 
-.navbar-avatar {
-    border-radius: 50%;
-}
+
 
 .profile-avatar {
     width: 200px;
@@ -74,11 +72,26 @@ button {
 
 /*********************** NAVBAR ************************/
 
+.navbar-avatar {
+    border-radius: 50%;
+}
+
 .navbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
     background-color: grey;
+}
+
+.navbar-links {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 40%;
+}
+
+.navbar-links form {
+    width: 100px;
 }
 
 

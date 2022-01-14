@@ -3,6 +3,9 @@ import { Component } from "react";
 import ProfilePic from "./profilePic";
 import Uploader from "./uploader";
 import Profile from "./profile";
+import FindUsers from "./findUsers";
+import { BrowserRouter, Route } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 export default class App extends Component {
     constructor(props) {
@@ -48,31 +51,47 @@ export default class App extends Component {
                         alt="social network logo"
                         id="app-logo"
                     />
-                    <ProfilePic
-                        first={this.state.first}
-                        last={this.state.last}
-                        url={this.state.url}
-                        toggleUploader={this.toggleUploader}
-                        cssClass="navbar-avatar"
-                    />
+                    <div className="navbar-links">
+                        <form action="/find-users">
+                            <button>Users</button>
+                        </form>
+                        <form action="/">
+                            <button>Profile</button>
+                        </form>
+                        <form action="/logout">
+                            <button>Logout</button>
+                        </form>
+                        <ProfilePic
+                            first={this.state.first}
+                            last={this.state.last}
+                            url={this.state.url}
+                            toggleUploader={this.toggleUploader}
+                            cssClass="navbar-avatar"
+                        />
+                    </div>
                 </nav>
                 <h1>
                     Welcome back, {this.state.first} {this.state.last}
                 </h1>
 
-                <Profile
-                    toggleUploader={this.toggleUploader}
-                    updateBio={this.updateBio}
-                    editBio={this.editBio}
-                    first={this.state.first}
-                    last={this.state.last}
-                    bio={this.state.bio}
-                    url={this.state.url}
-                />
-
-                <form action="/logout">
-                    <button>Logout</button>
-                </form>
+                <BrowserRouter>
+                    <div>
+                        <Route exact path="/">
+                            <Profile
+                                toggleUploader={this.toggleUploader}
+                                updateBio={this.updateBio}
+                                editBio={this.editBio}
+                                first={this.state.first}
+                                last={this.state.last}
+                                bio={this.state.bio}
+                                url={this.state.url}
+                            />
+                        </Route>
+                        <Route path="/find-users">
+                            <FindUsers />
+                        </Route>
+                    </div>
+                </BrowserRouter>
                 {this.state.uploaderIsVisible && (
                     <Uploader toggleUploader={this.toggleUploader} />
                 )}
@@ -80,3 +99,6 @@ export default class App extends Component {
         );
     }
 }
+
+
+
