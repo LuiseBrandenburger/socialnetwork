@@ -13,6 +13,7 @@ const {
     getUserForLogin,
     updateUserBio,
     getUserBySearch,
+    getResentlyAddedUsers,
 } = require("./sql/db");
 const { hash, compare } = require("./bc");
 const cookieSession = require("cookie-session");
@@ -254,6 +255,16 @@ app.get("/find-user/:search", function (req, res) {
     });
 });
 
+
+app.get("/find-recently-added-users", function (req, res) {
+  
+    getResentlyAddedUsers().then(({ rows }) => {
+        console.log("rows after user has been fetched: ", rows);
+        res.json({
+            data: rows,
+        });
+    });
+});
 
 // ************************* OTHER ROUTS ******************************
 

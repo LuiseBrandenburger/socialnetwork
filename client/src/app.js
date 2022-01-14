@@ -58,9 +58,11 @@ export default class App extends Component {
                         <form action="/">
                             <button>Profile</button>
                         </form>
-                        <form action="/logout">
+                        <a href="logout">Logout</a>
+                        {/* <form action="/logout">
                             <button>Logout</button>
-                        </form>
+                        </form> */}
+
                         <ProfilePic
                             first={this.state.first}
                             last={this.state.last}
