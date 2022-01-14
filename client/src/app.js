@@ -4,7 +4,7 @@ import ProfilePic from "./profilePic";
 import Uploader from "./uploader";
 import Profile from "./profile";
 import FindUsers from "./findUsers";
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Route, Link } from "react-router-dom";
 // import { Link } from "react-router-dom";
 
 export default class App extends Component {
@@ -45,38 +45,34 @@ export default class App extends Component {
     render() {
         return (
             <div id="app-container">
-                <nav className="navbar">
-                    <img
-                        src="/logo.png"
-                        alt="social network logo"
-                        id="app-logo"
-                    />
-                    <div className="navbar-links">
-                        <form action="/find-users">
-                            <button>Users</button>
-                        </form>
-                        <form action="/">
-                            <button>Profile</button>
-                        </form>
-                        <a href="logout">Logout</a>
-                        {/* <form action="/logout">
-                            <button>Logout</button>
-                        </form> */}
-
-                        <ProfilePic
-                            first={this.state.first}
-                            last={this.state.last}
-                            url={this.state.url}
-                            toggleUploader={this.toggleUploader}
-                            cssClass="navbar-avatar"
-                        />
-                    </div>
-                </nav>
-                <h1>
-                    Welcome back, {this.state.first} {this.state.last}
-                </h1>
-
                 <BrowserRouter>
+                    <nav className="navbar">
+                        <img
+                            src="/logo.png"
+                            alt="social network logo"
+                            id="app-logo"
+                        />
+                        <div className="navbar-links">
+                            <Link to="/find-users">
+                                <button>Users</button>
+                            </Link>
+                            <Link to="/">
+                                <button>Profile</button>
+                            </Link>
+                            <a href="logout">Logout</a>
+                            <ProfilePic
+                                first={this.state.first}
+                                last={this.state.last}
+                                url={this.state.url}
+                                toggleUploader={this.toggleUploader}
+                                cssClass="navbar-avatar"
+                            />
+                        </div>
+                    </nav>
+                    <h1>
+                        Welcome back, {this.state.first} {this.state.last}
+                    </h1>
+
                     <div>
                         <Route exact path="/">
                             <Profile
