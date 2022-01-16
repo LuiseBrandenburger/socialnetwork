@@ -56,7 +56,9 @@ export default function FindUsers() {
                 <div className="user-display-container">
                     {users.map((user) => (
                         <div className="user-box" key={user.id}>
-                            <h2 key={user.id}>{user.first}</h2>
+                            <h2 id="user-name" key={user.id}>
+                                {user.first}
+                            </h2>
                             <img
                                 src={user.url || "default.png"}
                                 alt={`social network profile picture of ${user.first} ${user.last}`}
@@ -74,7 +76,7 @@ export default function FindUsers() {
                 <div className="user-display-container">
                     {recentlyAddedUsers.map((user) => (
                         <div className="user-box" key={user.id}>
-                            <h2 key={user.id}>{user.first}</h2>
+                            <h2 id="user-name" key={user.id}>{user.first}</h2>
                             <img
                                 src={user.url || "default.png"}
                                 alt={`social network profile picture of ${user.first} ${user.last}`}

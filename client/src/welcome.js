@@ -9,7 +9,7 @@ export default function Welcome() {
             {/* <h1>Welcome to Mapple</h1> */}
             <h1>Welcome to MyFace</h1>
 
-            <img src="/logo.png" />
+            <img id="app-logo-landing-page" src="/logo.png" />
             <BrowserRouter>
                 <div>
                     <Route exact path="/">

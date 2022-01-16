@@ -49,11 +49,6 @@ export default class App extends Component {
                 <BrowserRouter>
                     <section className="navbar-container">
                         <nav className="navbar">
-                            <div>
-                                <a href="logout">
-                                    <span>Logout</span>
-                                </a>
-                            </div>
                             <div className="navbar-links">
                                 <Link to="/find-users">
                                     <span>Users</span>
@@ -61,6 +56,11 @@ export default class App extends Component {
                                 <Link to="/">
                                     <span>Profile</span>
                                 </Link>
+                            </div>
+                            <div id="logout">
+                                <a href="logout">
+                                    <span>Logout</span>
+                                </a>
                             </div>
                         </nav>
                         {/* <img

@@ -1,19 +1,19 @@
 const express = require("express");
 const auth = express.Router();
 
-const {
-    getUserByEmail,
-} = require("../sql/db");
-const { compare } = require("./bc");
+const { compare } = require("../bc");
+const { getUserForLogin } = require("../sql/db");
 
 /*************************** ROUTES ***************************/
+
+console.log("Hello from auth");
+
 
 auth.get("/user/id.json", function (req, res) {
     res.json({
         userId: req.session.userId,
     });
 });
-
 
 auth.post("/login.json", (req, res) => {
     console.log("req.body in login.json request: ", req.body);
@@ -27,7 +27,7 @@ auth.post("/login.json", (req, res) => {
     //     console.log("user doesnt have a session id");
     // }
 
-    getUserByEmail(data.email)
+    getUserForLogin(data.email)
         .then(({ rows }) => {
             compare(pw, rows[0].password)
                 .then((match) => {
@@ -51,6 +51,11 @@ auth.post("/login.json", (req, res) => {
         });
 });
 
+
+auth.get("/logout", (req, res) => {
+    req.session = null;
+    res.redirect("/");
+});
 
 /*************************** EXPORT ***************************/
 
