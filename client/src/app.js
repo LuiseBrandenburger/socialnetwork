@@ -1,11 +1,12 @@
 // import { Link } from "react-router-dom";
 import { Component } from "react";
 import ProfilePic from "./profilePic";
+import TitlePic from "./titlePic";
+
 import Uploader from "./uploader";
 import Profile from "./profile";
 import FindUsers from "./findUsers";
 import { BrowserRouter, Route, Link } from "react-router-dom";
-// import { Link } from "react-router-dom";
 
 export default class App extends Component {
     constructor(props) {
@@ -46,34 +47,90 @@ export default class App extends Component {
         return (
             <div id="app-container">
                 <BrowserRouter>
-                    <nav className="navbar">
-                        <img
+                    <section className="navbar-container">
+                        <nav className="navbar">
+                            <div>
+                                <a href="logout">
+                                    <span>Logout</span>
+                                </a>
+                            </div>
+                            <div className="navbar-links">
+                                <Link to="/find-users">
+                                    <span>Users</span>
+                                </Link>
+                                <Link to="/">
+                                    <span>Profile</span>
+                                </Link>
+                            </div>
+                        </nav>
+                        {/* <img
                             src="/logo.png"
                             alt="social network logo"
                             id="app-logo"
-                        />
-                        <div className="navbar-links">
-                            <Link to="/find-users">
-                                <button>Users</button>
-                            </Link>
-                            <Link to="/">
-                                <button>Profile</button>
-                            </Link>
-                            <a href="logout">Logout</a>
-                            <ProfilePic
-                                first={this.state.first}
-                                last={this.state.last}
-                                url={this.state.url}
-                                toggleUploader={this.toggleUploader}
-                                cssClass="navbar-avatar"
-                            />
+                        /> */}
+                        <div id="app-logo">
+                            <svg
+                                // width="263"
+                                // height="102"
+                                viewBox="0 0 263 102"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <ellipse
+                                    cx="131.27"
+                                    cy="50.5339"
+                                    rx="49.8909"
+                                    ry="131.027"
+                                    transform="rotate(-90.2814 131.27 50.5339)"
+                                    fill="white"
+                                />
+                                <circle
+                                    cx="130.627"
+                                    cy="50.6267"
+                                    r="50.5"
+                                    transform="rotate(179.856 130.627 50.6267)"
+                                    fill="#6B6B6B"
+                                />
+                                <ellipse
+                                    cx="131.041"
+                                    cy="50.5427"
+                                    rx="17"
+                                    ry="16.5"
+                                    transform="rotate(179.856 131.041 50.5427)"
+                                    fill="black"
+                                />
+                                <ellipse
+                                    cx="139.523"
+                                    cy="60.0213"
+                                    rx="8.5"
+                                    ry="9"
+                                    transform="rotate(179.856 139.523 60.0213)"
+                                    fill="white"
+                                />
+                                <circle
+                                    cx="88.5"
+                                    cy="25.5"
+                                    r="8.5"
+                                    fill="#CFCFCF"
+                                />
+                            </svg>
                         </div>
-                    </nav>
-                    <h1>
-                        Welcome back, {this.state.first} {this.state.last}
-                    </h1>
-
-                    <div>
+                        <ProfilePic
+                            first={this.state.first}
+                            last={this.state.last}
+                            url={this.state.url}
+                            toggleUploader={this.toggleUploader}
+                            cssClass="navbar-avatar"
+                        />
+                        <TitlePic
+                            first={this.state.first}
+                            last={this.state.last}
+                            // url={this.state.url}
+                            cssClass="navbar-title"
+                        />
+                    </section>
+                    <hr></hr>
+                    <div className="content-container">
                         <Route exact path="/">
                             <Profile
                                 toggleUploader={this.toggleUploader}
@@ -90,6 +147,7 @@ export default class App extends Component {
                         </Route>
                     </div>
                 </BrowserRouter>
+                <footer>&#169;Luise Brandenburger 2021</footer>
                 {this.state.uploaderIsVisible && (
                     <Uploader toggleUploader={this.toggleUploader} />
                 )}
@@ -97,6 +155,3 @@ export default class App extends Component {
         );
     }
 }
-
-
-

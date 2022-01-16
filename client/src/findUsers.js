@@ -53,40 +53,41 @@ export default function FindUsers() {
                 <h2>Search for Users:</h2>
                 <p>{error ? "no results found" : ""}</p>
                 <input onChange={(e) => setSearch(e.target.value)} />
-                {users.map((user) => (
-                    <div className="user-container" key={user.id}>
-                        <h2 key={user.id}>{user.first}</h2>
-                        <img
-                            src={user.url}
-                            alt={`social network profile picture of ${user.first} ${user.last}`}
-                        />
-                        <p>{user.bio}</p>
-                    </div>
-                ))}
+                <div className="user-display-container">
+                    {users.map((user) => (
+                        <div className="user-box" key={user.id}>
+                            <h2 key={user.id}>{user.first}</h2>
+                            <img
+                                src={user.url || "default.png"}
+                                alt={`social network profile picture of ${user.first} ${user.last}`}
+                            />
+                            {/* <p>{user.bio}</p> */}
+                        </div>
+                    ))}
+                </div>
             </div>
         );
     } else {
         return (
             <div className="search-container">
                 <h2>Recently Added Users:</h2>
-                {recentlyAddedUsers.map((user) => (
-                    <div className="user-container" key={user.id}>
-                        <h2 key={user.id}>{user.first}</h2>
-                        <img
-                            src={user.url}
-                            alt={`social network profile picture of ${user.first} ${user.last}`}
-                        />
-                        <p>{user.bio}</p>
-                    </div>
-                ))}
+                <div className="user-display-container">
+                    {recentlyAddedUsers.map((user) => (
+                        <div className="user-box" key={user.id}>
+                            <h2 key={user.id}>{user.first}</h2>
+                            <img
+                                src={user.url || "default.png"}
+                                alt={`social network profile picture of ${user.first} ${user.last}`}
+                            />
+                            {/* <p>{user.bio}</p> */}
+                        </div>
+                    ))}
+                </div>
+                <h2>Find Users:</h2>
                 <input onChange={(e) => setSearch(e.target.value)} />
             </div>
         );
     }
 }
 
-// key={user.id}
-// onClick={() => toggleUploader()}
-// {
-//     error ? <p>no results found</p> : "";
-// }
+

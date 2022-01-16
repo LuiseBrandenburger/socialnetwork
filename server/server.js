@@ -110,6 +110,7 @@ app.post("/register.json", (req, res) => {
 
     const data = req.body;
     const pw = data.password;
+    // const url = "default.png";
 
     // if (data.first == "" || data.last == "" || data.email == "" || pw == "") {
     //     console.log("no data in input -> change state to error");

@@ -99,4 +99,5 @@ module.exports.getResentlyAddedUsers = () => {
     LIMIT 3`;
     return db.query(q);
 };
+
 // concat(first, " ", last) AS name

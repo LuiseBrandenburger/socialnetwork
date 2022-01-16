@@ -86,7 +86,6 @@ export default class Reset extends Component {
             })
             .then((data) => {
                 if (data.success) {
-                    // FIXME: setzte Value auf empty
                     console.log("this.state after email was send resetPW:", this.state);
                     this.setState({ stage: 2 });
                 } else {
