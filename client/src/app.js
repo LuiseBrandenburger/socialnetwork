@@ -63,11 +63,37 @@ export default class App extends Component {
                                 </a>
                             </div>
                         </nav>
-                        {/* <img
-                            src="/logo.png"
-                            alt="social network logo"
-                            id="app-logo"
-                        /> */}
+
+                        <div id="photo-icon">
+                            <svg
+                                viewBox="0 0 148 87"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <rect
+                                    y="9"
+                                    width="148"
+                                    height="78"
+                                    rx="3"
+                                    fill="#5e5e5e"
+                                />
+                                <circle
+                                    cx="73.5"
+                                    cy="47.5"
+                                    r="31.5"
+                                    fill="#e1e1e1d2"
+                                />
+                                <circle cx="74" cy="48" r="27" fill="#5e5e5e" />
+                                <rect
+                                    x="116"
+                                    width="14"
+                                    height="17"
+                                    rx="3"
+                                    fill="#5e5e5e"
+                                />
+                            </svg>
+                        </div>
+
                         <div id="app-logo">
                             <svg
                                 // width="263"
@@ -76,14 +102,14 @@ export default class App extends Component {
                                 fill="none"
                                 xmlns="http://www.w3.org/2000/svg"
                             >
-                                <ellipse
+                                {/* <ellipse
                                     cx="131.27"
                                     cy="50.5339"
                                     rx="49.8909"
                                     ry="131.027"
                                     transform="rotate(-90.2814 131.27 50.5339)"
                                     fill="white"
-                                />
+                                /> */}
                                 <circle
                                     cx="130.627"
                                     cy="50.6267"
