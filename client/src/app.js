@@ -95,21 +95,11 @@ export default class App extends Component {
                         </div>
 
                         <div id="app-logo">
-                            <svg
-                                // width="263"
-                                // height="102"
+                            {/* <svg
                                 viewBox="0 0 263 102"
                                 fill="none"
                                 xmlns="http://www.w3.org/2000/svg"
                             >
-                                {/* <ellipse
-                                    cx="131.27"
-                                    cy="50.5339"
-                                    rx="49.8909"
-                                    ry="131.027"
-                                    transform="rotate(-90.2814 131.27 50.5339)"
-                                    fill="white"
-                                /> */}
                                 <circle
                                     cx="130.627"
                                     cy="50.6267"
@@ -139,7 +129,7 @@ export default class App extends Component {
                                     r="8.5"
                                     fill="#CFCFCF"
                                 />
-                            </svg>
+                            </svg> */}
                         </div>
                         <ProfilePic
                             first={this.state.first}
