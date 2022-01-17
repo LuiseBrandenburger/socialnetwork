@@ -5,7 +5,7 @@ export default function OtherProfile() {
     const { id } = useParams();
     const [user, setUser] = useState([]);
     const [error, setError] = useState(false);
-    // const [redirectToProfile, setRedirectToProfile] = useState(false);
+    const [redirectToProfile, setRedirectToProfile] = useState(false);
 
     const history = useHistory();
 
@@ -22,6 +22,7 @@ export default function OtherProfile() {
             .then((data) => {
                 if (redirectToProfile) {
                     history.replace("/");
+                    setRedirectToProfile(false);
                 } else {
                     setUser(data.data);
                 }
