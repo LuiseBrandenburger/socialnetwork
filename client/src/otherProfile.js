@@ -1,53 +1,50 @@
 import { useParams, useHistory } from "react-router";
 import { useEffect, useState } from "react";
-import ProfilePic from "./profilePic";
-
 
 export default function OtherProfile() {
-    // const params = useParams();
     const { id } = useParams();
     const [user, setUser] = useState([]);
     const [error, setError] = useState(false);
+    // const [redirectToProfile, setRedirectToProfile] = useState(false);
 
-    // const history = useHistory();
+    const history = useHistory();
 
     useEffect(() => {
-        console.log("Component Mounted");
+        console.log("Component Mounted and id in Params: ", id);
+        console.log("id in Params: ", history);
 
-        // return () => {
-        //     console.log("Component Mounted");
-        // }
     }, []);
 
     useEffect(() => {
-        console.log("id in Params: ", id);
 
-        fetch(`/api/user/${id}`)
+        fetch(`/api/find-profile/${id}`)
             .then((data) => data.json())
             .then((data) => {
-                // Once the profile data is retrieved, it should be added to state to cause a re-rendering.
+                if (redirectToProfile) {
+                    history.replace("/");
+                } else {
+                    setUser(data.data);
+                }
             })
             .catch((err) => {
-                // setError(true);
+                setError(true);
+                location.replace("/");
                 console.log("error in find users: ", err);
             });
-        // return () => {
-        //     abort = true;
-        // };
     }, [id]);
-
 
     return (
         <div className="profile-container">
+            <p>{error ? "no results found" : ""}</p>
             <div className="bio-container">
                 <img
                     className="profile-avatar"
-                    src="{this.props.url}"
+                    src={user.url}
                     alt="Profile Picture of another User"
                 ></img>
                 <div className="bio-editor-container">
                     <h2>Bio</h2>
-                    <p id="bio-editor">{this.props.bio}</p>
+                    <p id="bio-editor">{user.bio}</p>
                 </div>
             </div>
         </div>

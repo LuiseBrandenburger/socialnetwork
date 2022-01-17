@@ -138,7 +138,7 @@ export default class App extends Component {
                         <Route path="/find-users">
                             <FindUsers />
                         </Route>
-                        <Route path="/api/user/:id">
+                        <Route path="/show-user/:id">
                             <OtherProfile />
                         </Route>
                     </div>

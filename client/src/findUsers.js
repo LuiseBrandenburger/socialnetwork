@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function FindUsers() {
     const [search, setSearch] = useState();
@@ -55,16 +56,18 @@ export default function FindUsers() {
                 <input onChange={(e) => setSearch(e.target.value)} />
                 <div className="user-display-container">
                     {users.map((user) => (
-                        <div className="user-box" key={user.id}>
-                            <h2 id="user-name" key={user.id}>
-                                {user.first}
-                            </h2>
-                            <img
-                                src={user.url || "default.png"}
-                                alt={`social network profile picture of ${user.first} ${user.last}`}
-                            />
-                            {/* <p>{user.bio}</p> */}
-                        </div>
+                        <Link to={`/show-user/${user.id}`} key={user.id}>
+                            <div className="user-box" key={user.id}>
+                                <h2 id="user-name" key={user.id}>
+                                    {user.first}
+                                </h2>
+                                <img
+                                    src={user.url || "default.png"}
+                                    alt={`social network profile picture of ${user.first} ${user.last}`}
+                                />
+                                {/* <p>{user.bio}</p> */}
+                            </div>
+                        </Link>
                     ))}
                 </div>
             </div>
@@ -75,14 +78,17 @@ export default function FindUsers() {
                 <h2>Recently Added Users:</h2>
                 <div className="user-display-container">
                     {recentlyAddedUsers.map((user) => (
-                        <div className="user-box" key={user.id}>
-                            <h2 id="user-name" key={user.id}>{user.first}</h2>
-                            <img
-                                src={user.url || "default.png"}
-                                alt={`social network profile picture of ${user.first} ${user.last}`}
-                            />
-                            {/* <p>{user.bio}</p> */}
-                        </div>
+                        <Link to={`/show-user/${user.id}`} key={user.id}>
+                            <div className="user-box" key={user.id}>
+                                <h2 id="user-name" key={user.id}>
+                                    {user.first}
+                                </h2>
+                                <img
+                                    src={user.url || "default.png"}
+                                    alt={`social network profile picture of ${user.first} ${user.last}`}
+                                />
+                            </div>
+                        </Link>
                     ))}
                 </div>
                 <h2>Find Users:</h2>
@@ -91,5 +97,3 @@ export default function FindUsers() {
         );
     }
 }
-
-

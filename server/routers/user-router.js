@@ -14,7 +14,6 @@ const { uploader } = require("../upload");
 
 /*************************** ROUTES ***************************/
 
-
 user.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
     console.log("req.file in POST request Upload: ", req.file);
 
@@ -53,6 +52,26 @@ user.post("/bio.json", (req, res) => {
         });
 });
 
+user.get("/api/find-profile/:id", function (req, res) {
+    console.log("ID in Params: ", req.params.id);
+    console.log("ID in Session Id: ", req.session.userId);
+
+    console.log(req.params.id == req.session.userId);
+
+    if (req.params.id == req.session.userId) {
+        res.json({
+            redirectToProfile: true,
+        });
+    } else {
+        getUserById(req.params.id).then(({ rows }) => {
+            // console.log("rows after user has been fetched: ", rows);
+            res.json({
+                data: rows[0],
+            });
+        });
+    }
+});
+
 user.get("/user", function (req, res) {
     getUserById(req.session.userId).then(({ rows }) => {
         // console.log("rows after user has been fetched: ", rows);
@@ -82,7 +101,6 @@ user.get("/find-recently-added-users", function (req, res) {
         });
     });
 });
-
 
 /*************************** EXPORT ***************************/
 
