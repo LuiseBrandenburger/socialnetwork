@@ -1,5 +1,5 @@
 import { useParams, useHistory } from "react-router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import ProfilePic from "./profilePic";
 
 
