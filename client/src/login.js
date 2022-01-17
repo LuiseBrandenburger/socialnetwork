@@ -40,7 +40,8 @@ export default class Login extends Component {
             .then((data) => {
                 console.log("response data from /login.json", data);
                 if (data.success) {
-                    location.reload();
+                    location.replace("/");
+                    // location.reload();
                 } else {
                     this.setState({
                         error: true,

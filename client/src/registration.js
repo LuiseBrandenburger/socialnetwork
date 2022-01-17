@@ -41,7 +41,7 @@ export default class Registration extends Component {
                 console.log("response data from /register.json", data);
 
                 if (data.success) {
-                    location.reload();
+                    location.replace("/");
                 } else {
                     this.setState({
                         error: true,

@@ -2,9 +2,10 @@
 import { Component } from "react";
 import ProfilePic from "./profilePic";
 import TitlePic from "./titlePic";
-
 import Uploader from "./uploader";
 import Profile from "./profile";
+import OtherProfile from "./otherProfile";
+
 import FindUsers from "./findUsers";
 import { BrowserRouter, Route, Link } from "react-router-dom";
 
@@ -64,35 +65,11 @@ export default class App extends Component {
                             </div>
                         </nav>
 
-                        <div id="photo-icon">
-                            <svg
-                                viewBox="0 0 148 87"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <rect
-                                    y="9"
-                                    width="148"
-                                    height="78"
-                                    rx="3"
-                                    fill="#5e5e5e"
-                                />
-                                <circle
-                                    cx="73.5"
-                                    cy="47.5"
-                                    r="31.5"
-                                    fill="#e1e1e1d2"
-                                />
-                                <circle cx="74" cy="48" r="27" fill="#5e5e5e" />
-                                <rect
-                                    x="116"
-                                    width="14"
-                                    height="17"
-                                    rx="3"
-                                    fill="#5e5e5e"
-                                />
-                            </svg>
-                        </div>
+                        <img
+                            id="photo-icon"
+                            src="photo-icon.svg"
+                            alt="photo icon"
+                        ></img>
 
                         <div id="app-logo">
                             {/* <svg
@@ -160,6 +137,9 @@ export default class App extends Component {
                         </Route>
                         <Route path="/find-users">
                             <FindUsers />
+                        </Route>
+                        <Route path="/api/user/:id">
+                            <OtherProfile />
                         </Route>
                     </div>
                 </BrowserRouter>

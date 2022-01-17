@@ -50,7 +50,6 @@ app.use(register);
 app.use(passwordReset);
 app.use(user);
 
-
 // ************************* ANY ROUTS ABOVE ******************************
 
 app.get("*", function (req, res) {
