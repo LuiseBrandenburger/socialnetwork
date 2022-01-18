@@ -1,5 +1,5 @@
 -- DROP TABLE IF EXISTS users;
--- DROP TABLE IF EXISTS reset_code;
+
  
 -- CREATE TABLE users(
 --     id SERIAL PRIMARY KEY,
@@ -12,11 +12,21 @@
 --     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 --   );
 
+
+
+-- DROP TABLE IF EXISTS reset_code;
+
+
 -- CREATE TABLE reset_code (
 --     email VARCHAR(255) NOT NULL,
 --     code VARCHAR(255) NOT NULL,
 --     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 --   );
+
+
+
+-- DROP TABLE IF EXISTS cxfriendships;
+
 
 -- CREATE TABLE friendships( 
 -- id SERIAL PRIMARY KEY, 
@@ -26,6 +36,7 @@
 
   -- SELECT * FROM users;
   -- SELECT * FROM reset_code;
+
   SELECT * FROM friendships;
 
 
