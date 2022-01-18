@@ -1,7 +1,11 @@
 const express = require("express");
 const friendship = express.Router();
 
-const { registerUser } = require("../sql/db");
+const {
+    getFriendship,
+    postFriendship,
+    updateFriendship,
+} = require("../sql/db");
 const { hash } = require("../bc");
 // const helpers = require("./utils/helpers");
 
@@ -28,12 +32,47 @@ A simple way to accomplish this would be to create a table for friend requests t
 
     If there is a request and it has not been accepted, who is the sender and who is the receiver?
 
-
-
-
-
-
  */
+
+friendship.get("/friendship-status/:id", function (req, res) {
+    // console.log("ID in Params: ", req.params.id);
+    // console.log("ID in Session Id: ", req.session.userId);
+
+    getFriendship(req.params.id, req.session.userId)
+        .then(({ rows }) => {
+            // console.log("rows after user has been fetched: ", rows);
+            res.json({
+                data: rows[0],
+            });
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+});
+
+friendship.post("/api/friendship", function (req, res) {
+    const data = req.body;
+    // console.log("Request Object: ", data);
+    // console.log("ID in Session Id: ", req.session.userId);
+
+    if (data.btnText === "Add User") {
+        let accepted = false;
+        postFriendship(req.session.userId, data.viewedId, accepted)
+            .then(({ rows }) => {
+                // console.log("rows after user has been fetched: ", rows);
+                res.json({
+                    data: rows[0],
+                });
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    } else if (data.btnText === "Pending | Cancel Request") {
+        // cancel the friend request
+        console.log("the button has a diffrent status", data);
+
+    }
+});
 
 
 /*************************** EXPORT ***************************/
