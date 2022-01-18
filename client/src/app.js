@@ -71,8 +71,7 @@ export default class App extends Component {
                             alt="photo icon"
                         ></img>
 
-                        <div id="app-logo">
-                        </div>
+                        <div id="app-logo"></div>
                         <ProfilePic
                             first={this.state.first}
                             last={this.state.last}
@@ -104,7 +103,7 @@ export default class App extends Component {
                             <FindUsers />
                         </Route>
                         <Route path="/show-user/:id">
-                            <OtherProfile />
+                            <OtherProfile userId={this.state.id} />
                         </Route>
                     </div>
                 </BrowserRouter>

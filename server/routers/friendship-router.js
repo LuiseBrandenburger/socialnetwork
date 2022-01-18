@@ -51,7 +51,6 @@ friendship.post("/api/friendship", function (req, res) {
     if (data.btnText === "Add User") {
         
         // TODO: checken on false und true richtig in der db ankommen!
-
         postFriendship(req.session.userId, data.viewedId, false)
             .then(({ rows }) => {
                 res.json({

@@ -109,7 +109,7 @@ module.exports.getFriendship = (propsId, sessionId) => {
 module.exports.postFriendship = (sessionId, propsId, accepted) => {
     const q = `INSERT INTO friendships (sender_id, recipient_id, accepted)
     VALUES ($1, $2, $3)
-    RETURNING accepted`;
+    RETURNING accepted, propsId`;
 
     const params = [sessionId, propsId, accepted];
     return db.query(q, params);

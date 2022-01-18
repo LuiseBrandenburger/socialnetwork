@@ -1,7 +1,7 @@
 // import { useParams, useHistory } from "react-router";
 import { useEffect, useState } from "react";
 
-export default function FriendBtn({ viewedUserId }) {
+export default function FriendBtn({ viewedUserId, loggedInUserid }) {
     const [btnText, setBtnText] = useState("");
     const [viewedId, setViewedId] = useState(viewedUserId);
     // const [accepted, setAccepted] = useState(false);
@@ -13,11 +13,17 @@ export default function FriendBtn({ viewedUserId }) {
             .then((data) => data.json())
             .then((data) => {
                 console.log("data in friendship status fetch: ", data);
+                console.log(
+                    "Logged in user Id after fetch: ",
+                    loggedInUserid
+                );
 
                 if (data.data) {
                     // if there is data. there is a request
                     if (data.data.accepted) {
                         setBtnText("End Friendship");
+                    } else if (loggedInUserid === data.data.recipient_id) {
+                        setBtnText("Accept Request");
                     } else {
                         setBtnText("Pending | Cancel Request");
                     }
@@ -50,7 +56,7 @@ export default function FriendBtn({ viewedUserId }) {
             .then((data) => {
                 console.log("data after POST", data);
 
-                // INFO: (data.data && data.data.accepted)
+                // INFO: (data.data && data.data.accepted can also be written as data.data?.accepted)
                 if (!data.data?.accepted) {
                     setBtnText("Pending | Cancel Request");
                 }

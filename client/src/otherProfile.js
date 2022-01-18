@@ -2,7 +2,7 @@ import { useParams, useHistory } from "react-router";
 import { useEffect, useState } from "react";
 import FriendBtn from "./friendBtn";
 
-export default function OtherProfile() {
+export default function OtherProfile({userId}) {
     const { id } = useParams();
     const [user, setUser] = useState([]);
     const [error, setError] = useState(false);
@@ -47,7 +47,7 @@ export default function OtherProfile() {
                 <div className="bio-editor-container">
                     <h2>Bio</h2>
                     <p id="bio-editor">{user.bio}</p>
-                    <FriendBtn viewedUserId={id}/>
+                    <FriendBtn viewedUserId={id} loggedInUserid={userId} />
                 </div>
             </div>
         </div>
