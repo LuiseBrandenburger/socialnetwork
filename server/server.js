@@ -11,6 +11,8 @@ const auth = require("./routers/auth-router");
 const register = require("./routers/register");
 const passwordReset = require("./routers/password-reset");
 const user = require("./routers/user-router");
+const friendship = require("./routers/friendship-router");
+
 
 
 /*************************** SECRET ***************************/
@@ -49,6 +51,7 @@ app.use(auth);
 app.use(register);
 app.use(passwordReset);
 app.use(user);
+app.use(friendship);
 
 // ************************* ANY ROUTS ABOVE ******************************
 

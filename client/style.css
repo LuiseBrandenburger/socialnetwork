@@ -5,6 +5,7 @@
 
 :root {
     --bg-color: rgb(65, 65, 65);
+    --main-bg-color: ghostwhite;
     --main-color: rgba(31, 29, 28, 0.967);
     /* --gradient: linear-gradient(#ffd166c7, transparent),
         linear-gradient(to top left, #66ffabc9, transparent),
@@ -19,7 +20,7 @@ html {
 body {
     width: 100%;
     min-height: 100%;
-    background-color: ghostwhite;
+    background-color: var(--main-bg-color);
     overflow: scroll;
     /* overflow: hidden; */
 }
@@ -76,6 +77,7 @@ button {
 
 .navbar {
     display: flex;
+    width: 96%;
     align-items: flex-end;
     justify-content: space-between;
     background-color: transparent;
@@ -108,7 +110,8 @@ button {
     bottom: 0;
     border-radius: 50%;
     margin: 0;
-    border: 5px solid ghostwhite;
+    border: 5px solid var(--main-bg-color);
+;
     cursor: pointer;
 }
 
@@ -127,7 +130,7 @@ button {
 }
 
 #logout{
-    margin: 0px 38px 0px 0px;
+    margin: 0px;
 }
 
 .navbar span:hover {
@@ -175,7 +178,7 @@ hr {
 
 .content-container {
     margin: 25px;
-    height: 80vh;
+    height: auto;
 }
 
 /*********************** PROFILE CONTAINER ************************/
@@ -221,6 +224,10 @@ textarea {
     align-self: flex-start;
 }
 
+#friend-btn {
+    background-color: hotpink;
+}
+
 /*********************** USERS CONTAINER ************************/
 
 .search-container {
@@ -237,7 +244,7 @@ textarea {
     justify-content: space-around;
     align-items: flex-start;
     /* border: 2px solid red; */
-    height: 100%;
+    height: auto;
     margin-bottom: 20px;
 }
 .user-box {

@@ -72,41 +72,6 @@ export default class App extends Component {
                         ></img>
 
                         <div id="app-logo">
-                            {/* <svg
-                                viewBox="0 0 263 102"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <circle
-                                    cx="130.627"
-                                    cy="50.6267"
-                                    r="50.5"
-                                    transform="rotate(179.856 130.627 50.6267)"
-                                    fill="#6B6B6B"
-                                />
-                                <ellipse
-                                    cx="131.041"
-                                    cy="50.5427"
-                                    rx="17"
-                                    ry="16.5"
-                                    transform="rotate(179.856 131.041 50.5427)"
-                                    fill="black"
-                                />
-                                <ellipse
-                                    cx="139.523"
-                                    cy="60.0213"
-                                    rx="8.5"
-                                    ry="9"
-                                    transform="rotate(179.856 139.523 60.0213)"
-                                    fill="white"
-                                />
-                                <circle
-                                    cx="88.5"
-                                    cy="25.5"
-                                    r="8.5"
-                                    fill="#CFCFCF"
-                                />
-                            </svg> */}
                         </div>
                         <ProfilePic
                             first={this.state.first}
@@ -143,10 +108,10 @@ export default class App extends Component {
                         </Route>
                     </div>
                 </BrowserRouter>
-                <footer>&#169;Luise Brandenburger 2021</footer>
                 {this.state.uploaderIsVisible && (
                     <Uploader toggleUploader={this.toggleUploader} />
                 )}
+                {/* <footer>&#169;Luise Brandenburger 2021</footer> */}
             </div>
         );
     }

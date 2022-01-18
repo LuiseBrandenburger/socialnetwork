@@ -1,5 +1,6 @@
 import { useParams, useHistory } from "react-router";
 import { useEffect, useState } from "react";
+import FriendBtn from "./friendBtn";
 
 export default function OtherProfile() {
     const { id } = useParams();
@@ -46,6 +47,7 @@ export default function OtherProfile() {
                 <div className="bio-editor-container">
                     <h2>Bio</h2>
                     <p id="bio-editor">{user.bio}</p>
+                    <FriendBtn viewedUserId={id}/>
                 </div>
             </div>
         </div>
