@@ -23,8 +23,8 @@ export default class App extends Component {
     }
     componentDidMount() {
       
-        console.log("userId aus cookie route:", this.props.userId);
-        
+        // console.log("userId aus cookie route:", this.props.userId);
+
         fetch("/user")
             .then((data) => data.json())
             .then((data) => {

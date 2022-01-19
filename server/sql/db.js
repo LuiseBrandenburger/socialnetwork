@@ -9,11 +9,6 @@ const db = spicedPg(
         `postgres:${username}:${password}@localhost:5432/${database}`
 );
 
-// module.exports.getUser = () => {
-//     const q = `SELECT id, first, last, email, url, bio FROM users`;
-//     return db.query(q);
-// };
-
 module.exports.registerUser = (first, last, email, password) => {
     const q = `INSERT INTO users (first, last, email, password)
     VALUES ($1, $2, $3, $4)
@@ -133,5 +128,4 @@ module.exports.acceptFriendship = (sessionId, propsId) => {
 };
 
 
-// SELECT * FROM friendships WHERE (recipient_id = $1 AND sender_id = $2) OR (recipient_id = $2 AND sender_id = $1);
 // concat(first, " ", last) AS name

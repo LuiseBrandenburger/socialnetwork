@@ -23,7 +23,7 @@ export default function OtherProfile({userId}) {
                     setRedirectToProfile(false);
                 } else {
                     setUser(data.data);
-                    console.log("user in other Profile",user);
+                    // console.log("user in other Profile",user);
                 }
             })
             .catch((err) => {
