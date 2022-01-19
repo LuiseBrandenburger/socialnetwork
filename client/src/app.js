@@ -15,18 +15,21 @@ export default class App extends Component {
         this.state = {
             uploaderIsVisible: false,
             editBio: false,
+            photoIcon: "/photo-icon.svg",
+            appLogo: "/app-logo.svg"
         };
         this.toggleUploader = this.toggleUploader.bind(this);
         this.updateBio = this.updateBio.bind(this);
     }
     componentDidMount() {
-        console.log("App component mounted");
-
+      
+        console.log("userId aus cookie route:", this.props.userId);
+        
         fetch("/user")
             .then((data) => data.json())
             .then((data) => {
                 this.setState({
-                    id: data.data.id,
+                    // id: data.data.id,
                     first: data.data.first,
                     last: data.data.last,
                     url: data.data.url,
@@ -59,7 +62,7 @@ export default class App extends Component {
                                 </Link>
                             </div>
                             <div id="logout">
-                                <a href="logout">
+                                <a href="/logout">
                                     <span>Logout</span>
                                 </a>
                             </div>
@@ -67,7 +70,7 @@ export default class App extends Component {
 
                         <img
                             id="photo-icon"
-                            src="photo-icon.svg"
+                            src={this.state.photoIcon}
                             alt="photo icon"
                         ></img>
 
@@ -103,7 +106,7 @@ export default class App extends Component {
                             <FindUsers />
                         </Route>
                         <Route path="/show-user/:id">
-                            <OtherProfile userId={this.state.id} />
+                            <OtherProfile userId={this.props.userId} />
                         </Route>
                     </div>
                 </BrowserRouter>

@@ -11,9 +11,6 @@ export default function OtherProfile({userId}) {
     const history = useHistory();
 
     useEffect(() => {
-        console.log("Component Mounted and id in Params: ", id);
-        console.log("id in Params: ", history);
-
     }, []);
 
     useEffect(() => {
@@ -26,6 +23,7 @@ export default function OtherProfile({userId}) {
                     setRedirectToProfile(false);
                 } else {
                     setUser(data.data);
+                    console.log("user in other Profile",user);
                 }
             })
             .catch((err) => {
@@ -41,7 +39,7 @@ export default function OtherProfile({userId}) {
             <div className="bio-container">
                 <img
                     className="profile-avatar"
-                    src={user.url}
+                    src={user.url || "/default.png"}
                     alt="Profile Picture of another User"
                 ></img>
                 <div className="bio-editor-container">

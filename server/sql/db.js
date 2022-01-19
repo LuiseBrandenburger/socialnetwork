@@ -106,25 +106,29 @@ module.exports.getFriendship = (propsId, sessionId) => {
     return db.query(q, params);
 };
 
-module.exports.postFriendship = (sessionId, propsId, accepted) => {
-    const q = `INSERT INTO friendships (sender_id, recipient_id, accepted)
-    VALUES ($1, $2, $3)
-    RETURNING accepted, propsId`;
+module.exports.postFriendship = (sessionId, propsId) => {
+    const q = `INSERT INTO friendships (sender_id, recipient_id)
+    VALUES ($1, $2)
+    RETURNING accepted, recipient_id`;
 
-    const params = [sessionId, propsId, accepted];
-    return db.query(q, params);
-};
-
-module.exports.deletePendingFriendship = (sessionId, propsId) => {
-    const q = `DELETE FROM friendships WHERE sender_id = ($1) AND recipient_id = ($2)`;
     const params = [sessionId, propsId];
     return db.query(q, params);
 };
 
-module.exports.updateFriendship = (sessionId, propsId, accepted) => {
-    const q = `UPDATE friendships SET accepted = ($3) WHERE (recipient_id = $2 AND sender_id = $1) OR (recipient_id = $1 AND sender_id = $2)`;
+module.exports.deleteFriendship = (sessionId, propsId) => {
+    const q = `DELETE FROM friendships WHERE sender_id = ($1) AND recipient_id = ($2)
+    OR (recipient_id = $1 AND sender_id = $2)`;
+    const params = [sessionId, propsId];
+    return db.query(q, params);
+};
 
-    const params = [sessionId, propsId, accepted];
+module.exports.acceptFriendship = (sessionId, propsId) => {
+    const q = `UPDATE friendships SET accepted = true 
+    WHERE (recipient_id = $2 AND sender_id = $1) 
+    OR (recipient_id = $1 AND sender_id = $2)
+    RETURNING accepted, recipient_id`;
+
+    const params = [sessionId, propsId];
     return db.query(q, params);
 };
 

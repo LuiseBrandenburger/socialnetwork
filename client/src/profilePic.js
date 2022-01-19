@@ -1,6 +1,6 @@
 export default function ProfilePic({ first, last, url, toggleUploader, cssClass }) {
 
-    url = url || "default.png";
+    url = url || "/default.png";
 
     return (
         <>

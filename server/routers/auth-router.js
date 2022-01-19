@@ -21,12 +21,7 @@ auth.post("/login.json", (req, res) => {
     const data = req.body;
     const pw = data.password;
 
-    // if (req.session.userId) {
-    //     console.log("user already has a session Id");
-    // } else {
-    //     console.log("user doesnt have a session id");
-    // }
-
+    
     getUserForLogin(data.email)
         .then(({ rows }) => {
             compare(pw, rows[0].password)
@@ -56,6 +51,7 @@ auth.get("/logout", (req, res) => {
     req.session = null;
     res.redirect("/");
 });
+
 
 /*************************** EXPORT ***************************/
 

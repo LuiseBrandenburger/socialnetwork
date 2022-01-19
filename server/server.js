@@ -55,6 +55,7 @@ app.use(friendship);
 
 // ************************* ANY ROUTS ABOVE ******************************
 
+
 app.get("*", function (req, res) {
     res.sendFile(path.join(__dirname, "..", "client", "index.html"));
 });

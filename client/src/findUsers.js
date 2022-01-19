@@ -9,9 +9,8 @@ export default function FindUsers() {
     const [showRecentlyAddedUsers, setShowRecentlyAddedUsers] = useState(true);
 
     useEffect(() => {
-        console.log("I use Effect when mounted");
+        
         // setError(false);
-
         fetch("/find-recently-added-users")
             .then((data) => data.json())
             .then((data) => {
