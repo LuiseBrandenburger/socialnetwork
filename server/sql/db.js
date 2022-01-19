@@ -95,8 +95,9 @@ module.exports.getResentlyAddedUsers = () => {
     return db.query(q);
 };
 
+// TODO: check the query
 module.exports.getFriendship = (propsId, sessionId) => {
-    const q = `SELECT * FROM friendships WHERE (recipient_id = $1 AND sender_id = $2) OR (recipient_id = $2 AND sender_id = $1)`;
+    const q = `SELECT recipient_id, sender_id, accepted FROM friendships WHERE (recipient_id = $1 AND sender_id = $2) OR (recipient_id = $2 AND sender_id = $1)`;
     const params = [propsId, sessionId];
     return db.query(q, params);
 };
