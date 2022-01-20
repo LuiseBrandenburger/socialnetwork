@@ -63,15 +63,15 @@ export default function FriendsAndWannabees({ userId }) {
         return null;
     }
 
-    const handleAcceptClick = (idClickedUser) => {
-        console.log("handleAcceptClick has been clicked! id:", idClickedUser);
+    const handleAcceptClick = (viewedId) => {
+        console.log("handleAcceptClick has been clicked! id:", viewedId);
 
         fetch(`/api/friendship`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ btnText: "Accept Request", idClickedUser }),
+            body: JSON.stringify({ btnText: "Accept Request", viewedId }),
         })
             .then((data) => {
                 return data.json();
@@ -79,7 +79,7 @@ export default function FriendsAndWannabees({ userId }) {
             .then((data) => {
                 console.log("data in accept Click: ", data);
                 if (data.friendshipAccepted) {
-                    const action = acceptFriendship(idClickedUser);
+                    const action = acceptFriendship(viewedId);
                     dispatch(action);
                 }
             })
@@ -88,15 +88,15 @@ export default function FriendsAndWannabees({ userId }) {
             });
     };
 
-    const handleEndFriendshipClick = (idClickedUser) => {
-        console.log("handleAcceptClick has been clicked! id:", idClickedUser);
+    const handleEndFriendshipClick = (viewedId) => {
+        console.log("handleAcceptClick has been clicked! id:", viewedId);
 
         fetch(`/api/friendship`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ btnText: "End Friendship", idClickedUser }),
+            body: JSON.stringify({ btnText: "End Friendship", viewedId }),
         })
             .then((data) => {
                 return data.json();
@@ -104,7 +104,7 @@ export default function FriendsAndWannabees({ userId }) {
             .then((data) => {
                 if (data.friendshipDeleted) {
                     console.log("endFriendship Data in POST Request", data);
-                    const action = endFriendship(idClickedUser);
+                    const action = endFriendship(viewedId);
                     dispatch(action);
                 }
             })
