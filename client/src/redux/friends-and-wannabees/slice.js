@@ -36,7 +36,7 @@ export function receiveFriendsAndWannabees(friendsAndWannabees) {
     };
 }
 
-/**
+/*
 Actions are plain Javascript objects that represent any occurrence that should result in a change in your application's state. These objects need to have a type property that describes the occurrence they represent (while this can be any string, a common convention is to use the format "domain/thingThatHappened"). Actions will often have an additional payload property containing information relevant to the occurrence.
  */
 

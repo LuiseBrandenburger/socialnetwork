@@ -128,15 +128,6 @@ module.exports.acceptFriendship = (sessionId, propsId) => {
     return db.query(q, params);
 };
 
-// module.exports.getAllFriendshipsById = (sessionId) => {
-//     const q = `
-//     SELECT recipient_id, sender_id, accepted FROM friendships WHERE (recipient_id = $1) OR (sender_id = $1)
-//     `;
-
-//     const params = [sessionId];
-//     return db.query(q, params);
-// };
-
 module.exports.getAllFriendshipsById = (sessionId) => {
     const q = `
     SELECT users.id, first, last, url, email, accepted, sender_id AS senderId
@@ -150,15 +141,3 @@ module.exports.getAllFriendshipsById = (sessionId) => {
     const params = [sessionId];
     return db.query(q, params);
 };
-
-
-
-
-/*
-SELECT users.id, first, last, image, accepted
-  FROM friendships
-  JOIN users ON (accepted = FALSE AND recipient_id = $1 AND requester_id = users.id) OR
-                (accepted = TRUE AND recipient_id = $1 AND requester_id = users.id) OR
-                (accepted = TRUE AND requester_id = $1 AND recipient_id = users.id)
-
-*/

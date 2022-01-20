@@ -88,7 +88,7 @@ export default function FriendsAndWannabees({ userId }) {
             });
     };
 
-    const handleEndFriendshipClick = (viewedId) => {
+    const handleEndFriendshipClick = (viewedId, btnText) => {
         console.log("handleAcceptClick has been clicked! id:", viewedId);
 
         fetch(`/api/friendship`, {
@@ -96,7 +96,7 @@ export default function FriendsAndWannabees({ userId }) {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ btnText: "End Friendship", viewedId }),
+            body: JSON.stringify({ btnText: btnText, viewedId }),
         })
             .then((data) => {
                 return data.json();
@@ -158,7 +158,10 @@ export default function FriendsAndWannabees({ userId }) {
                             </Link>
                             <button
                                 onClick={() =>
-                                    handleEndFriendshipClick(currentFriend.id)
+                                    handleEndFriendshipClick(
+                                        currentFriend.id,
+                                        "End Friendship"
+                                    )
                                 }
                             >
                                 End Friendship
@@ -171,12 +174,9 @@ export default function FriendsAndWannabees({ userId }) {
             <div className="user-display-container">
                 {sendOutFriendRequests &&
                     sendOutFriendRequests.map((sendOutFriendRequest) => (
-                        <Link
-                            to={`/show-user/${sendOutFriendRequest.id}`}
-                            key={sendOutFriendRequest.id}
-                        >
-                            <div
-                                className="user-box"
+                        <div className="user-box" key={sendOutFriendRequest.id}>
+                            <Link
+                                to={`/show-user/${sendOutFriendRequest.id}`}
                                 key={sendOutFriendRequest.id}
                             >
                                 <h2 id="user-name">
@@ -189,9 +189,18 @@ export default function FriendsAndWannabees({ userId }) {
                                     }
                                     alt={`social network profile picture of ${sendOutFriendRequest.first} ${sendOutFriendRequest.last}`}
                                 />
-                                {/* <button>Pending | Cancel Request</button> */}
-                            </div>
-                        </Link>
+                            </Link>
+                            <button
+                                onClick={() =>
+                                    handleEndFriendshipClick(
+                                        sendOutFriendRequest.id,
+                                        "Pending | Cancel Request"
+                                    )
+                                }
+                            >
+                                Pending | Cancel Request
+                            </button>
+                        </div>
                     ))}
             </div>
         </div>
