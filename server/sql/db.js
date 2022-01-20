@@ -139,7 +139,7 @@ module.exports.acceptFriendship = (sessionId, propsId) => {
 
 module.exports.getAllFriendshipsById = (sessionId) => {
     const q = `
-    SELECT users.id, first, last, url, accepted
+    SELECT users.id, first, last, url, email, accepted, sender_id AS senderId
     FROM friendships
     JOIN users ON (accepted = FALSE AND recipient_id = $1 AND sender_id = users.id) OR
                 (accepted = FALSE AND sender_id = $1 AND recipient_id = users.id) OR

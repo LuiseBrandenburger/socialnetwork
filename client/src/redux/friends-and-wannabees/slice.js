@@ -1,5 +1,6 @@
 export function friendsAndWannabeesReducer(friendsAndWannabees = null, action){
     if (action.type == "friends-and-wannabees/receivedFriendsAndWannabees") {
+        // console.log("action in slice", action);
         friendsAndWannabees = action.payload.friendsAndWannabees;
     } else if (action.type === "friends-and-wannabees/accept") {
         // const newFriendsAndWannabees = friendsAndWannabees.map((friendsAndWannabee) => {
@@ -64,6 +65,7 @@ export function friendsAndWannabeesReducer(friendsAndWannabees = null, action){
 
 
 export function receiveFriendsAndWannabees(friendsAndWannabees) {
+    // console.log("friends and wannabees in reducer: ", friendsAndWannabees);
     return {
         type: "friends-and-wannabees/receivedFriendsAndWannabees",
         payload: { friendsAndWannabees },

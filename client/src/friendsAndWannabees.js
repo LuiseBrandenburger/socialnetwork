@@ -3,49 +3,54 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { makeFriend } from "./redux/friends-and-wannabees/slice.js";
+import {
+    makeFriend,
+    receiveFriendsAndWannabees,
+} from "./redux/friends-and-wannabees/slice.js";
 
 export default function FriendsAndWannabees({ userId }) {
-
-
     const dispatch = useDispatch();
 
-    // const friendsAndWannabees = useSelector(
-    //     (state) =>
-    //         state.friendsAndWannabees &&
-    // state.friendsAndWannabees.filter((friendsAndWannabees) => //TODO: alle (nicht nur die mit einem bestimmten status) friendsAndWannabees.accepted == true)
-    // );
+    const friendsAndWannabees = useSelector(
+        (state) => state.friendsAndWannabees
+    );
 
-    // const currentFriends = useSelector(
-    //     (state) =>
-    //         state.friendsAndWannabees &&
-    // state.friendsAndWannabees.filter((friendsAndWannabees) => friendsAndWannabees.accepted == true)
-    // );
+    const currentFriends = useSelector(
+        (state) =>
+            state.friendsAndWannabees &&
+            state.friendsAndWannabees.filter(
+                (friendsAndWannabees) => friendsAndWannabees.accepted == true
+            )
+    );
 
-    // const friendWannabees = useSelector(
-    //     (state) =>
-    //         state.friendsAndWannabees &&
-    // state.friendsAndWannabees.filter((friendsAndWannabees) => friendsAndWannabees.accepted == false)
-    // );
+    const friendWannabees = useSelector(
+        (state) =>
+            state.friendsAndWannabees &&
+            state.friendsAndWannabees.filter(
+                (friendsAndWannabees) =>
+                    friendsAndWannabees.accepted == false &&
+                    friendsAndWannabees.id === friendsAndWannabees.senderid
+            )
+    );
 
-    // const characters = {...hotCharacters, notCharacters};
+    const sendOutFriendRequests = useSelector(
+        (state) =>
+            state.friendsAndWannabees &&
+            state.friendsAndWannabees.filter(
+                (friendsAndWannabees) =>
+                    friendsAndWannabees.accepted == false &&
+                    friendsAndWannabees.senderid === userId
+            )
+    );
 
     useEffect(() => {
-        // console.log("Characters:", characters);
-        // if (!characters) {
-        //     (async () => {
-        //         const { data } = await axios.get("/characters");
-        //         dispatch(receiveCharacters(data.characters));
-        //     })();
-        // }
-
         console.log("my ID:", userId);
 
         fetch(`/friends-and-wannabees`)
             .then((data) => data.json())
-            .then((data) => {
-                console.log("data in GET Route friends-and-wannabees: ", data.data);
-                //         dispatch(receiveFriendsAndWannabees(data));
+            .then(({ data }) => {
+                console.log("data in GET Route friends-and-wannabees: ", data);
+                dispatch(receiveFriendsAndWannabees(data));
             })
             .catch((err) => {
                 location.replace("/");
@@ -53,9 +58,9 @@ export default function FriendsAndWannabees({ userId }) {
             });
     }, []);
 
-    // if (!characters) {
-    //     return null;
-    // }
+    if (!friendsAndWannabees) {
+        return null;
+    }
 
     const handleAcceptClick = (idClickedUser) => {
         console.log("handleAcceptClick has been clicked! id:", idClickedUser);
@@ -73,134 +78,114 @@ export default function FriendsAndWannabees({ userId }) {
         //     });
     };
 
-    // const handleNotClick = (id) => {
-    //     // console.log("hot has been clicked! id:", id);
+    const handleEndFriendshipClick = (idClickedUser) => {
+        console.log(
+            "handleEndFriendshipClick has been clicked! id:",
+            idClickedUser
+        );
 
-    //     fetch(`/not/${id}`, {
-    //         method: "POST",
-    //     })
-    //         .then((res) => res.json())
-    //         .then((data) => {
-    //             console.log("data in not", data);
-    //             if (data.success) {
-    //                 const action = madeCharacterNot(id);
-    //                 dispatch(action);
-    //             }
-    //         });
-    // };
+        //     // console.log("hot has been clicked! id:", id);
+
+        //     fetch(`/not/${id}`, {
+        //         method: "POST",
+        //     })
+        //         .then((res) => res.json())
+        //         .then((data) => {
+        //             console.log("data in not", data);
+        //             if (data.success) {
+        //                 const action = madeCharacterNot(id);
+        //                 dispatch(action);
+        //             }
+        //         });
+    };
 
     return (
-        // FIXME: Id weitergeben für den fall ich benötige es in einem anderen Component? oder über Store??
-
         <div id="friends-and-wannabees-container">
-            <h1>Hello from Friends and Wannabees</h1>
-
             <h2>Friend Wannabees</h2>
-
             <div className="user-display-container">
-                {/* <Link to={`/show-user/`} key={}> */}
-                <div className="user-box">
-                    <h2 id="user-name">Name of User 1</h2>
-                    <img
-                        src="/default.png"
-                        alt={`social network profile picture`}
-                    />
-                    <button onClick={() => handleAcceptClick(userId)}>
-                        Accept Friendship
-                    </button>
-                </div>
-                {/* </Link> */}
-                <div className="user-box">
-                    <h2 id="user-name">Name of User 2</h2>
-                    <img
-                        src="/default.png"
-                        alt={`social network profile picture`}
-                    />
-                    <button>Accept Friendship</button>
-                </div>
-                <div className="user-box">
-                    <h2 id="user-name">Name of User 3</h2>
-                    <img
-                        src="/default.png"
-                        alt={`social network profile picture`}
-                    />
-                    <button>Accept Friendship</button>
-                </div>
-                <div className="user-box">
-                    <h2 id="user-name">Name of User 4</h2>
-                    <img
-                        src="/default.png"
-                        alt={`social network profile picture`}
-                    />
-                    <button>Accept Friendship</button>
-                </div>
-
-                {/* {users &&
-                    users.map((user) => (
-                        <Link to={`/show-user/${user.id}`} key={user.id}>
-                            <div className="user-box" key={user.id}>
-                                <h2 id="user-name" key={user.id}>
-                                    {user.first}
+                {friendWannabees &&
+                    friendWannabees.map((friendWannabee) => (
+                        <div className="user-box" key={friendWannabee.id}>
+                            <Link
+                                to={`/show-user/${friendWannabee.id}`}
+                                key={friendWannabee.id}
+                            >
+                                <h2 id="user-name" key={friendWannabee.id}>
+                                    {friendWannabee.first}
                                 </h2>
                                 <img
-                                    src={user.url || "default.png"}
-                                    alt={`social network profile picture of ${user.first} ${user.last}`}
+                                    src={friendWannabee.url || "default.png"}
+                                    alt={`social network profile picture of ${friendWannabee.first} ${friendWannabee.last}`}
                                 />
-                            </div>
-                        </Link>
-                    ))} */}
+                            </Link>
+                            <button
+                                onClick={() =>
+                                    handleAcceptClick(friendWannabee.id)
+                                }
+                            >
+                                Accept Request
+                            </button>
+                        </div>
+                    ))}
             </div>
 
             <h2>Current Friends</h2>
-
             <div className="user-display-container">
-                <div className="user-box">
-                    <h2 id="user-name">Name of User 1</h2>
-                    <img
-                        src="/default.png"
-                        alt={`social network profile picture`}
-                    />
-                    <button>Delete Friendship</button>
-                </div>
-                <div className="user-box">
-                    <h2 id="user-name">Name of User 2</h2>
-                    <img
-                        src="/default.png"
-                        alt={`social network profile picture`}
-                    />
-                    <button>Delete Friendship</button>
-                </div>
-                <div className="user-box">
-                    <h2 id="user-name">Name of User 3</h2>
-                    <img
-                        src="/default.png"
-                        alt={`social network profile picture`}
-                    />
-                    <button>Delete Friendship</button>
-                </div>
-                <div className="user-box">
-                    <h2 id="user-name">Name of User 4</h2>
-                    <img
-                        src="/default.png"
-                        alt={`social network profile picture`}
-                    />
-                    <button>Delete Friendship</button>
-                </div>
-
-                {/* {users &&
-                    users.map((user) => (
-                        <Link to={`/show-user/${user.id}`} key={user.id}>
-                            <div className="user-box" key={user.id}>
-                                <h2 id="user-name" key={user.id}>
-                                    {user.first}
+                {currentFriends &&
+                    currentFriends.map((currentFriend) => (
+                        <div className="user-box" key={currentFriend.id}>
+                            <Link
+                                to={`/show-user/${currentFriend.id}`}
+                                key={currentFriend.id}
+                            >
+                                <h2 id="user-name" key={currentFriend.id}>
+                                    {currentFriend.first}
                                 </h2>
                                 <img
-                                    src={user.url || "default.png"}
-                                    alt={`social network profile picture of ${user.first} ${user.last}`}
+                                    src={currentFriend.url || "default.png"}
+                                    alt={`social network profile picture of ${currentFriend.first} ${currentFriend.last}`}
                                 />
+                            </Link>
+                            <button
+                                onClick={() =>
+                                    handleEndFriendshipClick(currentFriend.id)
+                                }
+                            >
+                                End Friendship
+                            </button>
+                        </div>
+                    ))}
+            </div>
+
+            <h2>Sendout Friendrequests</h2>
+            <div className="user-display-container">
+                {sendOutFriendRequests &&
+                    sendOutFriendRequests.map((sendOutFriendRequest) => (
+                        <Link
+                            to={`/show-user/${sendOutFriendRequest.id}`}
+                            key={sendOutFriendRequest.id}
+                        >
+                            <div
+                                className="user-box"
+                                key={sendOutFriendRequest.id}
+                            >
+                                <h2
+                                    id="user-name"
+                                    key={sendOutFriendRequest.id}
+                                >
+                                    {sendOutFriendRequest.first}
+                                </h2>
+                                <img
+                                    src={
+                                        sendOutFriendRequest.url ||
+                                        "default.png"
+                                    }
+                                    alt={`social network profile picture of ${sendOutFriendRequest.first} ${sendOutFriendRequest.last}`}
+                                />
+                                <button>Pending | Cancel Request</button>
                             </div>
                         </Link>
-                    ))} */}
+                    ))}
             </div>
         </div>
     );
