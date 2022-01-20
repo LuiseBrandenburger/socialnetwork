@@ -69,7 +69,7 @@ friendship.get("/friends-and-wannabees", function (req, res) {
 
     getAllFriendshipsById(req.session.userId)
         .then(({ rows }) => {
-            console.log("getAllFriendshipsById ROWS in GET ROUTE: ", rows);
+            // console.log("getAllFriendshipsById ROWS in GET ROUTE: ", rows);
             res.json({
                 data: rows,
             });

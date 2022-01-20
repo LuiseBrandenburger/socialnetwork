@@ -1,32 +1,27 @@
-export function friendsAndWannabeesReducer(friendsAndWannabees = null, action){
+export function friendsAndWannabeesReducer(friendsAndWannabees = null, action) {
     if (action.type == "friends-and-wannabees/receivedFriendsAndWannabees") {
         // console.log("action in slice", action);
         friendsAndWannabees = action.payload.friendsAndWannabees;
     } else if (action.type === "friends-and-wannabees/accept") {
-        const newFriendsAndWannabees = friendsAndWannabees.map((friendsAndWannabee) => {
-            if (friendsAndWannabee.id === action.payload.id) {
-                return {
-                    ...friendsAndWannabees,
-                    accepted: true,
-                };
+        const newFriendsAndWannabees = friendsAndWannabees.map(
+            (friendsAndWannabee) => {
+                if (friendsAndWannabee.id === action.payload.id) {
+                    return {
+                        ...friendsAndWannabee,
+                        accepted: true,
+                    };
+                }
+                return friendsAndWannabee;
             }
-            return friendsAndWannabees;
-        });
+        );
+        console.log("newFriendsAndWannabees:", newFriendsAndWannabees);
         return newFriendsAndWannabees;
     } else if (action.type === "friends-and-wannabees/end") {
-        // wenn der action type aufgerufen wird, mache das mit den Daten:
-        const newFriendsAndWannabees = friendsAndWannabees.map((friendsAndWannabee) => {
-            if (friendsAndWannabee.id === action.payload.id) {
-                return {
-                    ...friendsAndWannabees,
-                    accepted: false,
-                };
-            }
-            return friendsAndWannabees;
-        });
-        return newFriendsAndWannabees;
+        friendsAndWannabees = friendsAndWannabees.filter(
+            (friendsAndWannabee) => friendsAndWannabee.id !== action.payload.id
+        );
     }
-
+    // console.log("new friendsAndWannabees:", friendsAndWannabees);
     return friendsAndWannabees;
 }
 
@@ -46,6 +41,8 @@ Actions are plain Javascript objects that represent any occurrence that should r
  */
 
 export function acceptFriendship(id) {
+    console.log("acceptFriendship in reducer: ", id);
+
     return {
         type: "friends-and-wannabees/accept",
         payload: { id },
@@ -53,6 +50,8 @@ export function acceptFriendship(id) {
 }
 
 export function endFriendship(id) {
+    console.log("endFriendship in reducer: ", id);
+
     return {
         type: "friends-and-wannabees/end",
         payload: { id },

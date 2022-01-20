@@ -77,9 +77,11 @@ export default function FriendsAndWannabees({ userId }) {
                 return data.json();
             })
             .then((data) => {
-                console.log(data);
-                const action = acceptFriendship(idClickedUser);
-                dispatch(action);
+                console.log("data in accept Click: ", data);
+                if (data.friendshipAccepted) {
+                    const action = acceptFriendship(idClickedUser);
+                    dispatch(action);
+                }
             })
             .catch((err) => {
                 console.log("error in fetch post friendship", err);
@@ -100,9 +102,11 @@ export default function FriendsAndWannabees({ userId }) {
                 return data.json();
             })
             .then((data) => {
-                console.log(data);
-                const action = endFriendship(idClickedUser);
-                dispatch(action);
+                if (data.friendshipDeleted) {
+                    console.log("endFriendship Data in POST Request", data);
+                    const action = endFriendship(idClickedUser);
+                    dispatch(action);
+                }
             })
             .catch((err) => {
                 console.log("error in fetch post friendship", err);
@@ -120,11 +124,8 @@ export default function FriendsAndWannabees({ userId }) {
                                 to={`/show-user/${friendWannabee.id}`}
                                 key={friendWannabee.id}
                             >
-                                <h2 id="user-name">
-                                    {friendWannabee.first}
-                                </h2>
+                                <h2 id="user-name">{friendWannabee.first}</h2>
                                 <img
-
                                     src={friendWannabee.url || "default.png"}
                                     alt={`social network profile picture of ${friendWannabee.first} ${friendWannabee.last}`}
                                 />
@@ -149,9 +150,7 @@ export default function FriendsAndWannabees({ userId }) {
                                 to={`/show-user/${currentFriend.id}`}
                                 key={currentFriend.id}
                             >
-                                <h2 id="user-name">
-                                    {currentFriend.first}
-                                </h2>
+                                <h2 id="user-name">{currentFriend.first}</h2>
                                 <img
                                     src={currentFriend.url || "default.png"}
                                     alt={`social network profile picture of ${currentFriend.first} ${currentFriend.last}`}
@@ -180,9 +179,7 @@ export default function FriendsAndWannabees({ userId }) {
                                 className="user-box"
                                 key={sendOutFriendRequest.id}
                             >
-                                <h2
-                                    id="user-name"
-                                >
+                                <h2 id="user-name">
                                     {sendOutFriendRequest.first}
                                 </h2>
                                 <img
@@ -192,7 +189,7 @@ export default function FriendsAndWannabees({ userId }) {
                                     }
                                     alt={`social network profile picture of ${sendOutFriendRequest.first} ${sendOutFriendRequest.last}`}
                                 />
-                                <button>Pending | Cancel Request</button>
+                                {/* <button>Pending | Cancel Request</button> */}
                             </div>
                         </Link>
                     ))}
