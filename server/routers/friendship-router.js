@@ -6,6 +6,7 @@ const {
     postFriendship,
     acceptFriendship,
     deleteFriendship,
+    getAllFriendshipsById,
 } = require("../sql/db");
 
 /*************************** ROUTES ***************************/
@@ -63,6 +64,22 @@ friendship.post("/api/friendship", function (req, res) {
             });
     }
 });
+
+friendship.get("/friends-and-wannabees", function (req, res) {
+
+    getAllFriendshipsById(req.session.userId)
+        .then(({ rows }) => {
+            console.log("getAllFriendshipsById ROWS in GET ROUTE: ", rows);
+            res.json({
+                data: rows,
+            });
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+
+});
+
 
 /*************************** EXPORT ***************************/
 

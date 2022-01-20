@@ -14,7 +14,7 @@ export default function FindUsers() {
         fetch("/find-recently-added-users")
             .then((data) => data.json())
             .then((data) => {
-                console.log("data find users", data.data);
+                // console.log("data find users", data.data);
                 setRecentlyAddedUsers(data.data);
             })
             .catch((err) => {
@@ -36,12 +36,12 @@ export default function FindUsers() {
                 // setUsers(data.data);
 
                 if (!abort) {
-                    console.log("users data after added: ", users);
+                    // console.log("users data after added: ", users);
                     setUsers(data.data);
 
                     if (users.length > 0) {
                         // setShowRecentlyAddedUsers(false);
-                        console.log("users data after added: ", users);
+                        // console.log("users data after added: ", users);
                     }
 
                     if (search.length > 0 && users.length === 0) {
@@ -60,7 +60,7 @@ export default function FindUsers() {
             //     setError(true);
             //     // setShowRecentlyAddedUsers(true);
             // }
-            console.log("users data after search ended: ", users);
+            // console.log("users data after search ended: ", users);
         };
     }, [search]);
 

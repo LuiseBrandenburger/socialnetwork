@@ -5,6 +5,8 @@ import TitlePic from "./titlePic";
 import Uploader from "./uploader";
 import Profile from "./profile";
 import OtherProfile from "./otherProfile";
+import FriendsAndWannabees from "./friendsAndWannabees";
+
 
 import FindUsers from "./findUsers";
 import { BrowserRouter, Route, Link } from "react-router-dom";
@@ -60,6 +62,9 @@ export default class App extends Component {
                                 <Link to="/">
                                     <span>Profile</span>
                                 </Link>
+                                <Link to="/friends">
+                                    <span>Friends</span>
+                                </Link>
                             </div>
                             <div id="logout">
                                 <a href="/logout">
@@ -107,6 +112,9 @@ export default class App extends Component {
                         </Route>
                         <Route path="/show-user/:id">
                             <OtherProfile userId={this.props.userId} />
+                        </Route>
+                        <Route path="/friends">
+                            <FriendsAndWannabees userId={this.props.userId} />
                         </Route>
                     </div>
                 </BrowserRouter>

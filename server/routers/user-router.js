@@ -15,7 +15,7 @@ const { uploader } = require("../upload");
 /*************************** ROUTES ***************************/
 
 user.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
-    console.log("req.file in POST request Upload: ", req.file);
+    // console.log("req.file in POST request Upload: ", req.file);
 
     if (req.file) {
         const fileName = req.file.filename;
@@ -53,10 +53,9 @@ user.post("/bio.json", (req, res) => {
 });
 
 user.get("/api/find-profile/:id", function (req, res) {
-    console.log("ID in Params: ", req.params.id);
-    console.log("ID in Session Id: ", req.session.userId);
-
-    console.log(req.params.id == req.session.userId);
+    // console.log("ID in Params: ", req.params.id);
+    // console.log("ID in Session Id: ", req.session.userId);
+    // console.log(req.params.id == req.session.userId);
 
     if (req.params.id == req.session.userId) {
         res.json({
@@ -82,11 +81,11 @@ user.get("/user", function (req, res) {
 });
 
 user.get("/find-user/:search", function (req, res) {
-    console.log("req.search", req.search);
-    console.log("req:", req.params.search);
+    // console.log("req.search", req.search);
+    // console.log("req:", req.params.search);
 
     getUserBySearch(req.params.search).then(({ rows }) => {
-        console.log("rows after user has been fetched: ", rows);
+        // console.log("rows after user has been fetched: ", rows);
         res.json({
             data: rows,
         });
@@ -95,7 +94,7 @@ user.get("/find-user/:search", function (req, res) {
 
 user.get("/find-recently-added-users", function (req, res) {
     getResentlyAddedUsers().then(({ rows }) => {
-        console.log("rows after user has been fetched: ", rows);
+        // console.log("rows after user has been fetched: ", rows);
         res.json({
             data: rows,
         });
