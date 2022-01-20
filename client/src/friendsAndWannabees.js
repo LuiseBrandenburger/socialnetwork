@@ -4,8 +4,9 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
-    makeFriend,
+    acceptFriendship,
     receiveFriendsAndWannabees,
+    endFriendship,
 } from "./redux/friends-and-wannabees/slice.js";
 
 export default function FriendsAndWannabees({ userId }) {
@@ -65,38 +66,47 @@ export default function FriendsAndWannabees({ userId }) {
     const handleAcceptClick = (idClickedUser) => {
         console.log("handleAcceptClick has been clicked! id:", idClickedUser);
 
-        // fetch(`/friends-and-wannabees/accept/${id}`, {
-        //     method: "POST",
-        // })
-        //     .then((res) => res.json())
-        //     .then((data) => {
-        //         console.log("data in f&w/accept", data);
-        //         if (data.success) {
-        //             const action = makeFriend(id);
-        //             dispatch(action);
-        //         }
-        //     });
+        fetch(`/api/friendship`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ btnText: "Accept Request", idClickedUser }),
+        })
+            .then((data) => {
+                return data.json();
+            })
+            .then((data) => {
+                console.log(data);
+                const action = acceptFriendship(idClickedUser);
+                dispatch(action);
+            })
+            .catch((err) => {
+                console.log("error in fetch post friendship", err);
+            });
     };
 
     const handleEndFriendshipClick = (idClickedUser) => {
-        console.log(
-            "handleEndFriendshipClick has been clicked! id:",
-            idClickedUser
-        );
+        console.log("handleAcceptClick has been clicked! id:", idClickedUser);
 
-        //     // console.log("hot has been clicked! id:", id);
-
-        //     fetch(`/not/${id}`, {
-        //         method: "POST",
-        //     })
-        //         .then((res) => res.json())
-        //         .then((data) => {
-        //             console.log("data in not", data);
-        //             if (data.success) {
-        //                 const action = madeCharacterNot(id);
-        //                 dispatch(action);
-        //             }
-        //         });
+        fetch(`/api/friendship`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ btnText: "End Friendship", idClickedUser }),
+        })
+            .then((data) => {
+                return data.json();
+            })
+            .then((data) => {
+                console.log(data);
+                const action = endFriendship(idClickedUser);
+                dispatch(action);
+            })
+            .catch((err) => {
+                console.log("error in fetch post friendship", err);
+            });
     };
 
     return (
@@ -110,10 +120,11 @@ export default function FriendsAndWannabees({ userId }) {
                                 to={`/show-user/${friendWannabee.id}`}
                                 key={friendWannabee.id}
                             >
-                                <h2 id="user-name" key={friendWannabee.id}>
+                                <h2 id="user-name">
                                     {friendWannabee.first}
                                 </h2>
                                 <img
+
                                     src={friendWannabee.url || "default.png"}
                                     alt={`social network profile picture of ${friendWannabee.first} ${friendWannabee.last}`}
                                 />
@@ -138,7 +149,7 @@ export default function FriendsAndWannabees({ userId }) {
                                 to={`/show-user/${currentFriend.id}`}
                                 key={currentFriend.id}
                             >
-                                <h2 id="user-name" key={currentFriend.id}>
+                                <h2 id="user-name">
                                     {currentFriend.first}
                                 </h2>
                                 <img
@@ -171,7 +182,6 @@ export default function FriendsAndWannabees({ userId }) {
                             >
                                 <h2
                                     id="user-name"
-                                    key={sendOutFriendRequest.id}
                                 >
                                     {sendOutFriendRequest.first}
                                 </h2>
