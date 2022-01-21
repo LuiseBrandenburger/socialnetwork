@@ -60,7 +60,8 @@ button {
     height: 30px;
     border: none;
     border-radius: 3px;
-    background-color:  #345ce2;
+    background-color:  #272727;
+    color: ghostwhite;
     font-weight: bold;
 }
 
@@ -289,7 +290,7 @@ textarea {
 
 /*********************** WELCOME PAGE ************************/
 #welcome-container{
-    background-color: rgb(219, 207, 220);
+    background-color: rgb(182, 191, 220);
 
 }
 

@@ -19,7 +19,12 @@ export default class Login extends Component {
             {
                 [e.target.name]: e.target.value,
             },
-            () => console.log("handle Change Update done:", this.state)
+            () => {
+                console.log("handle Change Update done:", this.state);
+                this.setState({
+                    error: false,
+                });
+            }
         );
     }
     handleLogin(e) {
@@ -63,10 +68,10 @@ export default class Login extends Component {
                 </Link>
                 <h1>You can login here: </h1>
                 {this.state.error && (
-                    <h2 style={{ color: "red" }}>
+                    <h3 style={{ color: "red" }}>
                         {" "}
                         Error, something went wrong{" "}
-                    </h2>
+                    </h3>
                 )}
                 <form>
                     <input

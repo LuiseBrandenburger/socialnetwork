@@ -20,7 +20,12 @@ export default class Registration extends Component {
             {
                 [e.target.name]: e.target.value,
             },
-            () => console.log("handle Change Update done:", this.state)
+            () => {
+                console.log("handle Change Update done:", this.state);
+                this.setState({
+                    error: false,
+                });
+            }
         );
     }
     handleSubmit(e) {
@@ -60,10 +65,10 @@ export default class Registration extends Component {
             <div id="registration-container">
                 <h1>Register</h1>
                 {this.state.error && (
-                    <h2 style={{ color: "red" }}>
+                    <h3 style={{ color: "red" }}>
                         {" "}
                         Error, something went wrong{" "}
-                    </h2>
+                    </h3>
                 )}
                 <form>
                     <input
