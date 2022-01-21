@@ -59,7 +59,7 @@ export default class Login extends Component {
         return (
             <div id="login-container">
                 <Link to="/">
-                    <button>Click here to go back!</button>
+                    <button id="go-back-btn">GO BACK</button>
                 </Link>
                 <h1>You can login here: </h1>
                 {this.state.error && (
@@ -81,10 +81,10 @@ export default class Login extends Component {
                         placeholder="password"
                         type="password"
                     />
-                    <button onClick={this.handleLogin}>login</button>
+                    <button onClick={this.handleLogin}>LOGIN</button>
                 </form>
                 <Link to="/reset">
-                    <button>Click here to reset your password</button>
+                    <button id="reset-btn">RESET PASSWORD</button>
                 </Link>
             </div>
         );

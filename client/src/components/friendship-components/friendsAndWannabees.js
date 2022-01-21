@@ -1,5 +1,4 @@
 // import {useDispatch, useSelector}
-
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,7 +6,7 @@ import {
     acceptFriendship,
     receiveFriendsAndWannabees,
     endFriendship,
-} from "./redux/friends-and-wannabees/slice.js";
+} from "../../redux/friends-and-wannabees/slice.js";
 
 export default function FriendsAndWannabees({ userId }) {
     const dispatch = useDispatch();
@@ -115,7 +114,7 @@ export default function FriendsAndWannabees({ userId }) {
 
     return (
         <div id="friends-and-wannabees-container">
-            <h2>Friend Wannabees</h2>
+            <h2>Friend Requests</h2>
             <div className="user-display-container">
                 {friendWannabees &&
                     friendWannabees.map((friendWannabee) => (
@@ -141,7 +140,7 @@ export default function FriendsAndWannabees({ userId }) {
                     ))}
             </div>
 
-            <h2>Current Friends</h2>
+            <h2>My Friends</h2>
             <div className="user-display-container">
                 {currentFriends &&
                     currentFriends.map((currentFriend) => (
@@ -170,7 +169,7 @@ export default function FriendsAndWannabees({ userId }) {
                     ))}
             </div>
 
-            <h2>Sendout Friendrequests</h2>
+            <h2>My Friend Requests</h2>
             <div className="user-display-container">
                 {sendOutFriendRequests &&
                     sendOutFriendRequests.map((sendOutFriendRequest) => (

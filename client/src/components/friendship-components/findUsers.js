@@ -9,7 +9,6 @@ export default function FindUsers() {
     const [showRecentlyAddedUsers, setShowRecentlyAddedUsers] = useState(true);
 
     useEffect(() => {
-        
         // setError(false);
         fetch("/find-recently-added-users")
             .then((data) => data.json())
@@ -40,7 +39,8 @@ export default function FindUsers() {
                     setUsers(data.data);
 
                     if (users.length > 0) {
-                        // setShowRecentlyAddedUsers(false);
+                        setShowRecentlyAddedUsers(false);
+                        // setError(false);
                         // console.log("users data after added: ", users);
                     }
 
@@ -56,10 +56,11 @@ export default function FindUsers() {
             });
         return () => {
             abort = true;
-            // if (users.length === 0) {
-            //     setError(true);
-            //     // setShowRecentlyAddedUsers(true);
-            // }
+            if (users.length > 0) {
+                setShowRecentlyAddedUsers(false);
+                // setError(false);
+                // setShowRecentlyAddedUsers(true);
+            }
             // console.log("users data after search ended: ", users);
         };
     }, [search]);
@@ -73,8 +74,12 @@ export default function FindUsers() {
                 <h2>Recently Added Users:</h2>
             )}
 
-            <p>{error ? "no results found" : ""}</p>
-            <input value={search} placeholder="find users" onChange={(e) => setSearch(e.target.value)} />
+            {/* <p>{error ? "no results found" : ""}</p> */}
+            <input
+                value={search}
+                placeholder="find users"
+                onChange={(e) => setSearch(e.target.value)}
+            />
 
             <div className="user-display-container">
                 {users &&
@@ -85,7 +90,7 @@ export default function FindUsers() {
                                     {user.first}
                                 </h2>
                                 <img
-                                    src={user.url || "default.png"}
+                                    src={user.url || "/default.png"}
                                     alt={`social network profile picture of ${user.first} ${user.last}`}
                                 />
                             </div>
@@ -99,7 +104,7 @@ export default function FindUsers() {
                                     {user.first}
                                 </h2>
                                 <img
-                                    src={user.url || "default.png"}
+                                    src={user.url || "/default.png"}
                                     alt={`social network profile picture of ${user.first} ${user.last}`}
                                 />
                             </div>

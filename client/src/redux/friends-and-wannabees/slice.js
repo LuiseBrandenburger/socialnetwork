@@ -25,7 +25,6 @@ export function friendsAndWannabeesReducer(friendsAndWannabees = null, action) {
     return friendsAndWannabees;
 }
 
-
 // ********************* ACTIONS ***********************
 
 export function receiveFriendsAndWannabees(friendsAndWannabees) {

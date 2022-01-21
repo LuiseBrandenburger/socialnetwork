@@ -58,9 +58,6 @@ export default class Registration extends Component {
     render() {
         return (
             <div id="registration-container">
-                <Link to="/login">
-                    <button>Click here to login!</button>
-                </Link>
                 <h1>Register</h1>
                 {this.state.error && (
                     <h2 style={{ color: "red" }}>
@@ -93,8 +90,11 @@ export default class Registration extends Component {
                         placeholder="password"
                         type="password"
                     />
-                    <button onClick={this.handleSubmit}>Register</button>
+                    <button onClick={this.handleSubmit}>REGISTER</button>
                 </form>
+                <Link to="/login">
+                    <button id="login-btn">LOGIN</button>
+                </Link>
             </div>
         );
     }

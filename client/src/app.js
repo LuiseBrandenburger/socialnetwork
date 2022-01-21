@@ -1,14 +1,14 @@
 // import { Link } from "react-router-dom";
 import { Component } from "react";
-import ProfilePic from "./profilePic";
-import TitlePic from "./titlePic";
-import Uploader from "./uploader";
-import Profile from "./profile";
-import OtherProfile from "./otherProfile";
-import FriendsAndWannabees from "./friendsAndWannabees";
+import ProfilePic from "./components/profile-components/profilePic";
+import TitlePic from "./components/profile-components/titlePic";
+import Uploader from "./components/profile-components/uploader";
+import Profile from "./components/profile-components/profile";
+import OtherProfile from "./components/friendship-components/otherProfile";
+import FriendsAndWannabees from "./components/friendship-components/friendsAndWannabees";
 
 
-import FindUsers from "./findUsers";
+import FindUsers from "./components/friendship-components/findUsers";
 import { BrowserRouter, Route, Link } from "react-router-dom";
 
 export default class App extends Component {
@@ -77,9 +77,16 @@ export default class App extends Component {
                             id="photo-icon"
                             src={this.state.photoIcon}
                             alt="photo icon"
+                            onClick={this.toggleUploader}
                         ></img>
 
-                        <div id="app-logo"></div>
+                        {/* <div id="app-logo"></div> */}
+                        <img
+                            id="app-logo"
+                            src="/logo.svg"
+                            alt="photo icon"
+                        ></img>
+
                         <ProfilePic
                             first={this.state.first}
                             last={this.state.last}

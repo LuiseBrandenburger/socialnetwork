@@ -60,7 +60,8 @@ button {
     height: 30px;
     border: none;
     border-radius: 3px;
-    background-color: grey;
+    background-color:  #345ce2;
+    font-weight: bold;
 }
 
 
@@ -142,12 +143,14 @@ button {
     top: 0;
     left: 0;
     margin: 10px;
-    width: 125px;
+    width: 90px;
+    /* background-color: #345ce2; */
 }
 
 #app-logo-landing-page {
     width: 100px;
     height: 100px;
+    margin-bottom: 15px;
 }
 
 #photo-icon {
@@ -189,6 +192,10 @@ hr {
 }
 
 
+#friends-and-wannabees-container h2 {
+    margin-bottom: 25px;
+}
+
 /*********************** BIO CONTAINER ************************/
 
 .bio-container {
@@ -202,9 +209,7 @@ hr {
     margin-left: 30px;
     display: flex;
     flex-direction: column;
-
 }
-
 
 #bio-editor {
     width: 400px;
@@ -250,7 +255,7 @@ textarea {
 .user-box {
     width: 200px;
     height: 250px;
-    background-color: rgba(163, 163, 163, 0.193);
+    /* background-color: rgba(163, 163, 163, 0.193); */
     margin: 0 10px 10px 10px;
 }
 
@@ -266,7 +271,7 @@ textarea {
 }
 
 .user-box:hover {
-    box-shadow: 0px 0px 15px 5px rgba(255, 86, 255, 0.282);
+    box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.309);
 }
 
 .search-container input {
@@ -279,6 +284,42 @@ textarea {
     width: 300px;
     margin-bottom: 15px;
     color: grey;
+}
+
+
+/*********************** WELCOME PAGE ************************/
+#welcome-container{
+    background-color: rgb(219, 207, 220);
+
+}
+
+.welcome-box{
+    border-radius: 3px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: white;
+    background-blend-mode: screen;
+    width: 50vw;
+    height: 70vh;
+    padding: 40px;
+}
+
+#login-btn, #reset-btn{
+    margin-top: 15%;
+}
+
+#go-back-btn {
+    margin-bottom: 8%;
+}
+
+#registration-container {
+    justify-content: space-around;
+}
+
+#login-container {
+    justify-content: space-between;
+
 }
 
 /*********************** UPLOADER MODAL ************************/
