@@ -4,6 +4,17 @@ const compression = require("compression");
 const path = require("path");
 const cookieSession = require("cookie-session");
 
+const http = require("http");
+const SocketIOServer = require("socket.io");
+
+const server = http.createServer(app);
+
+const io = SocketIOServer(server, {
+    allowRequest: (req, callback) => {
+        callback(null, req.headers.referer.startsWith("http://localhost:3000"));
+    },
+});
+
 
 /*************************** REQUIRE ROUTERS ***************************/
 
@@ -12,7 +23,6 @@ const register = require("./routers/register");
 const passwordReset = require("./routers/password-reset");
 const user = require("./routers/user-router");
 const friendship = require("./routers/friendship-router");
-
 
 
 /*************************** SECRET ***************************/
@@ -53,6 +63,28 @@ app.use(passwordReset);
 app.use(user);
 app.use(friendship);
 
+
+// ************************* SOCKET ******************************
+
+
+app.post("/message", (req, res) => {
+    io.sockets.sockets.get(socketId).broadcast.emit("asdf");
+    io.emit("");
+});
+
+
+io.on("connection", (socket) => {
+    console.log("New Socket Conenction", socket.id);
+
+    socket.on("client-to-server-onion", (message) => {
+        console.log(message);
+    });
+
+    // sends message to client console
+    socket.emit("hello", "Taderitadera");
+});
+
+
 // ************************* ANY ROUTS ABOVE ******************************
 
 
@@ -60,6 +92,9 @@ app.get("*", function (req, res) {
     res.sendFile(path.join(__dirname, "..", "client", "index.html"));
 });
 
-app.listen(process.env.PORT || 3001, function () {
+server.listen(process.env.PORT || 3001, function () {
     console.log("I'm listening.");
 });
+
+
+
