@@ -34,7 +34,7 @@
 -- recipient_id INT REFERENCES users(id) NOT NULL,
 -- accepted BOOLEAN DEFAULT false);
 
-  -- SELECT * FROM users;
+  SELECT * FROM users;
   -- SELECT * FROM reset_code;
 
   SELECT * FROM friendships;
