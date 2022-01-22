@@ -2,7 +2,7 @@ import Registration from "./components/registration-components/registration";
 import Reset from "./components/auth-components/reset";
 import { BrowserRouter, Route } from "react-router-dom";
 import Login from "./components/auth-components/login";
-import Chart from "./chart";
+import MyChart from "./chart";
 
 import { io } from "socket.io-client";
 const socket = io();
@@ -35,7 +35,7 @@ export default function Welcome() {
                     <Route path="/login">
                         <Login />
                     </Route> */}
-                    <Chart />
+                    <MyChart />
                 </div>
             </BrowserRouter>
         </div>
