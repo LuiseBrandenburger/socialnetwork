@@ -3,7 +3,11 @@ const app = express();
 const compression = require("compression");
 const path = require("path");
 const cookieSession = require("cookie-session");
-const { getLastTenChatMessages } = require("./sql/db");
+const {
+    getLastTenChatMessages,
+    addUserMessage, 
+    getUserById,
+} = require("./sql/db");
 
 
 // SOCKETS
@@ -72,8 +76,9 @@ app.use(passwordReset);
 app.use(user);
 app.use(friendship);
 
-// ************************* SOCKET ******************************
 
+
+// ************************* SOCKET ******************************
 
 
 io.on("connection", (socket) => {
@@ -85,16 +90,12 @@ io.on("connection", (socket) => {
     console.log(
         `user with the ${socket.id} and the UserId: ${userId} connected`
     );
-
     if (!socket.request.session.userId) {
         return socket.disconnect(true);
     }
 
     socket.emit("hello", "Hello i am emitted from the server");
 
-    // // here we want to get the past 10 messages that where send.
-    // // new table with messages chat_messages , id, user_id, message, created_at
-    // // query join damit wir auch die Namen der user erhalten, die letzten 10 und ordered
 
     getLastTenChatMessages()
         .then(({ rows }) => {
@@ -104,13 +105,37 @@ io.on("connection", (socket) => {
             console.log("err getting last 10 messages: ", err);
         });
 
-    // socket.on("newChatMessage", (message) => {
-    //     console.log("message: ", message);
-    //     // add message to DB
-    //     // get users name and image url from DB
-    //     // emit to all connected clients
-    //     io.emit("test", "MESSAGE received");
-    // });
+    socket.on("newChatMessage", (message) => {
+        console.log("message: ", message);
+        // add message to DB
+
+        Promise.all([addUserMessage(message, userId), getUserById(userId)])
+            .then((results) => {
+                console.log("values from DB: ", results[0].rows);
+                console.log("values from DB: ", results[1].rows);
+                const newMessage = [...results[0].rows, ...results[1].rows];
+                console.log("new Message Object: ", newMessage);
+            })
+            .catch((err) => {
+                console.log("err getting new Chat Messages: ", err);
+            });
+
+
+        // addUserMessage(message, userId)
+        //     .then(({ rows }) => {
+        //         console.log(rows);
+        //         // socket.emit("chatMessage", rows);
+        //     })
+        //     .catch((err) => {
+        //         console.log("err getting last 10 messages: ", err);
+        //     });
+
+       
+        // get users name and image url from DB
+        // emit to all connected clients
+
+        // io.emit('test', 'MESSAGE received');
+    });
 
     // socket.on("newChatMessage", "Hellööö from the client");
 });

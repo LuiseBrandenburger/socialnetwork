@@ -155,10 +155,11 @@ module.exports.getLastTenChatMessages = () => {
     return db.query(q);
 };
 
-// module.exports.getLastTenChatMessages = () => {
-//     const q = `
-//     SELECT * FROM chat_messages
-//     `;
+module.exports.addUserMessage = (message, userId) => {
+    const q = `INSERT INTO chat_messages (message, user_id)
+    VALUES ($1, $2)
+    RETURNING message`;
 
-//     return db.query(q);
-// };
+    const params = [message, userId];
+    return db.query(q, params);
+};

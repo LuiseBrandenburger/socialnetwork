@@ -4,8 +4,6 @@ import { socket } from "./socket";
 // import { chatMessagesReceived } from "./redux/chat/slice.js";
 
 
-
-
 export default function Chat() {
     const dispatch = useDispatch();
 
@@ -25,6 +23,8 @@ export default function Chat() {
     useEffect(() => {
 
         socket.on("hello", (message) => console.log(message));
+        socket.on("test", (message) => console.log(message));
+
 
     }, []);
 
@@ -35,15 +35,8 @@ export default function Chat() {
             e.preventDefault();
             console.log("e.target.value: ", e.target.value);
 
-            // this value is our text node
-            // textareaRef.current.value;
-            // textareaRef.current.style.backgroundColor = "green";
-            // textareaRef.current.style.cssText = `
-            //     background-color: green;
-            //     font-size: 34px;
-            // `;
-            // socket.emit("newChatMessage", e.target.value);
-            // e.target.value = "";
+            socket.emit("newChatMessage", e.target.value);
+            e.target.value = "";
         }
     };
 
@@ -62,7 +55,7 @@ export default function Chat() {
             <textarea
                 ref={textareaRef}
                 // onKeyDown={keyCheck}
-                onKeyUp={keyCheck}
+                onKeyDown={keyCheck}
                 name="message"
                 id="message"
                 cols="40"
