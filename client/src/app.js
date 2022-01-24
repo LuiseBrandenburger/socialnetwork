@@ -6,6 +6,7 @@ import Uploader from "./components/profile-components/uploader";
 import Profile from "./components/profile-components/profile";
 import OtherProfile from "./components/friendship-components/otherProfile";
 import FriendsAndWannabees from "./components/friendship-components/friendsAndWannabees";
+import Chat from "./chat";
 
 
 import FindUsers from "./components/friendship-components/findUsers";
@@ -25,8 +26,6 @@ export default class App extends Component {
     }
     componentDidMount() {
       
-        // console.log("userId aus cookie route:", this.props.userId);
-
         fetch("/user")
             .then((data) => data.json())
             .then((data) => {
@@ -64,6 +63,9 @@ export default class App extends Component {
                                 </Link>
                                 <Link to="/friends">
                                     <span>Friends</span>
+                                </Link>
+                                <Link to="/chat">
+                                    <span>Chat</span>
                                 </Link>
                             </div>
                             <div id="logout">
@@ -122,6 +124,9 @@ export default class App extends Component {
                         </Route>
                         <Route path="/friends">
                             <FriendsAndWannabees userId={this.props.userId} />
+                        </Route>
+                        <Route path="/chat">
+                            <Chat />
                         </Route>
                     </div>
                 </BrowserRouter>

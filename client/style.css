@@ -421,6 +421,15 @@ textarea {
 }
 
 
+/*********************** CHAT ROOM ************************/
+
+.chat-container{
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+
 /*********************** FOOTER ************************/
 
 footer {

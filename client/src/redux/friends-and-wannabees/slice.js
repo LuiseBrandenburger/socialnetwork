@@ -67,14 +67,14 @@ https://www.youtube.com/watch?v=lmyKHYmgUYc
 
 */
 
-export function acceptFriendshipAsync(id) {
-    return async (dispatch) => {
-        const data = await fetch("/users").then((response) => response.json());
-        dispatch({
-            type: "users/receivedUsers",
-            payload: {
-                users: data.users,
-            },
-        });
-    };
-}
+// export function acceptFriendshipAsync(id) {
+//     return async (dispatch) => {
+//         const data = await fetch("/users").then((response) => response.json());
+//         dispatch({
+//             type: "users/receivedUsers",
+//             payload: {
+//                 users: data.users,
+//             },
+//         });
+//     };
+// }
