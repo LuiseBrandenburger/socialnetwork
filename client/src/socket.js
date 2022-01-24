@@ -1,10 +1,10 @@
 
 import {io} from "socket.io-client";
 
-// import {
-//     chatMessagesReceived,
-//     chatMessageReceived,
-// } from "./redux/messages/slice.js";
+import {
+    chatMessagesReceived,
+    chatMessageReceived,
+} from "./redux/chat/slice.js";
 
 // damit ich darauf zugreifen kann, muss das socket exportiert werden
 export let socket;
@@ -14,19 +14,16 @@ export const init = (store) => {
     if (!socket) {
         socket = io.connect();
 
-        // socket.on("test", (data) => {
-        //     console.log("data", data);
-        // });
-
         // TODO: action creaters, waiting for messages from the server to forward them
-        // socket.on("chatMessages", (msgs) =>
-        //     store.dispatch(chatMessagesReceived(msgs))
+        // Socket zum hören auf alle Messages aus der Datenbank
+
+        // socket.on("chatMessages", (messages) =>
+        //     store.dispatch(chatMessagesReceived(messages))
         // );
 
-        // socket.on("chatMessage", (msg) =>
-        //     store.dispatch(chatMessageReceived(msg))
+        // socket.on("chatMessage", (message) =>
+        //     store.dispatch(chatMessageReceived(message))
         // );
 
-        // socket.on("newChatMessage", "Heeellööööö from the client");
     }
 };

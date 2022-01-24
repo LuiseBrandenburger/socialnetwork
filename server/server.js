@@ -3,6 +3,8 @@ const app = express();
 const compression = require("compression");
 const path = require("path");
 const cookieSession = require("cookie-session");
+const { getLastTenChatMessages } = require("./sql/db");
+
 
 // SOCKETS
 const http = require("http");
@@ -72,57 +74,46 @@ app.use(friendship);
 
 // ************************* SOCKET ******************************
 
-// app.post("/message", (req, res) => {
-//     io.sockets.sockets.get(socketId).broadcast.emit("asdf");
-//     io.emit("");
-// });
 
-// io.on("connection", (socket) => {
-//     console.log("New Socket Conenction", socket.id);
-
-//     socket.on("client-to-server-onion", (message) => {
-//         console.log(message);
-//     });
-
-//     // sends message to client console
-//     socket.emit("hello", "Taderitadera");
-// });
 
 io.on("connection", (socket) => {
     // console.log("New Socket Conenction", socket.id);
+    // emit aus dem server raus
+    // on hört auf reinkommende routen
+
     const userId = socket.request.session.userId;
     console.log(
         `user with the ${socket.id} and the UserId: ${userId} connected`
     );
 
-    // if (!socket.request.session.userId) {
-    //     return socket.disconnect(true);
-    // }
+    if (!socket.request.session.userId) {
+        return socket.disconnect(true);
+    }
+
+    socket.emit("hello", "Hello i am emitted from the server");
 
     // // here we want to get the past 10 messages that where send.
     // // new table with messages chat_messages , id, user_id, message, created_at
     // // query join damit wir auch die Namen der user erhalten, die letzten 10 und ordered
 
-    // // getLastTenChatMessages(){
-    // //     .then(({rows})=> {
-    // //         console.log("rows", rows)
+    getLastTenChatMessages()
+        .then(({ rows }) => {
+            console.log("rows", rows);
+            // socket.emit("chatMessages", rows);
+        })
+        .catch((err) => {
+            console.log("err getting last 10 messages: ", err);
+        });
 
-    // //         // socket.emit is only going to emmit to the current user
-    // //         socket.emit("test", {
-    // //             info: ["this is very important message", "new test"]
-    // //         })
-
-    // //     })
-    // //     .catch()
-    // // }
-
-    // socket.on("test", (message) => {
-    //     console.log(message);
+    // socket.on("newChatMessage", (message) => {
+    //     console.log("message: ", message);
+    //     // add message to DB
+    //     // get users name and image url from DB
+    //     // emit to all connected clients
+    //     io.emit("test", "MESSAGE received");
     // });
 
-    // socket.emit("test", "hello");
-
-    // socket.on("newChatMessage", "Hellööö from the server");
+    // socket.on("newChatMessage", "Hellööö from the client");
 });
 
 // ************************* ANY ROUTS ABOVE ******************************

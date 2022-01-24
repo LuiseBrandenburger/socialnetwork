@@ -1,8 +1,14 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState, useRef } from "react";
 import { socket } from "./socket";
+// import { chatMessagesReceived } from "./redux/chat/slice.js";
+
+
+
 
 export default function Chat() {
+    const dispatch = useDispatch();
+
     const textareaRef = useRef();
     const chatContainerRef = useRef();
 
@@ -10,27 +16,22 @@ export default function Chat() {
     //     state && state.chat;
     // });
 
-    const [chatMessages, setChatMessages] = useState([
-        "hello i am a message",
-        "hello i am a message",
-        "hello i am a message",
-    ]);
-
-    // useEffect(() => {
-    //     chatContainerRef.current.scrollTop =
-    //         chatContainerRef.current.scrollHeight;
-    // }, [chatMessages]);
+    // const [chatMessages, setChatMessages] = useState([
+    //     "hello i am a message",
+    //     "hello i am a message",
+    //     "hello i am a message",
+    // ]);
 
     useEffect(() => {
-        // socket.emit("newChatMessage", "Heeellööööö from the client");
+
+        socket.on("hello", (message) => console.log(message));
+
     }, []);
 
-    //   const chatMessages = useSelector((state) => {
-    //       state?.chat;
-    //   });
 
     const keyCheck = (e) => {
-        if (e.target.value === "Enter") {
+
+        if (e.key === "Enter") {
             e.preventDefault();
             console.log("e.target.value: ", e.target.value);
 
@@ -42,7 +43,7 @@ export default function Chat() {
             //     font-size: 34px;
             // `;
             // socket.emit("newChatMessage", e.target.value);
-            e.target.value = "";
+            // e.target.value = "";
         }
     };
 
@@ -60,11 +61,12 @@ export default function Chat() {
             </div>
             <textarea
                 ref={textareaRef}
-                onKeyDown={keyCheck}
+                // onKeyDown={keyCheck}
+                onKeyUp={keyCheck}
                 name="message"
                 id="message"
-                cols="30"
-                rows="10"
+                cols="40"
+                rows="3"
                 placeholder="add message here"
             ></textarea>
         </div>

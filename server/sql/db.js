@@ -141,3 +141,24 @@ module.exports.getAllFriendshipsById = (sessionId) => {
     const params = [sessionId];
     return db.query(q, params);
 };
+
+
+module.exports.getLastTenChatMessages = () => {
+    const q = `
+    SELECT users.id, first, last, url, email, message, chat_messages.created_at, chat_messages.user_id
+    FROM chat_messages
+    JOIN users ON users.id = chat_messages.user_id
+    ORDER by created_at DESC
+    LIMIT 10
+    `;
+
+    return db.query(q);
+};
+
+// module.exports.getLastTenChatMessages = () => {
+//     const q = `
+//     SELECT * FROM chat_messages
+//     `;
+
+//     return db.query(q);
+// };
