@@ -24,8 +24,8 @@ export default function useForm(youCanAlsoUseAnAnitionStatehere) {
 
 /**
  * 
- * in dem Component:
- * 
+ in dem Component:
+ 
  import useForm from "./hooks/useForm"
  const [userInput, handleChange, handleImgChange] = useForm({
  fist: 'Luise,

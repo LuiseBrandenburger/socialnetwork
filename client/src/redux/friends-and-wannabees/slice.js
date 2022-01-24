@@ -1,3 +1,5 @@
+
+
 export function friendsAndWannabeesReducer(friendsAndWannabees = null, action) {
     if (action.type == "friends-and-wannabees/receivedFriendsAndWannabees") {
         // console.log("action in slice", action);
@@ -54,5 +56,25 @@ export function endFriendship(id) {
     return {
         type: "friends-and-wannabees/end",
         payload: { id },
+    };
+}
+
+
+/*
+The redux-thunk middleware solves this issue by allowing you to dispatch functions (instead of action objects). Those functions, also fancifully called thunks, will be passed the dispatch method, they can then perform asynchronous tasks before dispatching an action. For instance this thunk action creator will asynchronously fetch a list of users and dispatch them to the store once they are available.
+
+https://www.youtube.com/watch?v=lmyKHYmgUYc
+
+*/
+
+export function acceptFriendshipAsync(id) {
+    return async (dispatch) => {
+        const data = await fetch("/users").then((response) => response.json());
+        dispatch({
+            type: "users/receivedUsers",
+            payload: {
+                users: data.users,
+            },
+        });
     };
 }

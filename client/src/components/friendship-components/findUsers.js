@@ -9,15 +9,13 @@ export default function FindUsers() {
     const [showRecentlyAddedUsers, setShowRecentlyAddedUsers] = useState(true);
 
     useEffect(() => {
-        // setError(false);
         fetch("/find-recently-added-users")
             .then((data) => data.json())
             .then((data) => {
-                // console.log("data find users", data.data);
                 setRecentlyAddedUsers(data.data);
             })
             .catch((err) => {
-                console.log(err);
+                console.log("error in recently added useres GET Route", err);
             });
     }, []);
 
@@ -32,36 +30,26 @@ export default function FindUsers() {
         fetch(`/find-user/${search}`)
             .then((data) => data.json())
             .then((data) => {
-                // setUsers(data.data);
 
                 if (!abort) {
-                    // console.log("users data after added: ", users);
                     setUsers(data.data);
-
-                    if (users.length > 0) {
-                        setShowRecentlyAddedUsers(false);
-                        // setError(false);
-                        // console.log("users data after added: ", users);
-                    }
-
-                    if (search.length > 0 && users.length === 0) {
-                        setError(true);
-                    }
+                }
+                if (search.length > 0 && users.length === 0) {
+                    setError(true);
+                } else if (users.length > 0) {
+                    setShowRecentlyAddedUsers(false);
+                    setError(false);
                 }
             })
             .catch((err) => {
                 console.log("error in find users: ", err);
-                // setError(true);
-                // setShowRecentlyAddedUsers(true);
             });
+
         return () => {
             abort = true;
             if (users.length > 0) {
                 setShowRecentlyAddedUsers(false);
-                // setError(false);
-                // setShowRecentlyAddedUsers(true);
             }
-            // console.log("users data after search ended: ", users);
         };
     }, [search]);
 
@@ -113,28 +101,4 @@ export default function FindUsers() {
             </div>
         </div>
     );
-    // } else {
-    //     return (
-    //         <div className="search-container">
-    //             <h2>Recently Added Users:</h2>
-    //             <div className="user-display-container">
-    //                 {recentlyAddedUsers.map((user) => (
-    //                     <Link to={`/show-user/${user.id}`} key={user.id}>
-    //                         <div className="user-box" key={user.id}>
-    //                             <h2 id="user-name" key={user.id}>
-    //                                 {user.first}
-    //                             </h2>
-    //                             <img
-    //                                 src={user.url || "default.png"}
-    //                                 alt={`social network profile picture of ${user.first} ${user.last}`}
-    //                             />
-    //                         </div>
-    //                     </Link>
-    //                 ))}
-    //             </div>
-    //             <h2>Find Users:</h2>
-    //             <input onChange={(e) => setSearch(e.target.value)} />
-    //         </div>
-    //     );
-    // }
 }
