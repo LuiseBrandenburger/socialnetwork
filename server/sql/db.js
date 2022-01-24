@@ -145,7 +145,7 @@ module.exports.getAllFriendshipsById = (sessionId) => {
 
 module.exports.getLastTenChatMessages = () => {
     const q = `
-    SELECT users.id, first, last, url, email, message, chat_messages.created_at, chat_messages.user_id
+    SELECT users.id, first, last, url, message, chat_messages.created_at, chat_messages.id AS messageid
     FROM chat_messages
     JOIN users ON users.id = chat_messages.user_id
     ORDER by created_at DESC
@@ -158,8 +158,14 @@ module.exports.getLastTenChatMessages = () => {
 module.exports.addUserMessage = (message, userId) => {
     const q = `INSERT INTO chat_messages (message, user_id)
     VALUES ($1, $2)
-    RETURNING message`;
+    RETURNING message, created_at, id`;
 
     const params = [message, userId];
+    return db.query(q, params);
+};
+
+module.exports.getUserChatById = (id) => {
+    const q = `SELECT id, first, last, url FROM users WHERE id = ($1)`;
+    const params = [id];
     return db.query(q, params);
 };

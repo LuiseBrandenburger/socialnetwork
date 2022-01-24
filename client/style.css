@@ -113,7 +113,6 @@ button {
     border-radius: 50%;
     margin: 0;
     border: 5px solid var(--main-bg-color);
-;
     cursor: pointer;
 }
 
@@ -427,6 +426,15 @@ textarea {
     overflow-y: scroll;
     display: flex;
     flex-direction: column-reverse;
+}
+
+.chat-avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin: 0;
+    border: 5px solid var(--main-bg-color);
+    cursor: pointer;
 }
 
 

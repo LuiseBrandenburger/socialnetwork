@@ -18,7 +18,7 @@ export const init = (store) => {
         // Socket zum hören auf alle Messages aus der Datenbank
 
         socket.on("chatMessages", (messages) => {
-            console.log("messages from server send to socket 1", messages);
+            // console.log("messages from server send to socket 1", messages);
             store.dispatch(chatMessagesReceived(messages));
         });
 

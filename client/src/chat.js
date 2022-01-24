@@ -3,34 +3,37 @@ import { useEffect, useState, useRef } from "react";
 import { socket } from "./socket";
 // import { chatMessagesReceived } from "./redux/chat/slice.js";
 
-
 export default function Chat() {
     const dispatch = useDispatch();
 
     const textareaRef = useRef();
     const chatContainerRef = useRef();
 
-    // const chatMessages = useSelector((state) => {
-    //     state && state.chat;
-    // });
+    const chatMessages = useSelector((state) => {
+        return state && state.messages;
+    });
 
-    // const [chatMessages, setChatMessages] = useState([
-    //     "hello i am a message",
-    //     "hello i am a message",
-    //     "hello i am a message",
-    // ]);
+    // const chatMessages = useSelector((state) => state && state.messages);
+    
+    // const chatMessages = [
+    //     {
+    //         created_at: "",
+    //         first: "",
+    //         id: 1,
+    //         last: "",
+    //         message: "Hellööö",
+    //         url: "",
+    //     },
+    // ];
 
     useEffect(() => {
+        chatContainerRef.current.scrollTop =
+            chatContainerRef.current.scrollHeight;
+    }, [chatMessages]);
 
-        socket.on("hello", (message) => console.log(message));
-        socket.on("test", (message) => console.log(message));
-
-
-    }, []);
-
+    console.log("chatMessages aus state", chatMessages);
 
     const keyCheck = (e) => {
-
         if (e.key === "Enter") {
             e.preventDefault();
             console.log("e.target.value: ", e.target.value);
@@ -44,17 +47,22 @@ export default function Chat() {
         <div className="chat-room">
             <h1>I am in Chat Page</h1>
             <div className="chat-container" ref={chatContainerRef}>
-                <p>Hellööö</p>
-                <p>This is a chat message</p>
-                <p>This is a chat message</p>
-                <p>This is a chat message</p>
-
-                {/* use map to show all messages */}
-                {/* styles: overflowY scroll damit man hoch und runter scrollen kann */}
+                {chatMessages.map((chatMessage) => {
+                    return (
+                        <div className="message" key={chatMessage.messageid}>
+                            <img
+                                className="chat-avatar"
+                                src={chatMessage.url}
+                                alt={chatMessage.first + " " + chatMessage.last}
+                            />
+                            <p>{chatMessage.message}</p>
+                            <p> {chatMessage.created_at}</p>
+                        </div>
+                    );
+                })}
             </div>
             <textarea
                 ref={textareaRef}
-                // onKeyDown={keyCheck}
                 onKeyDown={keyCheck}
                 name="message"
                 id="message"
