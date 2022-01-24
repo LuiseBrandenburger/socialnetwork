@@ -98,8 +98,7 @@ io.on("connection", (socket) => {
 
     getLastTenChatMessages()
         .then(({ rows }) => {
-            console.log("rows", rows);
-            // socket.emit("chatMessages", rows);
+            socket.emit("chatMessages", rows);
         })
         .catch((err) => {
             console.log("err getting last 10 messages: ", err);

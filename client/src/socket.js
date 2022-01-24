@@ -17,9 +17,12 @@ export const init = (store) => {
         // TODO: action creaters, waiting for messages from the server to forward them
         // Socket zum hören auf alle Messages aus der Datenbank
 
-        // socket.on("chatMessages", (messages) =>
-        //     store.dispatch(chatMessagesReceived(messages))
-        // );
+        socket.on("chatMessages", (messages) => {
+            
+            console.log("messages from server send to socket 1", messages);
+            store.dispatch(chatMessagesReceived(messages));
+        }
+        );
 
         // socket.on("chatMessage", (message) =>
         //     store.dispatch(chatMessageReceived(message))

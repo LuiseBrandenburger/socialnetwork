@@ -1,27 +1,19 @@
 export function messagesReducer(messages = null, action) {
-    // if (action.type == "messages/receivedMessages") {
-    //     messages = action.payload.messages;
-    // } else if (action.type === "message/receivedMessage") {
-    //     console.log("messages in receivedMessages: ", messages);
-    //     const newMessages = messages.map((message) => {
-    //         if (message.id === action.payload.id) {
-    //             return {
-    //                 ...message,
-    //                 accepted: true,
-    //             };
-    //         }
-    //         return message;
-    //     });
-    //     console.log("newMessages:", newMessages);
-    //     return newMessages;
-    // } 
-    // console.log("new messages:", messages);
+    console.log("im in messageReducer");
+    if (action.type == "messages/receivedMessages") {
+        messages = action.payload.messages;
+    } 
+    
+    // console.log("messages in messagesReducer 3", messages);
     return messages;
 }
+
 
 // ********************* ACTIONS ***********************
 
 export function chatMessagesReceived(messages) {
+    console.log("messages in 2", messages);
+
     return {
         type: "messages/receivedMessages",
         payload: { messages },
