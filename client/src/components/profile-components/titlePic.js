@@ -11,7 +11,7 @@ export default function TitlePic({
         <>
             <img
                 // onClick={() => toggleTitlePicUploader()}
-                src={url || "/roger-dean-26.jpg"}
+                src={url || "/title5.png"}
                 alt={`social network profile picture of ${first} ${last}`}
                 className={cssClass}
             />

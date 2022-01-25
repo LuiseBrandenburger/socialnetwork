@@ -473,6 +473,11 @@ textarea {
     height: 90px;
 }
 
+.message-date {
+    color: grey;
+    font-size: smaller;
+}
+
 /*********************** FOOTER ************************/
 
 footer {

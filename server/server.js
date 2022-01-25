@@ -3,6 +3,8 @@ const app = express();
 const compression = require("compression");
 const path = require("path");
 const cookieSession = require("cookie-session");
+const moment = require("moment");
+
 const {
     getLastTenChatMessages,
     addUserMessage,
@@ -94,6 +96,13 @@ io.on("connection", (socket) => {
 
     getLastTenChatMessages()
         .then(({ rows }) => {
+            console.log("rows fomr getLastTenChatMessages: ", rows);
+            rows.forEach((row) => {
+                let dateAddedComment = moment(row.created_at).fromNow();
+                row.dateAddedComment = dateAddedComment;
+            });
+            console.log("rows fomr getLastTenChatMessages: ", rows);
+
             socket.emit("chatMessages", rows);
         })
         .catch((err) => {
@@ -108,6 +117,7 @@ io.on("connection", (socket) => {
             .then((results) => {
                 // console.log("values from DB: ", results[0].rows[0]);
                 // console.log("values from DB: ", results[1].rows[0]));
+
                 const newMessageBuild = [
                     {
                         id: results[1].rows[0].id,
@@ -117,6 +127,9 @@ io.on("connection", (socket) => {
                         message: results[0].rows[0].message,
                         messageid: results[0].rows[0].messageid,
                         created_at: results[0].rows[0].created_at,
+                        dateAddedComment: moment(
+                            results[0].rows[0].created_at
+                        ).fromNow(),
                     },
                 ];
                 io.emit("chatMessage", newMessageBuild);

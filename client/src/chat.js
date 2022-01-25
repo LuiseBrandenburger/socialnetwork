@@ -50,8 +50,10 @@ export default function Chat({userId}) {
                                 src={chatMessage.url || "/default.png"}
                                 alt={chatMessage.first + " " + chatMessage.last}
                             />
-                            <p>{chatMessage.message}</p>
-                            {/* <p> {chatMessage.created_at}</p> */}
+                            <div>
+                                <p>{chatMessage.message}</p>
+                                <p className="message-date">{chatMessage.dateAddedComment}</p>
+                            </div>
                         </div>
                     );
                 })}
