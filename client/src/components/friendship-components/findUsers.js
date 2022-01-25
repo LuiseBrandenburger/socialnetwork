@@ -21,36 +21,40 @@ export default function FindUsers() {
 
     useEffect(() => {
         let abort = false;
+        if (search) {
+            console.log("search is true", search);
+            fetch(`/find-user/${search}`)
+                .then((data) => data.json())
+                .then((data) => {
+                    if (!abort) {
+                        setUsers(data.data);
+                    }
+                    if (search.length > 0 && users.length === 0) {
+                        setError(true);
+                    } else if (users.length > 0) {
+                        // console.log("users length > 0");
+                        setShowRecentlyAddedUsers(false);
+                        setError(false);
+                    }
+                })
+                .catch((err) => {
+                    console.log("error in find users: ", err);
+                });
 
-        // console.log("users", users);
-        // if (users.length === 0) {
-        //     setShowRecentlyAddedUsers(true);
-        // }
-
-        fetch(`/find-user/${search}`)
-            .then((data) => data.json())
-            .then((data) => {
-
-                if (!abort) {
-                    setUsers(data.data);
-                }
-                if (search.length > 0 && users.length === 0) {
-                    setError(true);
-                } else if (users.length > 0) {
+            return () => {
+                abort = true;
+                if (users.length > 0) {
                     setShowRecentlyAddedUsers(false);
-                    setError(false);
                 }
-            })
-            .catch((err) => {
-                console.log("error in find users: ", err);
-            });
-
-        return () => {
-            abort = true;
-            if (users.length > 0) {
-                setShowRecentlyAddedUsers(false);
-            }
-        };
+            };
+        } else {
+            console.log("search is false", search);
+            setUsers([]);
+            setShowRecentlyAddedUsers(true);
+            return () => {
+                abort = true;
+            };
+        }
     }, [search]);
 
     // if (search) {
@@ -61,7 +65,6 @@ export default function FindUsers() {
             ) : (
                 <h2>Recently Added Users:</h2>
             )}
-
             {/* <p>{error ? "no results found" : ""}</p> */}
             <input
                 value={search}

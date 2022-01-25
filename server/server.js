@@ -82,8 +82,11 @@ app.use(friendship);
 // ************************* SOCKET ******************************
 
 io.on("connection", (socket) => {
-
     const userId = socket.request.session.userId;
+    let viewedUserWallId = 0;
+
+    // console.log("this is the socket: ",socket);
+
     console.log(
         `user with the ${socket.id} and the UserId: ${userId} connected`
     );
@@ -91,7 +94,7 @@ io.on("connection", (socket) => {
         return socket.disconnect(true);
     }
 
-    socket.emit("hello", "Hello i am emitted from the server");
+    // socket.emit("hello", "Hello i am emitted from the server");
 
     getLastTenChatMessages()
         .then(({ rows }) => {
@@ -139,12 +142,12 @@ io.on("connection", (socket) => {
 
     getLastTenWallMessages(userId)
         .then(({ rows }) => {
-            console.log("rows fomr getLastTenWallMessages: ", rows);
+            // console.log("rows fomr getLastTenWallMessages: ", rows);
             rows.forEach((row) => {
                 let dateAddedComment = moment(row.created_at).fromNow();
                 row.dateAddedComment = dateAddedComment;
             });
-            console.log("rows fomr getLastTenWallMessages: ", rows);
+            // console.log("rows fomr getLastTenWallMessages: ", rows);
             socket.emit("wallMessages", rows);
         })
         .catch((err) => {
@@ -152,8 +155,8 @@ io.on("connection", (socket) => {
         });
 
     socket.on("newWallMessage", (message) => {
-        // console.log("message: ", message);
-        // add message to DB
+        console.log("message: ", message);
+        //     // add message to DB
 
         Promise.all([
             // ich muss an die authorId kommen! addWallMessage(message, wallId, authorId)
@@ -162,7 +165,7 @@ io.on("connection", (socket) => {
         ])
             .then((results) => {
                 // console.log("values from DB: ", results[0].rows[0]);
-                // console.log("values from DB: ", results[1].rows[0]));
+                // console.log("values from DB: ", results[1].rows[0]);
 
                 const newWallMessageBuild = [
                     {
@@ -171,7 +174,7 @@ io.on("connection", (socket) => {
                         first: results[1].rows[0].first,
                         last: results[1].rows[0].last,
                         url: results[1].rows[0].url,
-                        wallmessage: results[0].rows[0].message,
+                        wallmessage: results[0].rows[0].wall_message,
                         wallmessageid: results[0].rows[0].messageid,
                         created_at: results[0].rows[0].created_at,
                         dateAddedComment: moment(
@@ -185,6 +188,30 @@ io.on("connection", (socket) => {
                 console.log("err getting new Chat Messages: ", err);
             });
     });
+
+    socket.on("wallId", (wallId) => {
+        console.log("wall Id emitted from viewed user Wall: ", wallId);
+        viewedUserWallId = wallId;
+
+        getLastTenWallMessages(wallId)
+            .then(({ rows }) => {
+                console.log("rows from viewedWallId: ", rows);
+                rows.forEach((row) => {
+                    let dateAddedComment = moment(row.created_at).fromNow();
+                    row.dateAddedComment = dateAddedComment;
+                });
+                console.log(
+                    "rows from viewedWallId: ",
+                    rows
+                );
+                // socket.emit("wallMessages", rows);
+            })
+            .catch((err) => {
+                console.log("err getting last 10 messages: ", err);
+            });
+    });
+
+    console.log("viewedUserWallId", viewedUserWallId);
 });
 
 // ************************* ANY ROUTS ABOVE ******************************

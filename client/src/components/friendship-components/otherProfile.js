@@ -7,6 +7,8 @@ export default function OtherProfile({ userId }) {
     const { id } = useParams();
     const [user, setUser] = useState([]);
     const [error, setError] = useState(false);
+    const [friendship, setFriendship] = useState(false);
+
     const [redirectToProfile, setRedirectToProfile] = useState(false);
 
     const history = useHistory();
@@ -30,6 +32,18 @@ export default function OtherProfile({ userId }) {
                 location.replace("/");
                 console.log("error in find users: ", err);
             });
+
+        fetch(`/friendship-status/${id}`)
+            .then((data) => data.json())
+            .then(({ data }) => {
+                console.log("data in friendship status", data);
+                if (data?.accepted) {
+                    setFriendship(true);
+                }
+            })
+            .catch((err) => {
+                console.log("error in find friendship: ", err);
+            });
     }, [id]);
 
     return (
@@ -42,14 +56,15 @@ export default function OtherProfile({ userId }) {
                     alt="Profile Picture of another User"
                 ></img>
                 <div className="bio-editor-container">
-                    <h2>Bio</h2>
+                    <h2>Bio of {user.first} {user.last}</h2>
                     <p id="bio-editor">{user.bio}</p>
                     <FriendBtn viewedUserId={id} loggedInUserid={userId} />
                 </div>
             </div>
 
-            {/* OTHER PROFILE WALL */}
-            <OtherProfileWall userId={userId} />
+            {friendship ? <OtherProfileWall wallId={id} userId={userId} /> : ""}
+            {/* OTHER PROFILE WALL if me and the person are friends */}
+            {/* <OtherProfileWall wallId={id} userId={userId} /> */}
         </div>
     );
 }

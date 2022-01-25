@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState, useRef } from "react";
 import { socket } from "../../socket";
 
-export default function OtherProfileWall({ userId }) {
+export default function OtherProfileWall({ wallId, userId }) {
     const dispatch = useDispatch();
 
     const textareaRef = useRef();
@@ -13,11 +13,15 @@ export default function OtherProfileWall({ userId }) {
     });
 
     useEffect(() => {
+        socket.emit("wallId", wallId);
+    }, []);
+
+    useEffect(() => {
         chatContainerRef.current.scrollTop =
             chatContainerRef.current.scrollHeight;
     }, [wallMessages]);
 
-    // console.log("wallMessages aus state", wallMessages);
+    // console.log("wallMessages aus otherProfileWall:", wallMessages);
 
     const keyCheck = (e) => {
         if (e.key === "Enter") {
@@ -32,6 +36,7 @@ export default function OtherProfileWall({ userId }) {
     return (
         <div className="wall-container">
             <div className="chat-room">
+                <h2>Friendship Wall</h2>
                 <div className="chat-container" ref={chatContainerRef}>
                     {/* MESSAGES OLNY FROM FRIENDS */}
 

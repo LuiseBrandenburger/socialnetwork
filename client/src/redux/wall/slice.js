@@ -2,10 +2,10 @@ export function wallReducer(wallMessages = [], action) {
     if (action.type == "messages/receivedWallMessages") {
         wallMessages = action.payload.wallMessages;
     } else if (action.type == "message/receivedWallMessage") {
-        const newMessages = [...action.payload.message, ...wallMessages];
+        const newMessages = [...action.payload.wallMessage, ...wallMessages];
         return newMessages;
     }
-    console.log("3", wallMessages);
+    // console.log("3", wallMessages);
     return wallMessages;
 }
 
@@ -25,3 +25,11 @@ export function wallMessageReceived(wallMessage) {
         payload: { wallMessage },
     };
 }
+
+// export function wallMessagesReceivedById(wallMessages, id) {
+//     console.log("2", wallMessages);
+//     return {
+//         type: "messages/receivedWallMessagesbyId",
+//         payload: { wallMessages },
+//     };
+// }

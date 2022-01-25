@@ -25,7 +25,7 @@ export default function Wall({ userId }) {
             e.preventDefault();
             console.log("e.target.value: ", e.target.value);
 
-            // socket.emit("newWallMessage", e.target.value);
+            socket.emit("newWallMessage", e.target.value);
             e.target.value = "";
         }
     };

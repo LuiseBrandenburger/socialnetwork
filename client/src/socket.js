@@ -8,6 +8,7 @@ import {
 import {
     wallMessagesReceived,
     wallMessageReceived,
+    wallMessagesReceivedById,
 } from "./redux/wall/slice.js";
 
 // damit ich darauf zugreifen kann, muss das socket exportiert werden
@@ -37,5 +38,10 @@ export const init = (store) => {
             // console.log("message from server send to socket 1", wallMessage);
             store.dispatch(wallMessageReceived(wallMessage));
         });
+
+        // socket.on("wallMessageById", (wallMessage) => {
+        //     // console.log("message from server send to socket 1", wallMessage);
+        //     store.dispatch(wallMessagesReceivedById(wallMessage));
+        // });
     }
 };

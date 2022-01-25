@@ -70,7 +70,7 @@ export default class App extends Component {
                                     <span>Chat</span>
                                 </Link>
                                 <Link to="/wall">
-                                    <span>Wall</span>
+                                    <span>My Wall</span>
                                 </Link>
                             </div>
                             <div id="logout">

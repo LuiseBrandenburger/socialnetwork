@@ -172,25 +172,24 @@ module.exports.getUserChatById = (id) => {
 };
 
 
-
-module.exports.getLastTenWallMessages = (sessionId) => {
+module.exports.getLastTenWallMessages = (id) => {
     const q = `
     SELECT users.id, first, last, url, wall_message AS wallmessage, wall_messages.created_at, wall_messages.id AS wallmessageid
     FROM wall_messages
     JOIN users ON users.id = wall_messages.author_id
-    WHERE wall_id = $1
+    WHERE (wall_id = $1)
     ORDER by created_at DESC
     LIMIT 10
     `;
 
-    const params = [sessionId];
+    const params = [id];
     return db.query(q, params);
 };
 
 module.exports.addWallMessage = (message, wallId, authorId) => {
     const q = `INSERT INTO wall_messages (wall_message, wall_id, author_id)
     VALUES ($1, $2, $3)
-    RETURNING message, created_at, id`;
+    RETURNING wall_message, created_at, id, wall_id, author_id`;
 
     const params = [message, wallId, authorId];
     return db.query(q, params);
