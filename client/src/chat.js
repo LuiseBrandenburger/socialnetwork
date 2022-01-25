@@ -3,7 +3,7 @@ import { useEffect, useState, useRef } from "react";
 import { socket } from "./socket";
 // import { chatMessagesReceived } from "./redux/chat/slice.js";
 
-export default function Chat() {
+export default function Chat({userId}) {
     const dispatch = useDispatch();
 
     const textareaRef = useRef();
@@ -13,18 +13,7 @@ export default function Chat() {
         return state && state.messages;
     });
 
-    // const chatMessages = useSelector((state) => state && state.messages);
-    
-    // const chatMessages = [
-    //     {
-    //         created_at: "",
-    //         first: "",
-    //         id: 1,
-    //         last: "",
-    //         message: "Hellööö",
-    //         url: "",
-    //     },
-    // ];
+    console.log(userId);
 
     useEffect(() => {
         chatContainerRef.current.scrollTop =
@@ -45,18 +34,24 @@ export default function Chat() {
 
     return (
         <div className="chat-room">
-            <h1>I am in Chat Page</h1>
             <div className="chat-container" ref={chatContainerRef}>
                 {chatMessages.map((chatMessage) => {
                     return (
-                        <div className="message" key={chatMessage.messageid}>
+                        <div
+                            className={
+                                userId === chatMessage.id
+                                    ? "user-message"
+                                    : "messages"
+                            }
+                            key={chatMessage.messageid}
+                        >
                             <img
                                 className="chat-avatar"
-                                src={chatMessage.url}
+                                src={chatMessage.url || "/default.png"}
                                 alt={chatMessage.first + " " + chatMessage.last}
                             />
                             <p>{chatMessage.message}</p>
-                            <p> {chatMessage.created_at}</p>
+                            {/* <p> {chatMessage.created_at}</p> */}
                         </div>
                     );
                 })}
@@ -66,8 +61,6 @@ export default function Chat() {
                 onKeyDown={keyCheck}
                 name="message"
                 id="message"
-                cols="40"
-                rows="3"
                 placeholder="add message here"
             ></textarea>
         </div>

@@ -44,12 +44,12 @@ export default function FriendsAndWannabees({ userId }) {
     );
 
     useEffect(() => {
-        console.log("my ID:", userId);
+        // console.log("my ID:", userId);
 
         fetch(`/friends-and-wannabees`)
             .then((data) => data.json())
             .then(({ data }) => {
-                console.log("data in GET Route friends-and-wannabees: ", data);
+                // console.log("data in GET Route friends-and-wannabees: ", data);
                 dispatch(receiveFriendsAndWannabees(data));
             })
             .catch((err) => {
@@ -102,7 +102,7 @@ export default function FriendsAndWannabees({ userId }) {
             })
             .then((data) => {
                 if (data.friendshipDeleted) {
-                    console.log("endFriendship Data in POST Request", data);
+                    // console.log("endFriendship Data in POST Request", data);
                     const action = endFriendship(viewedId);
                     dispatch(action);
                 }

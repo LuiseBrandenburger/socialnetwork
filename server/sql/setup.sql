@@ -42,12 +42,12 @@
 --       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 --   );
 
--- INSERT INTO chat_messages
---   (user_id, message) 
--- VALUES 
---   (145, 'Hey everyone, nice to meet you...'),
---   (101, 'Hello there!'),
---   (106, 'I love this social network');
+INSERT INTO chat_messages
+  (user_id, message) 
+VALUES 
+  (145, 'Hey everyone, nice to meet you...'),
+  (101, 'Hello there!'),
+  (106, 'I love this social network');
 
 
   -- SELECT * FROM users;

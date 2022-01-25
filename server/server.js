@@ -119,8 +119,7 @@ io.on("connection", (socket) => {
                         created_at: results[0].rows[0].created_at,
                     },
                 ];
-                socket.emit("chatMessage", newMessageBuild);
-
+                io.emit("chatMessage", newMessageBuild);
             })
             .catch((err) => {
                 console.log("err getting new Chat Messages: ", err);

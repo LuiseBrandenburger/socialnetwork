@@ -126,7 +126,7 @@ export default class App extends Component {
                             <FriendsAndWannabees userId={this.props.userId} />
                         </Route>
                         <Route path="/chat">
-                            <Chat />
+                            <Chat userId={this.props.userId} />
                         </Route>
                     </div>
                 </BrowserRouter>

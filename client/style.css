@@ -10,7 +10,7 @@
     /* --gradient: linear-gradient(#ffd166c7, transparent),
         linear-gradient(to top left, #66ffabc9, transparent),
         linear-gradient(to top right, #ff6666bf, transparent); */
-    --main-font: 'Source Code Pro', monospace;
+    --main-font: "Source Code Pro", monospace;
 }
 
 html {
@@ -25,9 +25,9 @@ body {
     /* overflow: hidden; */
 }
 
-#welcome-container, 
-#registration-container, 
-#login-container, 
+#welcome-container,
+#registration-container,
+#login-container,
 #app-container,
 .profile-container {
     display: flex;
@@ -60,17 +60,14 @@ button {
     height: 30px;
     border: none;
     border-radius: 3px;
-    background-color:  #272727;
+    background-color: #272727;
     color: ghostwhite;
     font-weight: bold;
 }
 
-
-
-
 /*********************** NAVBAR ************************/
 
-.navbar-container{
+.navbar-container {
     width: 100vw;
     right: 0;
     overflow: hidden;
@@ -102,6 +99,7 @@ button {
 
 .navbar-avatar {
     position: absolute;
+    object-fit: cover;
     width: 150px;
     height: 150px;
     /* transform-: 50%; */
@@ -130,12 +128,12 @@ button {
     font-weight: bold;
 }
 
-#logout{
+#logout {
     margin: 0px;
 }
 
 .navbar span:hover {
-   color: hotpink;
+    color: hotpink;
 }
 
 #app-logo {
@@ -162,10 +160,8 @@ button {
 }
 
 #photo-icon:hover {
-   cursor: pointer;
+    cursor: pointer;
 }
-
-
 
 /*********************** CONTENT CONTAINER ************************/
 
@@ -190,7 +186,6 @@ hr {
     width: 250px;
     height: 250px;
 }
-
 
 #friends-and-wannabees-container h2 {
     margin-bottom: 25px;
@@ -265,9 +260,9 @@ textarea {
     height: 200px;
 }
 
-#user-name{
-  text-align: center;
-  width: 100%;
+#user-name {
+    text-align: center;
+    width: 100%;
 }
 
 .user-box:hover {
@@ -286,14 +281,12 @@ textarea {
     color: grey;
 }
 
-
 /*********************** WELCOME PAGE ************************/
-#welcome-container{
+#welcome-container {
     background-color: rgb(182, 191, 220);
-
 }
 
-.welcome-box{
+.welcome-box {
     border-radius: 3px;
     position: relative;
     display: flex;
@@ -305,7 +298,8 @@ textarea {
     padding: 40px;
 }
 
-#login-btn, #reset-btn{
+#login-btn,
+#reset-btn {
     margin-top: 15%;
 }
 
@@ -319,7 +313,6 @@ textarea {
 
 #login-container {
     justify-content: space-between;
-
 }
 
 /*********************** UPLOADER MODAL ************************/
@@ -354,7 +347,6 @@ textarea {
     flex-direction: column;
 }
 
-
 .uploader-form {
     display: flex;
     flex-direction: column;
@@ -365,7 +357,7 @@ textarea {
     color: black;
 }
 
-.uploader-form input{
+.uploader-form input {
     margin: 0;
     padding: 5px;
     width: 100%;
@@ -373,7 +365,7 @@ textarea {
     background-color: transparent;
 }
 
-.uploader-form button{
+.uploader-form button {
     /* display: flex; */
     margin: 0;
     width: 25%;
@@ -392,7 +384,7 @@ textarea {
     color: white;
     font-size: 2rem;
     position: absolute;
-    right:15px;
+    right: 15px;
     top: 5px;
     background: transparent;
 }
@@ -419,24 +411,67 @@ textarea {
     background-color: gray;
 }
 
-
 /*********************** CHAT ROOM ************************/
 
-.chat-container{
+.chat-room {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    max-height: 350px;
+}
+
+.chat-container {
     overflow-y: scroll;
     display: flex;
+    align-items: center;
     flex-direction: column-reverse;
 }
 
 .chat-avatar {
-    width: 150px;
-    height: 150px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
+    object-fit: cover;
     margin: 0;
-    border: 5px solid var(--main-bg-color);
+    border: 2px solid var(--main-bg-color);
     cursor: pointer;
 }
 
+.messages {
+    display: flex;
+    width: 50vw;
+    padding: 10px;
+    background-color: #5e5e5e15;
+    border-radius: 3px;
+    border-top: 2px solid var(--main-bg-color);
+}
+
+.user-message {
+    display: flex;
+    flex-direction: row-reverse;
+    width: 50vw;
+    padding: 10px;
+    background-color: #5e5e5e15;
+    border-radius: 3px;
+    border-top: 1px solid var(--main-bg-color);
+}
+
+.user-message p{
+    margin-right: 20px;
+    align-self: center;
+}
+
+.messages p {
+    margin-left: 20px;
+    align-self: center;
+}
+
+#message {
+    margin-top: 20px;
+    width: 50%;
+    height: 90px;
+}
 
 /*********************** FOOTER ************************/
 

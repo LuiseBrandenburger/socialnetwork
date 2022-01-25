@@ -16,7 +16,6 @@ const store = createStore(
     // applyMiddleware(thunk)
 );
 
-console.log("Store", store);
 
 fetch("/user/id.json")
     .then((response) => response.json())
