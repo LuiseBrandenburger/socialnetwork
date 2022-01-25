@@ -413,6 +413,9 @@ textarea {
 
 /*********************** CHAT ROOM ************************/
 
+
+
+
 .chat-room {
     display: flex;
     flex-direction: column;
@@ -477,6 +480,41 @@ textarea {
     color: grey;
     font-size: smaller;
 }
+
+/*********************** WALL ************************/
+
+.show-friends {
+    width: 30vw;
+    display: flex;
+    flex-direction: column;
+}
+
+.all-friends-container {
+    display: flex;
+}
+
+
+.wall-container{
+    display: flex;
+    width: 100%;
+}
+
+.wall-friends {
+    /* margin: 20px; */
+    width: 80px;
+    display: inline;
+}
+
+.wall-friend-avatar {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0;
+    border: 2px solid var(--main-bg-color);
+    cursor: pointer;
+}
+
 
 /*********************** FOOTER ************************/
 

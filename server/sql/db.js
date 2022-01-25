@@ -155,6 +155,7 @@ module.exports.getLastTenChatMessages = () => {
     return db.query(q);
 };
 
+
 module.exports.addUserMessage = (message, userId) => {
     const q = `INSERT INTO chat_messages (message, user_id)
     VALUES ($1, $2)
@@ -167,5 +168,30 @@ module.exports.addUserMessage = (message, userId) => {
 module.exports.getUserChatById = (id) => {
     const q = `SELECT id, first, last, url FROM users WHERE id = ($1)`;
     const params = [id];
+    return db.query(q, params);
+};
+
+
+
+module.exports.getLastTenWallMessages = (sessionId) => {
+    const q = `
+    SELECT users.id, first, last, url, wall_message AS wallmessage, wall_messages.created_at, wall_messages.id AS wallmessageid
+    FROM wall_messages
+    JOIN users ON users.id = wall_messages.author_id
+    WHERE wall_id = $1
+    ORDER by created_at DESC
+    LIMIT 10
+    `;
+
+    const params = [sessionId];
+    return db.query(q, params);
+};
+
+module.exports.addWallMessage = (message, wallId, authorId) => {
+    const q = `INSERT INTO wall_messages (wall_message, wall_id, author_id)
+    VALUES ($1, $2, $3)
+    RETURNING message, created_at, id`;
+
+    const params = [message, wallId, authorId];
     return db.query(q, params);
 };

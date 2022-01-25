@@ -9,6 +9,8 @@ const {
     getLastTenChatMessages,
     addUserMessage,
     getUserChatById,
+    getLastTenWallMessages,
+    addWallMessage,
 } = require("./sql/db");
 
 // SOCKETS
@@ -80,9 +82,6 @@ app.use(friendship);
 // ************************* SOCKET ******************************
 
 io.on("connection", (socket) => {
-    // console.log("New Socket Conenction", socket.id);
-    // emit aus dem server raus
-    // on hört auf reinkommende routen
 
     const userId = socket.request.session.userId;
     console.log(
@@ -101,8 +100,7 @@ io.on("connection", (socket) => {
                 let dateAddedComment = moment(row.created_at).fromNow();
                 row.dateAddedComment = dateAddedComment;
             });
-            console.log("rows fomr getLastTenChatMessages: ", rows);
-
+            // console.log("rows fomr getLastTenChatMessages: ", rows);
             socket.emit("chatMessages", rows);
         })
         .catch((err) => {
@@ -110,7 +108,7 @@ io.on("connection", (socket) => {
         });
 
     socket.on("newChatMessage", (message) => {
-        console.log("message: ", message);
+        // console.log("message: ", message);
         // add message to DB
 
         Promise.all([addUserMessage(message, userId), getUserChatById(userId)])
@@ -137,23 +135,56 @@ io.on("connection", (socket) => {
             .catch((err) => {
                 console.log("err getting new Chat Messages: ", err);
             });
-
-        // addUserMessage(message, userId)
-        //     .then(({ rows }) => {
-        //         console.log(rows);
-        //         // socket.emit("chatMessage", rows);
-        //     })
-        //     .catch((err) => {
-        //         console.log("err getting last 10 messages: ", err);
-        //     });
-
-        // get users name and image url from DB
-        // emit to all connected clients
-
-        // io.emit('test', 'MESSAGE received');
     });
 
-    // socket.on("newChatMessage", "Hellööö from the client");
+    getLastTenWallMessages(userId)
+        .then(({ rows }) => {
+            console.log("rows fomr getLastTenWallMessages: ", rows);
+            rows.forEach((row) => {
+                let dateAddedComment = moment(row.created_at).fromNow();
+                row.dateAddedComment = dateAddedComment;
+            });
+            console.log("rows fomr getLastTenWallMessages: ", rows);
+            socket.emit("wallMessages", rows);
+        })
+        .catch((err) => {
+            console.log("err getting last 10 messages: ", err);
+        });
+
+    socket.on("newWallMessage", (message) => {
+        // console.log("message: ", message);
+        // add message to DB
+
+        Promise.all([
+            // ich muss an die authorId kommen! addWallMessage(message, wallId, authorId)
+            addWallMessage(message, userId, userId),
+            getUserChatById(userId),
+        ])
+            .then((results) => {
+                // console.log("values from DB: ", results[0].rows[0]);
+                // console.log("values from DB: ", results[1].rows[0]));
+
+                const newWallMessageBuild = [
+                    {
+                        // TODO: AUTHOR einfügen
+                        id: results[1].rows[0].id,
+                        first: results[1].rows[0].first,
+                        last: results[1].rows[0].last,
+                        url: results[1].rows[0].url,
+                        wallmessage: results[0].rows[0].message,
+                        wallmessageid: results[0].rows[0].messageid,
+                        created_at: results[0].rows[0].created_at,
+                        dateAddedComment: moment(
+                            results[0].rows[0].created_at
+                        ).fromNow(),
+                    },
+                ];
+                io.emit("wallMessage", newWallMessageBuild);
+            })
+            .catch((err) => {
+                console.log("err getting new Chat Messages: ", err);
+            });
+    });
 });
 
 // ************************* ANY ROUTS ABOVE ******************************

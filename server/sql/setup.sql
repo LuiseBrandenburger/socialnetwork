@@ -32,6 +32,22 @@
 -- accepted BOOLEAN DEFAULT false);
 
 
+-- DROP TABLE IF EXISTS wall_messages;
+
+-- CREATE TABLE wall_messages (
+--       id SERIAL PRIMARY KEY,
+--       author_id INT REFERENCES users(id) NOT NULL,
+--       wall_id INT REFERENCES users(id) NOT NULL,
+--       wall_message TEXT NOT NULL,
+--       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+-- );
+
+-- INSERT INTO wall_messages
+--   (author_id, wall_id, wall_message) 
+-- VALUES 
+--   (1, 1, 'Hey everyone, nice to meet you...'),
+--   (1, 1, 'Hello there!'),
+--   (1, 1, 'I love this social network');
 
 -- DROP TABLE IF EXISTS chat_messages;
 
@@ -42,18 +58,19 @@
 --       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 --   );
 
-INSERT INTO chat_messages
-  (user_id, message) 
-VALUES 
-  (145, 'Hey everyone, nice to meet you...'),
-  (101, 'Hello there!'),
-  (106, 'I love this social network');
+-- INSERT INTO chat_messages
+--   (user_id, message) 
+-- VALUES 
+--   (145, 'Hey everyone, nice to meet you...'),
+--   (101, 'Hello there!'),
+--   (106, 'I love this social network');
 
 
   -- SELECT * FROM users;
   -- SELECT * FROM reset_code;
   -- SELECT * FROM friendships;
-  SELECT * FROM chat_messages;
+  -- SELECT * FROM chat_messages;
+    SELECT * FROM wall_messages;
 
 
 

@@ -7,6 +7,8 @@ import Profile from "./components/profile-components/profile";
 import OtherProfile from "./components/friendship-components/otherProfile";
 import FriendsAndWannabees from "./components/friendship-components/friendsAndWannabees";
 import Chat from "./chat";
+import Wall from "./components/friendship-components/wall";
+
 
 
 import FindUsers from "./components/friendship-components/findUsers";
@@ -66,6 +68,9 @@ export default class App extends Component {
                                 </Link>
                                 <Link to="/chat">
                                     <span>Chat</span>
+                                </Link>
+                                <Link to="/wall">
+                                    <span>Wall</span>
                                 </Link>
                             </div>
                             <div id="logout">
@@ -127,6 +132,9 @@ export default class App extends Component {
                         </Route>
                         <Route path="/chat">
                             <Chat userId={this.props.userId} />
+                        </Route>
+                        <Route path="/wall">
+                            <Wall userId={this.props.userId} />
                         </Route>
                     </div>
                 </BrowserRouter>

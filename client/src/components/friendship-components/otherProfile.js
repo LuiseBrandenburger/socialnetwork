@@ -1,8 +1,9 @@
 import { useParams, useHistory } from "react-router";
 import { useEffect, useState } from "react";
 import FriendBtn from "./friendBtn";
+import OtherProfileWall from "./otherProfileWall";
 
-export default function OtherProfile({userId}) {
+export default function OtherProfile({ userId }) {
     const { id } = useParams();
     const [user, setUser] = useState([]);
     const [error, setError] = useState(false);
@@ -10,11 +11,9 @@ export default function OtherProfile({userId}) {
 
     const history = useHistory();
 
-    useEffect(() => {
-    }, []);
+    useEffect(() => {}, []);
 
     useEffect(() => {
-
         fetch(`/api/find-profile/${id}`)
             .then((data) => data.json())
             .then((data) => {
@@ -48,6 +47,9 @@ export default function OtherProfile({userId}) {
                     <FriendBtn viewedUserId={id} loggedInUserid={userId} />
                 </div>
             </div>
+
+            {/* OTHER PROFILE WALL */}
+            <OtherProfileWall userId={userId} />
         </div>
     );
 }
