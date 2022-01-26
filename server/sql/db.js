@@ -39,7 +39,6 @@ module.exports.getUserById = (id) => {
 
 
 // FIXME: Email Unique - and upsert insted of insert
-
 module.exports.addResetPwCode = (email, code) => {
     const q = `INSERT INTO reset_code (email, code)
                 VALUES ($1, $2)
@@ -95,7 +94,7 @@ module.exports.getResentlyAddedUsers = () => {
     return db.query(q);
 };
 
-// TODO: check the query
+
 module.exports.getFriendship = (propsId, sessionId) => {
     const q = `SELECT recipient_id, sender_id, accepted FROM friendships WHERE (recipient_id = $1 AND sender_id = $2) OR (recipient_id = $2 AND sender_id = $1)`;
     const params = [propsId, sessionId];
@@ -174,7 +173,7 @@ module.exports.getUserChatById = (id) => {
 
 module.exports.getLastTenWallMessages = (id) => {
     const q = `
-    SELECT users.id, first, last, url, wall_message AS wallmessage, wall_messages.created_at, wall_messages.id AS wallmessageid
+    SELECT users.id, first, last, url, wall_message AS wallmessage, wall_id AS wallid, wall_messages.created_at, wall_messages.id AS wallmessageid
     FROM wall_messages
     JOIN users ON users.id = wall_messages.author_id
     WHERE (wall_id = $1)

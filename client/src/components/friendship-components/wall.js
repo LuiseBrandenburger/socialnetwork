@@ -1,10 +1,9 @@
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState, useRef } from "react";
+import { useSelector } from "react-redux";
+import { useEffect, useRef } from "react";
 import { socket } from "../../socket";
 import ShowFriends from "./showFriends";
 
 export default function Wall({ userId }) {
-    const dispatch = useDispatch();
 
     const textareaRef = useRef();
     const chatContainerRef = useRef();
@@ -14,11 +13,14 @@ export default function Wall({ userId }) {
     });
 
     useEffect(() => {
+        socket.emit("wallId", userId);
+    }, []);
+
+    useEffect(() => {
         chatContainerRef.current.scrollTop =
             chatContainerRef.current.scrollHeight;
     }, [wallMessages]);
 
-    // console.log("wallMessages aus state", wallMessages);
 
     const keyCheck = (e) => {
         if (e.key === "Enter") {
@@ -35,8 +37,6 @@ export default function Wall({ userId }) {
             <ShowFriends userId={userId} />
             <div className="chat-room">
                 <div className="chat-container" ref={chatContainerRef}>
-                    {/* MESSAGES OLNY FROM FRIENDS */}
-
                     {wallMessages.map((wallMessage) => {
                         return (
                             <div
@@ -77,4 +77,3 @@ export default function Wall({ userId }) {
         </div>
     );
 }
-

@@ -42,12 +42,27 @@
 --       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 -- );
 
-INSERT INTO wall_messages
-  (author_id, wall_id, wall_message) 
-VALUES 
-  (1, 207, 'Hey everyone, nice to meet you...'),
-  (1, 207, 'Hello there!'),
-  (1, 207, 'I love this social network');
+-- INSERT INTO wall_messages
+--   (author_id, wall_id, wall_message) 
+-- VALUES 
+--   (1, 207, 'Hey everyone, nice to meet you...'),
+--   (1, 207, 'Hello there!'),
+--   (1, 207, 'I love this social network');
+
+--   INSERT INTO wall_messages
+--   (author_id, wall_id, wall_message) 
+-- VALUES 
+--   (1, 213, 'Hey everyone, nice to meet you...'),
+--   (1, 213, 'Hello there!'),
+--   (1, 213, 'I love this social network');
+
+  
+--   INSERT INTO wall_messages
+--   (author_id, wall_id, wall_message) 
+-- VALUES 
+--   (213, 1, 'Hey everyone, nice to meet you...'),
+--   (213, 1, 'Hello there!'),
+--   (213, 1, 'I love this social network');
 
 -- DROP TABLE IF EXISTS chat_messages;
 

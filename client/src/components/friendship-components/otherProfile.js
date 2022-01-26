@@ -24,7 +24,6 @@ export default function OtherProfile({ userId }) {
                     setRedirectToProfile(false);
                 } else {
                     setUser(data.data);
-                    // console.log("user in other Profile",user);
                 }
             })
             .catch((err) => {
@@ -36,7 +35,6 @@ export default function OtherProfile({ userId }) {
         fetch(`/friendship-status/${id}`)
             .then((data) => data.json())
             .then(({ data }) => {
-                console.log("data in friendship status", data);
                 if (data?.accepted) {
                     setFriendship(true);
                 }
@@ -63,8 +61,6 @@ export default function OtherProfile({ userId }) {
             </div>
 
             {friendship ? <OtherProfileWall wallId={id} userId={userId} /> : ""}
-            {/* OTHER PROFILE WALL if me and the person are friends */}
-            {/* <OtherProfileWall wallId={id} userId={userId} /> */}
         </div>
     );
 }

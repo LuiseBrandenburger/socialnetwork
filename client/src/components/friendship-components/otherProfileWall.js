@@ -1,9 +1,8 @@
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState, useRef } from "react";
+import { useSelector } from "react-redux";
+import { useEffect, useRef } from "react";
 import { socket } from "../../socket";
 
 export default function OtherProfileWall({ wallId, userId }) {
-    const dispatch = useDispatch();
 
     const textareaRef = useRef();
     const chatContainerRef = useRef();
@@ -21,14 +20,17 @@ export default function OtherProfileWall({ wallId, userId }) {
             chatContainerRef.current.scrollHeight;
     }, [wallMessages]);
 
-    // console.log("wallMessages aus otherProfileWall:", wallMessages);
-
     const keyCheck = (e) => {
         if (e.key === "Enter") {
             e.preventDefault();
             console.log("e.target.value: ", e.target.value);
 
-            // socket.emit("newWallMessage", e.target.value);
+            let messageObject = {
+                message: e.target.value,
+                wallId: wallId,
+            };
+
+            socket.emit("newfriendWallMessage", messageObject);
             e.target.value = "";
         }
     };
@@ -38,8 +40,6 @@ export default function OtherProfileWall({ wallId, userId }) {
             <div className="chat-room">
                 <h2>Friendship Wall</h2>
                 <div className="chat-container" ref={chatContainerRef}>
-                    {/* MESSAGES OLNY FROM FRIENDS */}
-
                     {wallMessages.map((wallMessage) => {
                         return (
                             <div

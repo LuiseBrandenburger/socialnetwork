@@ -5,14 +5,12 @@ export function wallReducer(wallMessages = [], action) {
         const newMessages = [...action.payload.wallMessage, ...wallMessages];
         return newMessages;
     }
-    // console.log("3", wallMessages);
     return wallMessages;
 }
 
 // ********************* ACTIONS ***********************
 
 export function wallMessagesReceived(wallMessages) {
-    console.log("2", wallMessages);
     return {
         type: "messages/receivedWallMessages",
         payload: { wallMessages },
@@ -25,11 +23,3 @@ export function wallMessageReceived(wallMessage) {
         payload: { wallMessage },
     };
 }
-
-// export function wallMessagesReceivedById(wallMessages, id) {
-//     console.log("2", wallMessages);
-//     return {
-//         type: "messages/receivedWallMessagesbyId",
-//         payload: { wallMessages },
-//     };
-// }
