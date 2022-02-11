@@ -8,7 +8,7 @@ This project was built within two weeks as my first React Project during my enro
 So far, the project consists of some basic features. ** UPDATE TEXT:.
 
 ## Motivation
-I created this project to get to know React. To learn all sights of React the project contains diffrent techologies like React Class Components as well as Function Components, React Params as well as Redux for global state management. One Part I was very happy to learn and had a lot of fun with was socket.IO. 
+I created this project to get to know React. To learn all sights of React the project contains diffrent techologies like React Class Components as well as Function Components, Hooks, React Params as well as Redux for global state management. One Part I was very happy to learn and had a lot of fun with was socket.IO. 
 
 ## Tech
 This Project was built on the PERN Stack. I used React/Redux, Node.js/Express and PostgreSQL.
