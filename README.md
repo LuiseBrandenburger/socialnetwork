@@ -29,3 +29,4 @@ Other Libraries I used:
 
 ## TO DO'S
 - split up components and refactor
+- add Jest testing
