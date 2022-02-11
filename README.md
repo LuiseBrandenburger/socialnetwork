@@ -1,5 +1,5 @@
 # socialnetwork
-A simple social network where users can register, login, find friends, write on each others wall and chat with eachother.
+A simple social network where users can register, login, find friends, write on each others wall and chat with each other.
 
 ![gfy-landingpage](https://github.com/LuiseBrandenburger/go-fund-yourself/blob/master/client/public/gfy-landingpage.png)
 
