@@ -1,5 +1,4 @@
 const aws = require("aws-sdk");
-// const { AWS_KEY, AWS_SECRET } = require("./secrets.json");
 
 let secrets;
 if (process.env.NODE_ENV == "production") {

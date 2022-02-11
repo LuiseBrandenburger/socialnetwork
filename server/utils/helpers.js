@@ -8,7 +8,3 @@ module.exports.validateEmail = (email) => {
         return true;
     }
 };
-
-module.exports.validatePassword = () => {
-    console.log("I would like to validate the Password");
-};

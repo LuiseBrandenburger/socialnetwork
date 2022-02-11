@@ -1,3 +1,12 @@
+
+-- @PSQL:
+-- *** sudo service postgresql start
+-- *** createdb socialnetwork
+-- *** psql socialnetwork
+-- *** psql -d socialnetwork -f server/sql/setup.sql
+
+
+
 -- DROP TABLE IF EXISTS users;
 
 -- CREATE TABLE users(
@@ -10,7 +19,6 @@
 --     bio VARCHAR,
 --     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 --   );
-
 
 
 -- DROP TABLE IF EXISTS reset_code;
@@ -81,11 +89,11 @@
 --   (106, 'I love this social network');
 
 
-  -- SELECT * FROM users;
-  -- SELECT * FROM reset_code;
-  -- SELECT * FROM friendships;
-  -- SELECT * FROM chat_messages;
-    SELECT * FROM wall_messages;
+  SELECT * FROM users;
+  SELECT * FROM reset_code;
+  SELECT * FROM friendships;
+  SELECT * FROM chat_messages;
+  SELECT * FROM wall_messages;
 
 
 

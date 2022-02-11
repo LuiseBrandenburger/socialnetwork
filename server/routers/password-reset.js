@@ -22,7 +22,6 @@ passwordReset.post("/password/reset/start", (req, res) => {
     getUserByEmail(data.email)
         .then(({ rows }) => {
             if (rows[0].email) {
-                // TODO: put Email in Cookies
                 const randomString = cryptoRandomString({ length: 10 });
                 return addResetPwCode(rows[0].email, randomString);
             } else {
@@ -55,8 +54,6 @@ passwordReset.post("/password/reset/verify", (req, res) => {
         .then(({ rows }) => {
             console.log("rows: ", rows[0]);
             if (rows[0].code === data.code) {
-                // TODO: checke ob emails in cookies
-                console.log("the code is okay");
                 return hash(pw);
             } else {
                 res.json({ success: false });

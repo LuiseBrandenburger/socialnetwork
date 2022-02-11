@@ -13,7 +13,6 @@ import { init } from "./socket";
 const store = createStore(
     reducer,
     composeWithDevTools(applyMiddleware(immutableState.default(), thunk)),
-    // applyMiddleware(thunk)
 );
 
 

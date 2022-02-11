@@ -7,7 +7,3 @@ test("test that map call our function correctly", ()=> {
 
     
 });
-
-// .map((each, i, arr) => {
-// 
-// })

@@ -16,18 +16,12 @@ register.post("/register.json", (req, res) => {
 
     const data = req.body;
     const pw = data.password;
-    // const url = "default.png";
 
     const mailError = validateEmail(data.email);
-    console.log("Mail Error is: ", mailError);
 
     if (mailError) {
         res.json({ error: true });
     } else {
-        // if (data.first == "" || data.last == "" || data.email == "" || pw == "") {
-        //     console.log("no data in input -> change state to error");
-        //     res.json({ success: false });
-        // } else {
         hash(pw)
             .then((hashedPw) => {
                 registerUser(data.first, data.last, data.email, hashedPw)

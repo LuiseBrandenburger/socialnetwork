@@ -1,4 +1,3 @@
-// import { Link } from "react-router-dom";
 import { Component } from "react";
 import ProfilePic from "./components/profile-components/profilePic";
 import TitlePic from "./components/profile-components/titlePic";
@@ -8,8 +7,6 @@ import OtherProfile from "./components/friendship-components/otherProfile";
 import FriendsAndWannabees from "./components/friendship-components/friendsAndWannabees";
 import Chat from "./chat";
 import Wall from "./components/friendship-components/wall";
-
-
 
 import FindUsers from "./components/friendship-components/findUsers";
 import { BrowserRouter, Route, Link } from "react-router-dom";
@@ -87,7 +84,6 @@ export default class App extends Component {
                             onClick={this.toggleUploader}
                         ></img>
 
-                        {/* <div id="app-logo"></div> */}
                         <img
                             id="app-logo"
                             src="/logo.svg"
@@ -104,7 +100,6 @@ export default class App extends Component {
                         <TitlePic
                             first={this.state.first}
                             last={this.state.last}
-                            // url={this.state.url}
                             cssClass="navbar-title"
                         />
                     </section>
@@ -141,7 +136,6 @@ export default class App extends Component {
                 {this.state.uploaderIsVisible && (
                     <Uploader toggleUploader={this.toggleUploader} />
                 )}
-                {/* <footer>&#169;Luise Brandenburger 2021</footer> */}
             </div>
         );
     }
