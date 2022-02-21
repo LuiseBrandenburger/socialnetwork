@@ -9,8 +9,6 @@ export default class Profile extends Component {
         this.state = {};
     }
     componentDidMount() {
-        // console.log("Profile component mounted");
-        // console.log("this.props in profile component:", this.props);
     }
     render() {
         return (

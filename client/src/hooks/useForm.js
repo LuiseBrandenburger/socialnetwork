@@ -2,8 +2,6 @@ import { useState } from "react";
 
 export default function useForm(youCanAlsoUseAnAnitionStatehere) {
     const [userInput, setUserInput] = useState({});
-    // const [userInput, setUserInput] = useState({});
-
 
     const handleChange = (e) =>
         setUserInput({

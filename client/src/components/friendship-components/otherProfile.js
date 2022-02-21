@@ -64,8 +64,3 @@ export default function OtherProfile({ userId }) {
         </div>
     );
 }
-
-// history.pushState("/");
-// history.replace("/");
-// ich muss an die id von dem picture das geklickt wurde kommen (als props durchgeben?);
-// wenn ich auf ein profil klicke, will ich die id haben und die seite zeigen. d.h. ich benötige ein klickevent

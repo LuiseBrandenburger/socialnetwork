@@ -6,7 +6,6 @@
 -- *** psql -d socialnetwork -f server/sql/setup.sql
 
 
-
 -- DROP TABLE IF EXISTS users;
 
 -- CREATE TABLE users(

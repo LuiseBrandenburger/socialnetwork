@@ -5,7 +5,6 @@ export default function TitlePic({
     // toggleTitlePicUploader,
     cssClass,
 }) {
-    // url = url || "default.png";
 
     return (
         <>

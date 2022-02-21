@@ -29,12 +29,6 @@ export default class BioEditor extends Component {
             bioDraft: this.state.bioDraft,
         });
 
-        // if (this.state.bioDraft === "") {
-        //     console.log("bioDraft is empty");
-        //     this.toggleEditBio();
-        //     location.reload();
-        // }
-
         fetch("/bio.json", {
             method: "POST",
             headers: {
@@ -46,7 +40,6 @@ export default class BioEditor extends Component {
                 return data.json();
             })
             .then((data) => {
-                // console.log("response data from /bio.json", data[0]);
 
                 if (data[0].bio) {
                     this.props.updateBio(data[0].bio);

@@ -72,11 +72,8 @@ user.get("/user", function (req, res) {
 });
 
 user.get("/find-user/:search", function (req, res) {
-    // console.log("req.search", req.search);
-    // console.log("req:", req.params.search);
 
     getUserBySearch(req.params.search).then(({ rows }) => {
-        // console.log("rows after user has been fetched: ", rows);
         res.json({
             data: rows,
         });
