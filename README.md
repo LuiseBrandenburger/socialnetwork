@@ -1,7 +1,7 @@
 # socialnetwork
 A simple social network where users can register, login, find friends, write on each others wall and chat with each other.
 
-![gfy-landingpage](https://github.com/LuiseBrandenburger/go-fund-yourself/blob/master/client/public/gfy-landingpage.png)
+![gfy-landingpage](https://github.com/LuiseBrandenburger/portfolio-next/blob/main/public/content/socialnetwork.JPG)
 
 ## Overview
 This project was built within two weeks as my first React Project during my enrollment at the Spiced Academy Bootcamp. 
@@ -26,7 +26,7 @@ Other Libraries I used:
 - Users are able to post on their own and their friends Wall
 - Users are able to Chat with all members of the platform
 
-![gfy-screenshot-finance-plan](https://github.com/LuiseBrandenburger/go-fund-yourself/blob/master/client/public/gfy-screenshot-finance-plan.png)
+![gfy-git-socialnetwork](https://github.com/LuiseBrandenburger/portfolio-next/blob/main/public/content/socialnetwork.gif)
 
 ## TO DO'S
 - split up components and refactor
