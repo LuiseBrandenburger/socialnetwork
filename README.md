@@ -1,7 +1,6 @@
 # socialnetwork
 A simple social network where users can register, login, find friends, write on each others wall and chat with each other.
-
-![gfy-landingpage](https://github.com/LuiseBrandenburger/portfolio-next/blob/main/public/content/socialnetwork.JPG)
+<!-- ![gfy-landingpage](https://github.com/LuiseBrandenburger/portfolio-next/blob/main/public/content/socialnetwork.JPG) -->
 
 ## Overview
 This project was built within two weeks as my first React Project during my enrollment at the Spiced Academy Bootcamp. 
