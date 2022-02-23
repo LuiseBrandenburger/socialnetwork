@@ -29,5 +29,4 @@ Other Libraries I used:
 ![gfy-git-socialnetwork](https://github.com/LuiseBrandenburger/portfolio-next/blob/main/public/content/socialnetwork.gif)
 
 ## TO DO'S
-- split up components and refactor
-- add Jest testing
+- refactor add Jest testing
